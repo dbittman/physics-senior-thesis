@@ -1,0 +1,95 @@
+\begin{flushleft}
+	SOLVE(1)
+	\hfill User Commands \hfill
+	SOLVE(1)
+\end{flushleft}
+
+\begin{tabbing}
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\textbf{NAME}\\
+\> solve - Solve Discreet Poisson Equation\\
+\\
+\textbf{SYNOPSIS}\\
+	\> \texttt{solve [-V] [-m \textit{method}] [-v \textit{verification-data}] \textit{configuration-file}}\\
+	\\
+\textbf{DESCRIPTION}\\
+\> Solve Poisson Equation given boundary conditions on a discreet grid. Capable of\\
+\> solving physics problems that reduce to a boundary value problem. Operates on the\\
+\> provided configuation file, producing a 2-D array describing the calculated potential.\\
+\\
+\> \texttt{\textbf{-V}} \\
+\> \> Produce a vector plot, where the vectors are the negative gradient of the potential.\\
+\\
+	\> \texttt{\textbf{-m} \textit{method}} \\
+	\> \> Use method \textit{method} when solving. Current supported values are \texttt{jacobi} for\\
+	\> \> Jacobi Iteration, and \texttt{sor} for Successive Over-Relaxation.\\
+\\
+	\> \texttt{\textbf{-v} \textit{verification-data}} \\
+	\> \> Use the data file \textit{verification-data} to compare with the generated potential. The \\
+	\> \> format for this file must be that of the python library pickle serializing a 2-D array.\\
+\\
+\textbf{CONFIGURATION}\\
+\> The configuration file format is specified by a series of commands on lines. A single line\\
+\> can contain at most one command. A command must be contained within one line.\\
+\> Comments begin with a \#, and comment out the rest of that line. Valid commands are\\
+\> as follows, where italics indicates something to be replaced by one token:\\
+\\
+	\> \texttt{gridsize \textit{size}}\\
+	\> \> Set the size of the grid. The grid is always a square, and this command \textbf{must}\\
+	\> \> come before any other.\\
+	\\
+	\> \texttt{cell \textit{coords} initial \textit{value}}\\
+	\> \> Specify initial value of a cell inside the grid. Analogous to a point charge.\\
+	\\
+	\> \texttt{dirichlet \textit{coords} \textit{coords} = \textit{value}}\\
+	\> \> Specify a diriclet boundary condition along the interpolated straight line from the\\
+	\> \> first set of coordinates to the second with value \textit{value}.\\
+\end{tabbing}
+\begin{flushleft}
+	statics-solver
+	\hfill March 2016 \hfill
+	SOLVE(1)
+\end{flushleft}
+\clearpage
+\begin{flushleft}
+	SOLVE(1)
+	\hfill User Commands \hfill
+	SOLVE(1)
+\end{flushleft}
+
+\begin{tabbing}
+\hspace{30pt}\=\hspace{30pt}\=\kill
+	\> \texttt{neumann \textit{coords} \textit{coords} \textit{direction} = \textit{value}}\\
+	\> \> Specify a diriclet boundary condition along the interpolated straight line from the\\
+	\> \> first set of coordinates to the second with value \textit{value} across the boundary of the\\
+	\> \> cells specified by \textit{direction}, which may be one of \texttt{left, up, right, down}.\\
+	\\
+	\> The values of \texttt{\textit{coords, size, direction}} must all be one token, that is,\\
+	\> they may not contain any whitespace. The contents of \texttt{\textit{value}} and \texttt{\textit{coords}} are\\
+	\> as follows:\\
+	\\
+	\> \texttt{\textit{value}} is an \texttt{expression}.\\
+	\\
+	\> \texttt{\textit{coords}} is an \texttt{expression} followed by a comma, followed by an \texttt{expression}.\\
+	\\
+	An \texttt{expression} is a valid python expression, with access to the python math library, the\\
+	current grid class, and the current position in the grid as specified by \texttt{x} and \texttt{y}. For \\
+	example, \texttt{math.sin(x*math.pi/grid.len)} is a valid \texttt{expression}.\\
+	\\
+	\textbf{AUTHOR}\\
+	\> Written by Daniel Bittman (\texttt{danielbittman1@gmail.com}). Please submit any bug\\
+	\> reports to this email address.\\
+	\\
+	\textbf{COPYRIGHT}\\
+	\> Copyright\copyright Daniel Bittman. License MIT software license. This is free software, and\\
+	\> is provided with NO WARRANTY.\\
+	\\
+
+\end{tabbing}
+\begin{flushleft}
+	statics-solver
+	\hfill March 2016 \hfill
+	SOLVE(1)
+\end{flushleft}
+

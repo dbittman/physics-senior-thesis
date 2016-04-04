@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 744.09448819 1052.3622047"
+   height="297mm"
+   width="210mm">
+  <defs
+     id="defs4">
+    <marker
+       style="overflow:visible"
+       id="TriangleInL"
+       refX="0.0"
+       refY="0.0"
+       orient="auto">
+      <path
+         transform="scale(-0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path8229" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutL"
+       refX="0.0"
+       refY="0.0"
+       orient="auto">
+      <path
+         transform="scale(0.8)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         id="path8238" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <rect
+       y="14.690614"
+       x="45.964481"
+       height="57.578693"
+       width="136.87567"
+       id="rect3336"
+       style="fill:#00dcff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="113.56981"
+       x="63.113857"
+       height="88.779198"
+       width="102.27412"
+       id="rect4138"
+       style="fill:#009dff;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <text
+       transform="scale(0.99291061,1.00714)"
+       id="text4142"
+       y="198.56198"
+       x="100.34448"
+       style="font-style:normal;font-weight:normal;font-size:12.52332878px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="198.56198"
+         x="100.34448"
+         id="tspan4144">CPU</tspan></text>
+    <text
+       transform="scale(1.0023223,0.99768309)"
+       id="text4146"
+       y="36.561672"
+       x="92.006836"
+       style="font-style:normal;font-weight:normal;font-size:19.4690876px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4150"
+         y="36.561672"
+         x="92.006836">RAM</tspan></text>
+    <path
+       id="path8954"
+       d="m 111.86576,109.93335 0,-33.843519"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.75088859;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#TriangleInL);marker-end:url(#TriangleOutL)" />
+    <rect
+       y="136.66136"
+       x="69.167419"
+       height="40.312382"
+       width="35.481159"
+       id="rect13185"
+       style="fill:#00b4b0;fill-opacity:1;stroke:#000000;stroke-width:0.46072689;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="150.36221"
+       x="71.75"
+       height="8.5"
+       width="11.75"
+       id="rect13189"
+       style="fill:#20d5d2;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.80935681,1.235549)"
+       id="text13197"
+       y="124.18497"
+       x="95.774834"
+       style="font-style:normal;font-weight:normal;font-size:3.03598022px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         y="124.18497"
+         x="95.774834"
+         id="tspan13199">L1</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan13203"
+         y="127.97995"
+         x="95.774834">i-cache</tspan></text>
+    <rect
+       y="150.36221"
+       x="90.125"
+       height="8.5"
+       width="11.75"
+       id="rect13189-7"
+       style="fill:#20d5d2;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.80935681,1.235549)"
+       id="text13197-3"
+       y="124.18497"
+       x="118.47805"
+       style="font-style:normal;font-weight:normal;font-size:3.03598022px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         y="124.18497"
+         x="118.47805"
+         id="tspan13199-3">L1</tspan><tspan
+         id="tspan13231"
+         style="text-align:center;text-anchor:middle"
+         y="127.97994"
+         x="118.47805">d-cache</tspan></text>
+    <rect
+       y="138.59254"
+       x="73.480339"
+       height="9.5393248"
+       width="27.039326"
+       id="rect13235"
+       style="fill:#9ac8ff;fill-opacity:1;stroke:#000000;stroke-width:0.36067492;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.84959074,1.1770373)"
+       id="text13237"
+       y="123.43008"
+       x="93.695511"
+       style="font-style:normal;font-weight:normal;font-size:3.74943614px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan13241"
+         y="123.43008"
+         x="93.695511">L2 cache</tspan></text>
+    <rect
+       y="161.64507"
+       x="70.28286"
+       height="12.434277"
+       width="32.434273"
+       id="rect13245"
+       style="fill:#ebaeae;fill-opacity:1;stroke:#000000;stroke-width:0.46572426;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.68275805,1.4646477)"
+       id="text13247"
+       y="115.90941"
+       x="126.68526"
+       style="font-style:normal;font-weight:normal;font-size:4.54678106px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan13251"
+         y="115.90941"
+         x="126.68526">Pipeline, logic, etc.</tspan></text>
+    <rect
+       y="136.95602"
+       x="122.75942"
+       height="40.312382"
+       width="35.481159"
+       id="rect13185-5"
+       style="fill:#00b4b0;fill-opacity:1;stroke:#000000;stroke-width:0.46072689;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="150.65688"
+       x="125.342"
+       height="8.5"
+       width="11.75"
+       id="rect13189-9"
+       style="fill:#20d5d2;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.80935681,1.235549)"
+       id="text13197-1"
+       y="124.42345"
+       x="161.99037"
+       style="font-style:normal;font-weight:normal;font-size:3.03598022px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         y="124.42345"
+         x="161.99037"
+         id="tspan13199-5">L1</tspan><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan13203-7"
+         y="128.21843"
+         x="161.99037">i-cache</tspan></text>
+    <rect
+       y="150.65688"
+       x="143.71701"
+       height="8.5"
+       width="11.75"
+       id="rect13189-7-6"
+       style="fill:#20d5d2;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.80935681,1.235549)"
+       id="text13197-3-4"
+       y="124.42344"
+       x="184.69359"
+       style="font-style:normal;font-weight:normal;font-size:3.03598022px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         y="124.42344"
+         x="184.69359"
+         id="tspan13199-3-2">L1</tspan><tspan
+         id="tspan13231-8"
+         style="text-align:center;text-anchor:middle"
+         y="128.21841"
+         x="184.69359">d-cache</tspan></text>
+    <rect
+       y="138.88721"
+       x="127.07234"
+       height="9.5393248"
+       width="27.039326"
+       id="rect13235-0"
+       style="fill:#9ac8ff;fill-opacity:1;stroke:#000000;stroke-width:0.36067492;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.84959074,1.1770373)"
+       id="text13237-1"
+       y="123.6804"
+       x="156.7753"
+       style="font-style:normal;font-weight:normal;font-size:3.74943614px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan13241-3"
+         y="123.6804"
+         x="156.7753">L2 cache</tspan></text>
+    <rect
+       y="161.93971"
+       x="123.87486"
+       height="12.434277"
+       width="32.434273"
+       id="rect13245-4"
+       style="fill:#ebaeae;fill-opacity:1;stroke:#000000;stroke-width:0.46572426;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(0.68275805,1.4646477)"
+       id="text13247-9"
+       y="116.11058"
+       x="205.17865"
+       style="font-style:normal;font-weight:normal;font-size:4.54678106px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle"
+         id="tspan13251-3"
+         y="116.11058"
+         x="205.17865">Pipeline, logic, etc.</tspan></text>
+    <text
+       transform="scale(1.0015338,0.99846854)"
+       id="text13336"
+       y="185.11372"
+       x="74.740204"
+       style="font-style:normal;font-weight:normal;font-size:6.95707083px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="185.11372"
+         x="74.740204"
+         id="tspan13338">Core 0</tspan></text>
+    <rect
+       y="118.86105"
+       x="71.99884"
+       height="14.252322"
+       width="84.002319"
+       id="rect14154"
+       style="fill:#80cc80;fill-opacity:1;stroke:#000000;stroke-width:0.39767799;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="scale(1.005328,0.99470026)"
+       id="text14156"
+       y="129.48758"
+       x="75.382469"
+       style="font-style:normal;font-weight:normal;font-size:9.0371685px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="129.48758"
+         x="75.382469"
+         id="tspan14158">Last Level Cache</tspan></text>
+    <text
+       transform="scale(1.0015338,0.99846854)"
+       id="text13336-5"
+       y="185.42477"
+       x="129.19183"
+       style="font-style:normal;font-weight:normal;font-size:6.95707083px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="185.42477"
+         x="129.19183"
+         id="tspan13338-9">Core 1</tspan></text>
+    <text
+       transform="scale(1.1072371,0.90314892)"
+       id="text14250"
+       y="59.261471"
+       x="102.7401"
+       style="font-style:normal;font-weight:normal;font-size:8.08874989px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';text-align:center;text-anchor:middle;fill:#676767;fill-opacity:1"
+         y="59.261471"
+         x="102.7401"
+         id="tspan14252">Really slow</tspan><tspan
+         id="tspan14254"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';text-align:center;text-anchor:middle;fill:#676767;fill-opacity:1"
+         y="69.372406"
+         x="102.7401">and far away.</tspan></text>
+  </g>
+</svg>

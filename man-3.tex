@@ -1,0 +1,57 @@
+\begin{flushleft}
+	SOLVER(3)
+	\hfill Libraries \hfill
+	SOLVER(3)
+\end{flushleft}
+
+\begin{tabbing}
+\hspace{30pt}\=\hspace{30pt}\=\kill
+
+\textbf{NAME}\\
+\> solver - Library to solve Discreet Poisson Equation\\
+\\
+\textbf{SYNOPSIS}\\
+	\> \texttt{solver.h}\\
+	\> \> \texttt{SOLVE\_METHOD\_JACOBI}\\
+	\> \> \texttt{SOLVE\_METHOD\_SOR}\\
+	\> \texttt{double \textbf{solve}(struct grid *grid, int method);}\\
+	\> \texttt{void \textbf{init\_grid}(struct grid *grid);}\\
+	\> \texttt{struct grid \{}\\
+	\> \> \texttt{int len;}\\
+	\> \> \texttt{int iters;}\\
+	\> \> \texttt{float **values;}\\
+	\> \> \texttt{float **value\_prevs;}\\
+	\> \> \texttt{float **initials;}\\
+	\> \> \texttt{uint8\_t **dirichlet\_presents;}\\
+	\> \> \texttt{float **dirichlets;}\\
+	\> \> \texttt{uint8\_t **neumann\_presents;}\\
+	\> \> \texttt{float **neumanns[4];}\\
+	\>\texttt{\};}\\
+\\
+\textbf{DESCRIPTION}\\
+\> This library provides fast solving of a 2-D discreet boundary value problem using the\\
+	\> Poisson equation. The full process is to define a \texttt{struct grid}, and set its \texttt{len} field. Then\\
+	\> call \texttt{init\_grid} on the grid to initialize the 2-D contiguous arrays. After that, call \texttt{solve}\\
+	\> and pass it the grid and a method, either \texttt{SOLVE\_METHOD\_JACOBI} or \texttt{SOLVE\_METHOD\_SOR}.\\
+	\\
+	\> The \texttt{solve} function will return when complete, returning back a value describing how\\
+	\> confident it is in its result (values closer to zero are better). The \texttt{iters} field in the grid\\
+	\> will have been updated to indicate how many iterations the program took. The \texttt{values}\\
+	\> field points to a 2-D array of size \texttt{len} by \texttt{len} containing the solution.\\
+	\\
+	\textbf{AUTHOR}\\
+	\> Written by Daniel Bittman (\texttt{danielbittman1@gmail.com}). Please submit any bug\\
+	\> reports to this email address.\\
+	\\
+	\textbf{COPYRIGHT}\\
+	\> Copyright\copyright Daniel Bittman. License MIT software license. This is free software, and\\
+	\> is provided with NO WARRANTY.\\
+	\\
+
+\end{tabbing}
+\begin{flushleft}
+	statics-solver
+	\hfill March 2016 \hfill
+	SOLVER(3)
+\end{flushleft}
+
