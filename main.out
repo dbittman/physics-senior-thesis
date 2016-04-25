@@ -1,0 +1,25 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Methods}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Discreetizing Poisson's Equation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Iterative Methods}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Jacobi Iteration}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Successive Over-Relaxation}{subsection.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Design of Solver}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Verifying Correctness}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Potential From Electric Dipole}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.6}{Optimization and Multithreading}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.7}{SIMD Instructions}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.8}{Multithreading}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.9}{Benchmarking Performance}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Results}{}% 14
+\BOOKMARK [1][-]{section.4}{Conclusion}{}% 15
+\BOOKMARK [1][-]{section*.8}{Appendices}{}% 16
+\BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 17
+\BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 18
+\BOOKMARK [2][-]{subsection.1.B.1}{Freebies}{Appendix.1.B}% 19
+\BOOKMARK [2][-]{subsection.1.B.2}{A Model of Processor Design}{Appendix.1.B}% 20
+\BOOKMARK [2][-]{subsection.1.B.3}{Structure of Arrays}{Appendix.1.B}% 21
+\BOOKMARK [2][-]{subsection.1.B.4}{Multithreading}{Appendix.1.B}% 22
+\BOOKMARK [2][-]{subsection.1.B.5}{Vectorization}{Appendix.1.B}% 23
+\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Branch Reduction}{subsection.1.B.5}% 24
+\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 25
