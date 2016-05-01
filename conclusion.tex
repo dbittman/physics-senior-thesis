@@ -1,0 +1,36 @@
+\section{Conclusion}
+
+This program correctly solves certain boundary value problems, enabling simulation
+of complex electrostatics situations. It does this in an efficient manner by leveraging
+proper programming languages and techniques and utilizing the basics of modern processor
+design. There were numerous surprises found in developing this software and looking at
+the resulting physics that it described.
+
+\subsection{Correctness}
+
+The most important aspect of this program is that is produces an accurate result, no
+matter how fast it runs.
+
+
+\subsection{Performance}
+
+Since the simulation is correct, I was able to then turn my attention towards improving
+the performance without reducing the accuracy of the simulation. Most of this was easy to
+do without reducing accuracy, as it was simply transforming one valid implementation of
+the code into another and measuring to ensure that my new implementation did in fact
+cause an improvement. Most of this was done by improving cache locality and reducing
+memory accesses. I have left out a lot of this process for brevity, however an overview
+of it and the concepts used can be found in appendix~\ref{app:opt}.
+
+The next significant performance gain attempt that I had made was the use of SIMD instructions.
+I was hoping for a much more significant performance boost than I saw, which was rather
+miniscule in reality. The only small improvement was not surprising in the single threaded
+case because I knew that \texttt{gcc} utilizes SIMD when it can, but I did not expect to see
+the manual SIMD instructions degrade the performance in the multi-threaded case. I speculate
+that this is caused by my manual SIMD code being less cache friendly, which is okay in the
+single threaded case and allowed a small performance improvement, but in the multithreaded case
+the threads are all contending for limited cache space, so the additional memory usage slowed
+them down.
+
+\subsection{Future Work}
+

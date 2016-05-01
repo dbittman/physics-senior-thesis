@@ -96,6 +96,10 @@ values of $f$, the initial boundary conditions, the grid size, and a number of o
 setup (hereby collectively reffered to as a configuration). I have written several example configurations which I have used to
 confirm the correctness of the solving program. For a more detailed technical description of the implementation, see Appendix~\ref{app:des}.
 
+\subsection{Configurations and Mapping to Electrostatics}
+
+TODO also talk about how the configuration is written (include advance features like circles)
+
 \subsection{Verifying Correctness}
 
 The clearest way to verify that the solver is working correctly is to test it out on a number of different configurations
@@ -207,7 +211,15 @@ parallel.
 
 I have written in the use of SIMD instructions in the solver program in order to both reduce branches and to parallelize
 the calculations required when calculating the next iteration of a given cell. I provided the ability to disable this
-functionality and instead do a non-SIMD style calculation in order to get benchmarks.
+functionality and instead do a non-SIMD style calculation in order to get benchmarks. A requirement of the SIMD code was
+that it give exactly the same result as the non-SIMD version (otherwise the implementation of the math would be incorrect).
+For this reason, when talking about the results of a simulation, it does not matter if SIMD was used or not; the use
+of SIMD only affects performance.
+
+An important note is that when fully optimizing code for a machine which it knows about, \texttt{gcc} may choose to output
+SIMD instructions in order to do computation even if the user does not do so explicitly. For this reason, in places where
+I refer to the mode of the simulation as being ``non-SIMD'', what I mean is that it does not use my manual SIMD instructions
+but it may still use compiler-generated SIMD instructions.
 
 \subsection{Multithreading}
 Finally, I have added multithreading support to the solver. This is done by spitting up the grid into subregions which
@@ -226,15 +238,8 @@ Benchmarks were done by placing two calls to \texttt{gettimeofday(3)} around the
 granularity of 1 microsecond CITE ME. This code returns
 both the number of iterations done and the difference between the two gettimeofday calls, which are then used to calculate
 the iterations per second. In order to take into account error from unpredicatble scheduling effect from the operating system,
-each benchmark was run 300 times, and the standard deviation and mean were calculated. Several different computers were used:
+each benchmark was run 300 times, and the standard deviation and mean were calculated, along with 95\% confidence intervals. Several different computers were used:
 computer A was an Intel Core i5-3570K with 4 cores running at 3.4GHz with 16GB of RAM. Computer B was an Intel Xeon E5620
 with 4 cores with 2 threads each, running at 2.4GHz, with 24GB of RAM. Computer B did not support all of the SIMD instructions
 that I used, so it was only able to benchmark the non-SIMD version of the code.
-
-Computer performance measurements and program optimization concerns
- - General Thoughts (use C)
- - Caching
- - Threading
- - SIMD
-
 

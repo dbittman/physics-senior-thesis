@@ -5,21 +5,28 @@
 \BOOKMARK [3][-]{subsubsection.2.2.1}{Jacobi Iteration}{subsection.2.2}% 5
 \BOOKMARK [3][-]{subsubsection.2.2.2}{Successive Over-Relaxation}{subsection.2.2}% 6
 \BOOKMARK [2][-]{subsection.2.3}{Design of Solver}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.4}{Verifying Correctness}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.5}{Potential From Electric Dipole}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.6}{Optimization and Multithreading}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.7}{SIMD Instructions}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.8}{Multithreading}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.9}{Benchmarking Performance}{section.2}% 13
-\BOOKMARK [1][-]{section.3}{Results}{}% 14
-\BOOKMARK [1][-]{section.4}{Conclusion}{}% 15
-\BOOKMARK [1][-]{section*.8}{Appendices}{}% 16
-\BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 17
-\BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 18
-\BOOKMARK [2][-]{subsection.1.B.1}{Freebies}{Appendix.1.B}% 19
-\BOOKMARK [2][-]{subsection.1.B.2}{A Model of Processor Design}{Appendix.1.B}% 20
-\BOOKMARK [2][-]{subsection.1.B.3}{Structure of Arrays}{Appendix.1.B}% 21
-\BOOKMARK [2][-]{subsection.1.B.4}{Multithreading}{Appendix.1.B}% 22
-\BOOKMARK [2][-]{subsection.1.B.5}{Vectorization}{Appendix.1.B}% 23
-\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Branch Reduction}{subsection.1.B.5}% 24
-\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 25
+\BOOKMARK [2][-]{subsection.2.4}{Configurations and Mapping to Electrostatics}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Verifying Correctness}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.6}{Potential From Electric Dipole}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.7}{Optimization and Multithreading}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.8}{SIMD Instructions}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.9}{Multithreading}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.10}{Benchmarking Performance}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{Results}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{The sin\(x\) Potential}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Fitting to a 1/r2 Dipole Potential}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Performance}{section.3}% 18
+\BOOKMARK [1][-]{section.4}{Conclusion}{}% 19
+\BOOKMARK [2][-]{subsection.4.1}{Correctness}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.2}{Performance}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Future Work}{section.4}% 22
+\BOOKMARK [1][-]{section*.12}{Appendices}{}% 23
+\BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 24
+\BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 25
+\BOOKMARK [2][-]{subsection.1.B.1}{Freebies}{Appendix.1.B}% 26
+\BOOKMARK [2][-]{subsection.1.B.2}{A Model of Processor Design}{Appendix.1.B}% 27
+\BOOKMARK [2][-]{subsection.1.B.3}{Structure of Arrays}{Appendix.1.B}% 28
+\BOOKMARK [2][-]{subsection.1.B.4}{Multithreading}{Appendix.1.B}% 29
+\BOOKMARK [2][-]{subsection.1.B.5}{Vectorization}{Appendix.1.B}% 30
+\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Branch Reduction}{subsection.1.B.5}% 31
+\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 32

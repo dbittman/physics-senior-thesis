@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.11.30)  24 APR 2016 17:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.11.30)  1 MAY 2016 01:20
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -606,40 +606,24 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) (./main.aux
-(./proced.aux) (./results.aux
-
-LaTeX Warning: Label `fig:1b' multiply defined.
-
-
-LaTeX Warning: Label `fig:dipolefit' multiply defined.
-
-
-LaTeX Warning: Label `fig:dipolefit' multiply defined.
-
-) (./man-1.aux) (./man-3.aux) (./opt.aux
-
-LaTeX Warning: Label `fig:1a' multiply defined.
-
-
-LaTeX Warning: Label `fig:1b' multiply defined.
-
-))
+(./proced.aux) (./results.aux) (./conclusion.aux) (./man-1.aux) (./man-3.aux)
+(./opt.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -676,7 +660,7 @@ LaTeX Font Info:    ... okay on input line 48.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring OFF on input line 48.
+Package hyperref Info: Link coloring OFF on input line 51.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -685,9 +669,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count141
 )
-LaTeX Info: Redefining \ref on input line 48.
-LaTeX Info: Redefining \pageref on input line 48.
-LaTeX Info: Redefining \nameref on input line 48.
+LaTeX Info: Redefining \ref on input line 51.
+LaTeX Info: Redefining \pageref on input line 51.
+LaTeX Info: Redefining \nameref on input line 51.
  (./main.out)
 (./main.out)
 \@outlinefile=\write4
@@ -729,128 +713,188 @@ ABD: EveryShipout initializing macros
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.12} into 
 your preamble.
- on input line 48.
+ on input line 51.
 
 \c@lstlisting=\count148
-[1
+(./main.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 3.
+ [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\tf@toc=\write5
+\openout5 = `main.toc'.
+
+ (./main.lof [2])
+\tf@lof=\write6
+\openout6 = `main.lof'.
+
+ [3]
 \openout2 = `proced.aux'.
 
  (./proced.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 6.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 6.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 6.
-LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 15.
- [2
+ [4
 
-]
-[3] [4] [5]
+] [5] [6] [7]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 172.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 173.
+nput line 176.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 177.
 
- (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+
+(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 173.
- [6] [7]
-Overfull \hbox (3.84563pt too wide) in paragraph at lines 234--239
-[]\OT1/cmr/m/n/12 Computer per-for-mance mea-sure-ments and pro-gram op-ti-miza
--tion con-cerns - Gen-eral Thoughts
- []
-
-) [8]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 177.
+ [8] [9]) [10]
 \openout2 = `results.aux'.
 
- (./results.tex <sin300_calc.pdf, id=188, 722.7pt x 578.16pt>
+ (./results.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathop' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathgroup' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\symoperators' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\nolimits' on input line 9.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 9.
+
+<sin300_calc.pdf, id=284, 722.7pt x 578.16pt>
 File: sin300_calc.pdf Graphic file (type pdf)
-
-<use sin300_calc.pdf>
-Package pdftex.def Info: sin300_calc.pdf used on input line 8.
+ <use sin300_calc.pdf>
+Package pdftex.def Info: sin300_calc.pdf used on input line 13.
 (pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 8--9
-[][] 
- []
-
-<sin300_exact.pdf, id=189, 722.7pt x 578.16pt>
-File: sin300_exact.pdf Graphic file (type pdf)
- <use sin300_exact.pdf>
-Package pdftex.def Info: sin300_exact.pdf used on input line 12.
-(pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
-
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 12--13
-[][] 
- []
-
-<sin300_diff.pdf, id=190, 722.7pt x 578.16pt>
-File: sin300_diff.pdf Graphic file (type pdf)
- <use sin300_diff.pdf>
-Package pdftex.def Info: sin300_diff.pdf used on input line 17.
-(pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
-
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 17--18
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 13--14
  [][] 
  []
 
-<dipole_contours.pdf, id=191, 722.7pt x 578.16pt>
-File: dipole_contours.pdf Graphic file (type pdf)
- <use dipole_contours.pdf>
-Package pdftex.def Info: dipole_contours.pdf used on input line 27.
+<sin300_exact.pdf, id=285, 722.7pt x 578.16pt>
+File: sin300_exact.pdf Graphic file (type pdf)
+ <use sin300_exact.pdf>
+Package pdftex.def Info: sin300_exact.pdf used on input line 20.
 (pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
 
-Overfull \hbox (46.97836pt too wide) in paragraph at lines 27--28
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 20--21
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11
+
+
+ <./sin300_calc.pdf>] <sin300_diff.pdf, id=327, 722.7pt x 578.16pt>
+File: sin300_diff.pdf Graphic file (type pdf)
+
+<use sin300_diff.pdf>
+Package pdftex.def Info: sin300_diff.pdf used on input line 38.
+(pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
+
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 38--39
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 43.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `superscript' on input line 43.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 43.
+
+[12 <./sin300_exact.pdf>] <dipole_contours.pdf, id=365, 722.7pt x 578.16pt>
+File: dipole_contours.pdf Graphic file (type pdf)
+
+<use dipole_contours.pdf>
+Package pdftex.def Info: dipole_contours.pdf used on input line 55.
+(pdftex.def)             Requested size: 516.73338pt x 413.39009pt.
+
+Overfull \hbox (46.97836pt too wide) in paragraph at lines 55--56
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<dipole_field.pdf, id=192, 578.16pt x 433.62pt>
-File: dipole_field.pdf Graphic file (type pdf)
- <use dipole_field.pdf>
-Package pdftex.def Info: dipole_field.pdf used on input line 33.
-(pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<dipole_fit.pdf, id=193, 642.4pt x 481.8pt>
+[13 <./sin300_diff.pdf>] <dipole_fit.pdf, id=396, 642.4pt x 481.8pt>
 File: dipole_fit.pdf Graphic file (type pdf)
- <use dipole_fit.pdf>
-Package pdftex.def Info: dipole_fit.pdf used on input line 40.
+
+<use dipole_fit.pdf>
+Package pdftex.def Info: dipole_fit.pdf used on input line 69.
 (pdftex.def)             Requested size: 469.75502pt x 352.32861pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+<dipole_field.pdf, id=398, 578.16pt x 433.62pt>
+File: dipole_field.pdf Graphic file (type pdf)
+ <use dipole_field.pdf>
+Package pdftex.def Info: dipole_field.pdf used on input line 80.
+(pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
 
-Package pgfplots Warning: Axis range for axis x is approximately empty; enlargi
-ng it (it is [0.0:0.0]) on input line 75.
 
- [warning /pgfplots/warning/approx empty range enlarged]
-) [9
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14 <./dipole_contours.pdf>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[15 <./dipole_fit.pdf>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
- <./sin300_calc.pdf>] [10 <./sin300_exact.pdf>] [11 <./sin300_diff.pdf>]
-[12 <./dipole_contours.pdf>] [13 <./dipole_field.pdf>] [14 <./dipole_fit.pdf>]
-[15
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [16 <./dipole_field.pdf>] [17] [18]
+\openout2 = `conclusion.aux'.
+
+ (./conclusion.tex) [19
+
 
 ]
-Overfull \hbox (2.54424pt too wide) in paragraph at lines 74--77
+Overfull \hbox (2.54424pt too wide) in paragraph at lines 77--80
 \OT1/cmr/m/n/12 pro-duced on the fol-low-ing pages). There are sev-eral ex-am-p
 le files, in-clud-ing \OT1/cmtt/m/n/12 example[]sin.txt
  []
 
-[16
+[20
+
 
 ]
 \openout2 = `man-1.aux'.
@@ -858,9 +902,9 @@ le files, in-clud-ing \OT1/cmtt/m/n/12 example[]sin.txt
  (./man-1.tex
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 21.
- [17
+ [21
 
-]) [18
+]) [22
 
 ]
 \openout2 = `man-3.aux'.
@@ -874,25 +918,25 @@ File: omscmtt.fd
 )
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
- [19
+ [23
 
 
-]) [20]
+]) [24]
 \openout2 = `opt.aux'.
 
- (./opt.tex [21
+ (./opt.tex [25
 
 
 
 ]
-<ram-cpu-simple.pdf, id=410, 109.91116pt x 94.41241pt>
+<ram-cpu-simple.pdf, id=519, 109.91116pt x 94.41241pt>
 File: ram-cpu-simple.pdf Graphic file (type pdf)
 
 <use ram-cpu-simple.pdf>
 Package pdftex.def Info: ram-cpu-simple.pdf used on input line 95.
 (pdftex.def)             Requested size: 187.89914pt x 161.40942pt.
 
-<ram-cpu-complex.pdf, id=411, 109.91116pt x 150.6897pt>
+<ram-cpu-complex.pdf, id=520, 109.91116pt x 150.6897pt>
 File: ram-cpu-complex.pdf Graphic file (type pdf)
 
 <use ram-cpu-complex.pdf>
@@ -902,35 +946,31 @@ Package pdftex.def Info: ram-cpu-complex.pdf used on input line 100.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [22] [23 <./ram-cpu-simple.pdf> <./ram-cpu-complex.pdf
+) [26] [27 <./ram-cpu-simple.pdf> <./ram-cpu-complex.pdf
 
 pdfTeX warning: pdflatex (file ./ram-cpu-complex.pdf): PDF inclusion: multiple 
 pdfs with page group included in a single page
->] [24
+>] [28
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 94.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 94.
- (./main.aux (./proced.aux) (./results.aux) (./man-1.aux) (./man-3.aux)
-(./opt.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 94.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 94.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
+ (./main.aux (./proced.aux) (./results.aux) (./conclusion.aux)
+(./man-1.aux) (./man-3.aux) (./opt.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 97.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 97.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F6667C1C04D9B88778FAE83A985DAE98;1649.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 94.
+(rerunfilecheck)             Checksum: 4C72FB5781F384939AF45B65EACCBF2B;2145.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
  ) 
 Here is how much of TeX's memory you used:
- 28656 strings out of 493054
- 662175 string characters out of 6140585
- 868309 words of memory out of 5000000
- 31645 multiletter control sequences out of 15000+600000
- 11679 words of font info for 41 fonts, out of 8000000 for 9000
+ 28828 strings out of 493054
+ 666083 string characters out of 6140585
+ 872308 words of memory out of 5000000
+ 31789 multiletter control sequences out of 15000+600000
+ 12294 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,19n,81p,742b,2220s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,19n,102p,742b,2556s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/publ
@@ -945,10 +985,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb>
-Output written on main.pdf (24 pages, 2068849 bytes).
+Output written on main.pdf (28 pages, 2089624 bytes).
 PDF statistics:
- 521 PDF objects out of 1000 (max. 8388607)
- 360 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
- 253 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 632 PDF objects out of 1000 (max. 8388607)
+ 466 compressed objects within 5 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 309 words of extra memory for PDF output out of 10000 (max. 10000000)
 
