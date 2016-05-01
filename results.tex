@@ -91,12 +91,28 @@ of size 50 by 50, 300 by 300, and 1000 by 1000. For each grid size, 4 different 
 single-threaded non-SIMD, single-threaded SIMD, multi-threaded with 4 threads non-SIMD, and multi-threaded
 with 4 threads and SIMD.
 
+In the case of the 50 by 50 grid, the performance was similar for all cases
+except for multi-threaded with SIMD. I believe the reason that the SIMD multi-threaded version was slower was
+due to the manual SIMD code being less cache-friendly, resulting in the threaded versions having more contention.
+Both the 300 by 300 case and 1000 by 1000 case display similar performance behavior: the SIMD case is faster than
+the non-SIMD case when single threaded, and the SIMD case is slower than the non-SIMD case when multi-threaded.
+This can be explained in the same was as it was for the 50 by 50 case. Another characteristic is that the multi-threaded
+case (with 4 threads) is faster than the single threaded case. In fact, it is better than I expected it to be.
+
+Additionally, the performance depends heavily on the grid size. This makes sense, as the amount of work needed to be
+done per iteration is proportional to the number of cells in the grid, and the number of cells in the grid is $n^2$.
+Another note is that the variance on the performance is significantly higher for all of the multi-threaded cases.
+This is because having multiple threads increases the program's dependence on the scheduling quirks of the operating
+system. Finally, the variance for the 50 by 50 case multi-threaded versions are significantly higher than all other
+variances for the other multi-threaded cases. I believe that this is because the overhead of managing threads compared
+to how much work they actually have to do is large in this case compared to the other cases.
+
 
 \begin{figure}[h]
 	\centering
 	\pgfplotstableread{
-		0 35 10    8 10     134 10    666 1000
-		1 35 10    1461 15     134 10    666 1000
+		0 55642.1 3747.52    54100.9 3401     53724.2 13306.44    44877.5 9672
+		1 1504 30.6    1461 15     3119 269    2333 313
 		2 132.845 1.36    127.085 3.45     297.9 23.13    222.8 26.7
 	}\dataset
 	\begin{tikzpicture}
@@ -107,10 +123,13 @@ with 4 threads and SIMD.
     	    sin1000,
     	},
         xtick=data,
+        ymode=log,
+            log ticks with fixed point,
         major x tick style = transparent,
         width  = 0.85*\textwidth,
         height = 8cm,
         major x tick style = transparent,
+        enlarge x limits=0.25,
         ybar=2*\pgflinewidth,
         bar width=14pt,
         ymajorgrids = true,
@@ -127,10 +146,10 @@ with 4 threads and SIMD.
 	    },
         ]
 
-\addplot[draw=black,fill=black!20, error bars/.cd, y dir=both, y explicit] table[x index=0,y index=1, y error index=2] \dataset; %Data1
-\addplot[draw=black,fill=black!40, error bars/.cd, y dir=both, y explicit] table[x index=0,y index=3, y error index=4] \dataset; %Data2
-\addplot[draw=black,fill=black!60, error bars/.cd, y dir=both, y explicit] table[x index=0,y index=5, y error index=6] \dataset; %Data3
-\addplot[draw=black,fill=black!60, error bars/.cd, y dir=both, y explicit] table[x index=0,y index=7, y error index=8] \dataset; %Data3
+\addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=1, y error index=2] \dataset; %Data1
+\addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=3, y error index=4] \dataset; %Data2
+\addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=5, y error index=6] \dataset; %Data3
+\addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=7, y error index=8] \dataset; %Data3
 
 	\legend{Single Threaded SIMD, Single Threaded, Multithreaded (4 threads), Multithreaded (4 threads) SIMD}
 \end{axis}

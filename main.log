@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.11.30)  1 MAY 2016 01:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.11.30)  1 MAY 2016 14:58
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -870,18 +870,23 @@ Package pdftex.def Info: dipole_field.pdf used on input line 80.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14 <./dipole_contours.pdf>]
+[14 <./dipole_contours.pdf>] [15 <./dipole_fit.pdf>]
+
+Package pgfplots Warning: Ignoring illegal input argument ymin=0: cannot apply 
+log. on input line 147.
+
+ [warning /pgfplots/warning/illegal user argument in log axis]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15 <./dipole_fit.pdf>]
+[16 <./dipole_field.pdf>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [16 <./dipole_field.pdf>] [17] [18]
+) [17] [18]
 \openout2 = `conclusion.aux'.
 
  (./conclusion.tex) [19
@@ -964,13 +969,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
  ) 
 Here is how much of TeX's memory you used:
- 28828 strings out of 493054
- 666083 string characters out of 6140585
- 872308 words of memory out of 5000000
- 31789 multiletter control sequences out of 15000+600000
+ 28849 strings out of 493054
+ 666594 string characters out of 6140585
+ 874310 words of memory out of 5000000
+ 31810 multiletter control sequences out of 15000+600000
  12294 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,19n,102p,742b,2556s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,19n,102p,742b,2582s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/publ
@@ -985,7 +990,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb>
-Output written on main.pdf (28 pages, 2089624 bytes).
+Output written on main.pdf (28 pages, 2091341 bytes).
 PDF statistics:
  632 PDF objects out of 1000 (max. 8388607)
  466 compressed objects within 5 object streams
