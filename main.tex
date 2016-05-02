@@ -2,18 +2,24 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{subcaption}
+\usepackage{setspace}
 \usepackage{graphicx}
 \usepackage[toc,page]{appendix}
 \usepackage{scrextend}
 \usepackage{pgfplots}
 \usepackage{listings}
+\usepackage{natbib}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{subcaption}
+\expandafter\def\csname ver@subfig.sty\endcsname{}
+\usepackage{svg}
+\usepackage{amssymb}
 
 \setlength\parskip{5mm}
 \widowpenalty10000
 \clubpenalty10000
 \setlength\parindent{0pt}
-
-%\linespread{2}
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
@@ -38,26 +44,126 @@
 }
 
 
-
-
-
-
-
-\title{Solving Boundary Value Problems Efficiently on Modern Computers}
-\author{Daniel Bittman}
-
-
-
 \begin{document}
+\begin{center}
 
+	UNIVERSITY of CALIFORNIA\\
+	\vspace{2mm}
+	SANTA CRUZ\\
+	\vspace{10mm}
+	{\large\textbf{\textsc{SOLVING BOUNDARY VALUE PROBLEMS EFFICIENTLY USING COMPUTERS [working title]}}}\\
+	\vspace{10mm}
+	A thesis submitted in partial satisfaction\\of the requirements for the degree of\\
+	\vspace{5mm}
+	\textsc{BACHELOR OF SCIENCE}\\
+	\vspace{3mm}
+	in\\
+	\vspace{3mm}
+	\textsc{PHYSICS}\\
+	\vspace{5mm}
+	by\\
+	\vspace{2mm}
+	Daniel A. Bittman\\
+	May 11, 2016\\
+
+	\vspace{2in}
+
+	The thesis of Daniel A. Bittman is approved by:\\
+	\vspace{1in}
+
+	\rule{2.5in}{2pt}\hfill
+	\rule{2.5in}{2pt} \\
+	Professor Jason Nielsen \hfill Professor David P. Belanger\\
+	Thesis Advisor \hfill Thesis Coordinator\\
+
+	\vspace{15mm}
+	\rule{2.5in}{2pt}\\
+	Professor Robert Johnson\\
+	Chair, Department of Physics
+
+\end{center}
+
+\pagenumbering{gobble}
+\clearpage
+\setcounter{page}{1}
+\renewcommand{\thepage}{\roman{page}}
+
+\begin{center}
+	\textsc{{\Large Copyright and Software License}}\\
+	\vspace{1in}
+	\textsc{this document and software described herein are\\\vspace{5mm}copyright} \copyright $\;$\textsc{2016\\daniel a. bittman}\\
+	\vspace{1in}
+	\textsc{The software described herein, including excerpts and other code, is provided with the following license:}
+
+	MIT License
+
+Copyright \copyright $\;$ 2016 Daniel A. Bittman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+\end{center}
+\clearpage
+
+\begin{center}
+	{\Large\textsc{Dedication (TODO)}}\\
+\end{center}
+\begin{center}
+	{\Large\textsc{Acknowledgements (TODO)}}\\
+\end{center}
+\clearpage
 \tableofcontents
+\clearpage
 \listoffigures
+\listoftables
+\clearpage
 
-\section{Introduction}
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+\section*{Abstract}
 
-Boundary Value problems history and motivation
+\doublespacing
 
-Types of boundaries
+There are many problems in physics which involve solving a set of equations which define behavior
+inside some region. One such set of problems, among many, is solving electrostatics problems inside
+a region given some boundary conditions by utilizing Poisson's equation. Such problems, and other
+problems, are commonly found in simple and analytically solvable forms in undergraduate physics classes.
+Unfortunately, these problems can become intractible to solve analytically very quickly as their complexity
+increases. Complex boundary conditions in stangely shaped regions can easy become impossibly difficult to
+solve. The solution to this problem can be to model it on a computer in order to compute a numerical solution
+in place of an analytical one.
+
+I have written a software package which is both a C library which can solve such a given problem and a frontend
+Python program which can parse a human-readable configuation that describes such a boundary value problem and
+set up the correct initial state such that the C library can then solve it, allowing the Python program to
+display the final result as well as calculate statistics about the solving process. I have utilized effective
+programming techniques designed for current generation hardware 64-bit x86 processors in order to improve
+the performance of the program, in addition to implementing a multi-threaded version of the solving program
+to explore the use of multicore processors in solving these problems.
+
+I found that the program correctly matched an analytical soltuion to a simple test problem, and that it correctly
+predicted the $1/r^2$ potential found from an electric dipole. I was able to optimize the program so that it
+efficiently found these results, and I was able to successfully leverage multithreading to significantly increase
+the performance, albiet with a degredation in simulation accuracy.
+
+\clearpage
+\doublespacing
+\include{intro}
 
 \include{proced}
 
@@ -70,7 +176,7 @@ Types of boundaries
 \begin{appendices}
 \section{Program Usage}
 
-Compiling the engine (the C library) requires make and gcc (or clang, though clang is untested), and can
+Compiling the engine (the C library) requires make and gcc (or clang, although clang is untested), and can
 be done by simply invoking \texttt{make}. This will also create an executable file, \texttt{solve}. This
 is a script that invokes the python example frontend so that it may be used.
 
@@ -84,8 +190,10 @@ in the source directory, under \texttt{results}. The source code for the C libra
 source code for the python example frontend is under \texttt{frontend}. The source code and git revision history
 is available at \url{http://github.com/dbittman/statics-solver}.
 
-\include{man-1}
-\include{man-3}
+%	\begin{singlespacing}
+%\include{man-1}
+%\include{man-3}
+%	\end{singlespacing}
 \clearpage
 
 \include{opt}
@@ -94,5 +202,15 @@ is available at \url{http://github.com/dbittman/statics-solver}.
 \label{app:des}
 
 \end{appendices}
+
+\clearpage
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+
+
+
+
 \end{document}
 

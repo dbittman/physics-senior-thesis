@@ -1,43 +1,11 @@
 \section{Methods}
 
-Ultimately, the heavy lifting in solving a potential problem involves solving a partial
-differential equation -- in this case, Poisson's equation. Here we will be considering
-the 2-dimensional Poisson equation in Euclidean space,
-$$\nabla^2 \phi = f,$$
-where $f$ is a real-valued function inside the space and $\phi$ is the steady-state
-solution for the potential in the space. However, since this solution will be calcuated
-numerically on a computer, we must discretize the equation so that it can be used to
-represent a solution on a 2-dimensional grid.
-
-\subsection{Discreetizing Poisson's Equation}
-
-Consider a grid of size $n$ by $n$\footnote{In general, it is not difficult to allow a rectangular grid, but for simplicity
-we will require the grid to be square.}, with values represented by $u_{i,j}$. We want to apply the Poisson equation to
-this $u$ as follows:
-$$\nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial x^2} = f,$$
-however, $u$ is not continuous, so the partial derivative for $x$ becomes
-$$\frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i-1,j} - 2 u_{i,j} + u_{i+1,j}}{h^2},$$
-at a grid point $(i,j)$, where $h = 1 / n$ is the width and height of a grid cell. The partial derivative for $y$ is similar, using $j$ instead of $i$.
-This gives the full discrete Poisson equation as,
-$$\frac{u_{i-1,j} - 2 u_{i,j} + u_{i+1,j}}{h^2} + \frac{u_{i,j-1} - 2 u_{i,j} + u_{i,j+1}}{h^2} = f_{i,j}.$$
-
-Since $u_{i,j}$ is what we are interested in, this is more useful after some rearranging:
-$$h^2f_{i,j} = -4u_{i,j} + u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1},$$
-\begin{equation} \label{eq:poisson}
-u_{i,j} = \frac{1}{4}(u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1} - h^2f_{i,j}).
-\end{equation}
-
-It can be seen from the top equation that this is now a linear algebra problem, requiring a method of solving
-$n^2$ dependent linear equations.
-
-\subsection{Iterative Methods}
-
 Since we are using a computer, an iterative method is feasible to be used as a numerical solution method. In this
 program, I have implemented two methods for solving these problems: Jacobi iteration, and successive over-relaxation (SOR).
 
-\subsubsection{Jacobi Iteration}
+\subsection{Jacobi Iteration}
 This method is perhaps the simplest method of doing an iterative solution to this linear algebra problem. The procedure
-involves treating each equation as independent, and solving iteratively. This turns Equation~\ref{eq:poisson} into
+involves treating each equation as independent, and solving iteratively. This turns Equation~\ref{eq:poisson} into\cite{poisson-relax}
 \begin{equation} \label{eq:jacobi}
 u_{i,j}^{k+1} = \frac{1}{4}(u_{i-1,j}^{k} + u_{i+1,j}^{k} + u_{i,j-1}^{k} + u_{i,j+1}^{k} - h^2f_{i,j}),
 \end{equation}
@@ -67,7 +35,7 @@ of zero everywhere outside of $\Omega$, thus effectively limiting the calculatio
 values ``outside'' of $\Omega$ to zero. This is easy to implement and visualize as well: any value of $u_{i,j}$ for $i >= n$,
 $i < 0$, $j >= n$, or $j < 0$ is simply zero, always.
 
-\subsubsection{Successive Over-Relaxation}
+\subsection{Successive Over-Relaxation}
 
 An alternate approach to iteratively solving this problem numerically is called successive over-relaxation (or SOR), and
 it has advantages over simple Jacobi iteration. It works by reusing previous calculations for the next iteration when
@@ -77,12 +45,12 @@ u_{i,j}^{k+1} = (1-\omega) + \frac{\omega}{4}\left(u_{i-1,j}^{k+1} + u_{i+1,j}^{
 \end{equation}
 where $\omega$ is a tunable parameter called the \textit{over-relaxtion parameter}. For a square lattice, a value of
 $$\omega = \frac{2}{1+\frac{\pi}{n}}$$
-has the best rate of convergence. There are two terms on the right-hand-side of equation~\ref{eq:sor} which refer to the
+has the best rate of convergence\cite{poisson-relax}. There are two terms on the right-hand-side of equation~\ref{eq:sor} which refer to the
 $k+1$ iteration. What this is doing is using the new values for the cells that have already been updated on this iteration
 in order to speed up the convergence.
 
 
-TODO Determining when to halt
+%TODO Determining when to halt
 
 
 \subsection{Design of Solver}
@@ -98,13 +66,34 @@ confirm the correctness of the solving program. For a more detailed technical de
 
 \subsection{Configurations and Mapping to Electrostatics}
 
-TODO also talk about how the configuration is written (include advance features like circles)
+These configuration files are designed to be easy to write. An example configuration file is,
+
+\begin{addmargin}[4em]{2em}% 1em left, 2em right
+\begin{singlespace}
+\texttt{gridsize 300}\\
+\texttt{dirichlet 1,1 1,grid.len = math.sin(y * math.pi / grid.len)}\\
+\texttt{cell 10,10 initial -100}
+\end{singlespace}
+\end{addmargin}
+
+The first line sets up a grid of size 300 by 300. The second line specifies that a Dirichlet boundary condition exists
+from cell $(1, 1)$ to $(1, 300)$ which takes on a value given by the expression at the end of that line. Any valid python
+expression may be put here, allowing access to complex mathematical expressions. Additionally, the start and end points
+do not have to define a line on a single axis, the program will do a linear interpolation to create a straight line from
+	the start point to the end point.
+The third line sets the initial value of
+the cell $(10, 10)$ to a value of $-100$. This is the command used to define $f_{i,j}$ in equation~\ref{eq:poisson}.
+An arbitrary number of these statements may be made inside a configuration file, allowing one to specify the value of
+$f$ everywhere if need be, or create Dirichlet boundary conditions of arbitrary shapes.
+
+The available commands for a configuration file map to various initial and boundary conditions for an electrostatics problem
+in a straight forward way: the command to specifiy a Dirichlet boundary condition is like creating a boundary of fixed potential.
+The command to specify the initial value of cells is like specifying an initial charge distribution inside the region.
 
 \subsection{Verifying Correctness}
 
 The clearest way to verify that the solver is working correctly is to test it out on a number of different configurations
-for which the correct solution is known. My first choice here was a simple electrostatics problem straight out of a textbook:
-%%TODO cite...
+for which the correct solution is known. My first choice here was a simple electrostatics problem straight out of a textbook\cite{griffiths}:
 
 \begin{addmargin}[2em]{2em}% 1em left, 2em right
 	Consider a square region with the bottom left corner at the origin with each side of length $L$. Let the potential
@@ -113,11 +102,11 @@ for which the correct solution is known. My first choice here was a simple elect
 \end{addmargin}
 
 This problem describes solving Laplace's equation (which is Poisson's equation with $f=0$), given some initial boundary conditions.
-It can be solved analytically using a standard separation of variables trick. Assume
+It can be solved analytically using a standard separation of variables trick\cite{boas}. Assume
 $$\phi = X(x) Y(y),$$
 then
 $$X''(x)/X(x) = -Y''(y)/Y(y) = -\lambda,$$
-and by applying the boundary conditions, one comes to the solution
+and by applying the boundary conditions, one comes to the solution\cite{griffiths}
 $$V(x,y) = \frac{\sinh(y \pi / L)}{\sinh(\pi / L)} \sin(x \pi / L).$$
 
 In order to compare the result of my program with the analytical solution, I added a feature to the Python frontend
@@ -125,27 +114,29 @@ to accept a pre-made file containing a precalculated grid of the correct output 
 frontend then reads this file and compares it to the result of the solver.
 %TODO: measurement of correctness.
 
+Since there is now a problem which has an analytical solution, I was able to use that to describe a metric for
+correctness of the simulation. I wrote a Python script that generated a 2-D grid of values based on the analytical
+solution above and had it write this data structure out to disk. When the solver program was given this ``correct''
+file, it would then perform a root-mean-square error calculation,
+$$e_{RMS} = \sqrt{\left(\frac{\sum_{i=0}^{n} \sum_{j=0}^{n} (u_{i,j} - c_{i,j})^2}{n^2}\right)}$$
+where $n$ is the length of one side of the grid, $u_{i,j}$ is the value of the calculated result at cell $(i,j)$, and
+$c_{i, j}$ is the value of the analytical result at cell $(i, j)$.
+
 \subsection{Potential From Electric Dipole}
-Another correctness check is a simulation of an electric dipole. The potential from an electric dipole is well understood.
+Another correctness check is a simulation of an electric dipole, since the potential from an electric dipole is well understood.
 If two equal and opposite charges are separated on an axis by distance $d$, then at a point $p$ far away, the
 potential is,
 $$V = C\left(\frac{1}{r_0} - \frac{1}{r_1}\right),$$
 where $r_0$ and $r_1$ are the distances from each charge, and $C$ is a constant. With some rearranging,
 $$V = C\left(\frac{r_0 - r_1}{r_0 r_1}\right) = \frac{C d \cos(\theta)}{r^2},$$
 where $r$ is the distance from the center of charge to the point, and $\theta$ is the angle that the line from the
-center of charge forms with the axis that the dipole is on. The potential from an electric dipole falls off as $1/r^2$,
+center of charge forms with the axis that the dipole is on\cite{griffiths}. The potential from an electric dipole thus falls off as $1/r^2$,
 which should be reflected in the solution given by the program if it is given a configuration describing a dipole.
 
 If the solving program is correct, then if two charges are placed near each other, the numerically calculated potential
 should display this $1/r^2$ behavior. I wrote such a configuration and had the frontend output the potential at points
 increasing in distance from the center of the dipole, allowing me to fit the data to a $1/r^2$ curve.
 
-
-Correctness Checks
- - Solution to sin(x) along wall potential -- non-discreet.
- - Electric dipole solution for far away
-
-Calculating correctness automatically
 
 \subsection{Optimization and Multithreading}
 The purpose of this program is to not only be correct, but to be correct quickly. In order to achieve this, I have
@@ -159,11 +150,11 @@ The first of these is pretty basic. The main part of the solver is written in C 
 processor. When the program is compiled, I instruct the compiler to optimize the program to the best of its ability,
 and the program is written in such a way that it can be optimized well and does not waste time doing unneccesary work.
 
-As an example of the last point, consider a 2-dimensional grid (2-D array), which must be iterated over (much like
+As an example of this point, consider a 2-dimensional grid (2-D array), which must be iterated over (much like
 this program does). There are two ways to do this: either iterate row-by-row, or column-by-column. The end result is
 the same, and one might think the choice is arbitrary. However, when I tested the two different approaches, I found
 the row-by-row approach to be around 5 times faster. This is because of caching effects and the way that the CPU
-fetches data from RAM. For a more detailed description of this, see Appendix~\ref{app:opt}.
+fetches data from RAM\cite{intel-1}. For a more detailed description of this, see Appendix~\ref{app:opt}.
 
 Another example involves data structure organization. Say a program needs to store an array of objects, and each object
 has data associated with it (for example, current value, previous value, error, initial state, etc). One might be tempted
@@ -184,7 +175,7 @@ struct {
 
 Fortunately, this also has an easy to make change that drastically improves performance: change to structure of
 arrays organization, thus reorganizing the memory layout so that related and commonly accessed-together values
-appear adjacent in memory. This is shown in listing~\ref{lst:soa}. While it may be a less intuitive way to describe
+appear adjacent in memory\cite{intel-opt}. This is shown in listing~\ref{lst:soa}. While it may be a less intuitive way to describe
 and program a simulation, the result is significantly faster code the majority of the time.
 
 \begin{minipage}{\linewidth}
@@ -200,7 +191,7 @@ struct {
 
 \subsection{SIMD Instructions}
 I have also made use of the SIMD (Single Instruction Multiple Data) instruction set. These instructions are available
-on modern 64-bit x86 processors\footnote{More instructions are added in most new releases of CPUs. There are different
+on modern 64-bit x86 processors\cite{intel-3a}\footnote{More instructions are added in most new releases of CPUs. There are different
 SIMD instruction sets available on different processor models. I have used the sse through avx instruction sets in this
 code.}. Their purpose is to enable whats known as vector processing of data on x86 machines. This provides the ability
 to apply a mathematical operation to one or more arrays, and have that operation by applied to each element. For example,
@@ -235,7 +226,7 @@ update the value at the same time. A more detailed discussion of the code and wh
 
 \subsection{Benchmarking Performance}
 Benchmarks were done by placing two calls to \texttt{gettimeofday(3)} around the core of the solver. This function has a
-granularity of 1 microsecond CITE ME. This code returns
+granularity of 1 microsecond\cite{gtod}. This code returns
 both the number of iterations done and the difference between the two gettimeofday calls, which are then used to calculate
 the iterations per second. In order to take into account error from unpredicatble scheduling effect from the operating system,
 each benchmark was run 300 times, and the standard deviation and mean were calculated, along with 95\% confidence intervals. Several different computers were used:

@@ -1,9 +1,9 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Methods}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Discreetizing Poisson's Equation}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Iterative Methods}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Jacobi Iteration}{subsection.2.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Successive Over-Relaxation}{subsection.2.2}% 6
+\BOOKMARK [2][-]{subsection.1.1}{Discreetizing Poisson's Equation}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Performance Considerations}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Methods}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Jacobi Iteration}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Successive Over-Relaxation}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.3}{Design of Solver}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.4}{Configurations and Mapping to Electrostatics}{section.2}% 8
 \BOOKMARK [2][-]{subsection.2.5}{Verifying Correctness}{section.2}% 9
@@ -20,13 +20,15 @@
 \BOOKMARK [2][-]{subsection.4.1}{Correctness}{section.4}% 20
 \BOOKMARK [2][-]{subsection.4.2}{Performance}{section.4}% 21
 \BOOKMARK [2][-]{subsection.4.3}{Future Work}{section.4}% 22
-\BOOKMARK [1][-]{section*.12}{Appendices}{}% 23
+\BOOKMARK [1][-]{section*.15}{Appendices}{}% 23
 \BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 24
 \BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 25
-\BOOKMARK [2][-]{subsection.1.B.1}{Freebies}{Appendix.1.B}% 26
-\BOOKMARK [2][-]{subsection.1.B.2}{A Model of Processor Design}{Appendix.1.B}% 27
-\BOOKMARK [2][-]{subsection.1.B.3}{Structure of Arrays}{Appendix.1.B}% 28
-\BOOKMARK [2][-]{subsection.1.B.4}{Multithreading}{Appendix.1.B}% 29
-\BOOKMARK [2][-]{subsection.1.B.5}{Vectorization}{Appendix.1.B}% 30
-\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Branch Reduction}{subsection.1.B.5}% 31
-\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 32
+\BOOKMARK [2][-]{subsection.1.B.1}{Lazy Programs Are Better}{Appendix.1.B}% 26
+\BOOKMARK [2][-]{subsection.1.B.2}{Freebies}{Appendix.1.B}% 27
+\BOOKMARK [2][-]{subsection.1.B.3}{A Model of Processor Design}{Appendix.1.B}% 28
+\BOOKMARK [3][-]{subsubsection.1.B.3.1}{Caching}{subsection.1.B.3}% 29
+\BOOKMARK [2][-]{subsection.1.B.4}{Structure of Arrays}{Appendix.1.B}% 30
+\BOOKMARK [2][-]{subsection.1.B.5}{Multithreading}{Appendix.1.B}% 31
+\BOOKMARK [2][-]{subsection.1.B.6}{Vectorization}{Appendix.1.B}% 32
+\BOOKMARK [3][-]{subsubsection.1.B.6.1}{Branch Reduction}{subsection.1.B.6}% 33
+\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 34

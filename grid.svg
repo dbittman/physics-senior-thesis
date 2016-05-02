@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="153px"
+   height="144px"
+   version="1.1"
+   style="background-color: rgb(255, 255, 255);"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="grid.svg">
+  <metadata
+     id="metadata170">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="923"
+     inkscape:window-height="1008"
+     id="namedview168"
+     showgrid="false"
+     inkscape:zoom="13.111111"
+     inkscape:cx="48.984594"
+     inkscape:cy="112.08652"
+     inkscape:window-x="1463"
+     inkscape:window-y="47"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g6" />
+  <defs
+     id="defs4" />
+  <g
+     transform="translate(0.5,0.5)"
+     id="g6">
+    <ellipse
+       cx="35"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse8" />
+    <circle
+       cx="50"
+       cy="28"
+       pointer-events="none"
+       id="ellipse10"
+       stroke="#000000"
+       fill="#0000cc"
+       ry="4.999999999999999"
+       rx="4.999999999999999" />
+    <ellipse
+       cx="65"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse12" />
+    <ellipse
+       cx="80"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse14" />
+    <ellipse
+       cx="95"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse16" />
+    <ellipse
+       cx="110"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse18" />
+    <ellipse
+       cx="125"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse20" />
+    <ellipse
+       cx="140"
+       cy="28"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse22" />
+    <ellipse
+       cx="35"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse24" />
+    <ellipse
+       cx="50"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse26" />
+    <ellipse
+       cx="65"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse28" />
+    <ellipse
+       cx="80"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse30" />
+    <ellipse
+       cx="95"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse32" />
+    <ellipse
+       cx="110"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse34" />
+    <ellipse
+       cx="125"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse36" />
+    <ellipse
+       cx="140"
+       cy="43"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse38" />
+    <ellipse
+       cx="35"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse40" />
+    <ellipse
+       cx="50"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse42" />
+    <ellipse
+       cx="65"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse44" />
+    <ellipse
+       cx="80"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse46" />
+    <ellipse
+       cx="95"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse48" />
+    <ellipse
+       cx="110"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse50" />
+    <ellipse
+       cx="125"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse52" />
+    <ellipse
+       cx="140"
+       cy="58"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse54" />
+    <ellipse
+       cx="35"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse56" />
+    <ellipse
+       cx="50"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse58" />
+    <ellipse
+       cx="65"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse60" />
+    <ellipse
+       cx="80"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse62" />
+    <ellipse
+       cx="95"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse64" />
+    <ellipse
+       cx="110"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse66" />
+    <ellipse
+       cx="125"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse68" />
+    <ellipse
+       cx="140"
+       cy="73"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse70" />
+    <ellipse
+       cx="35"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse72" />
+    <ellipse
+       cx="50"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse74" />
+    <ellipse
+       cx="65"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse76" />
+    <ellipse
+       cx="80"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse78" />
+    <ellipse
+       cx="95"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse80" />
+    <ellipse
+       cx="110"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse82" />
+    <ellipse
+       cx="125"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse84" />
+    <ellipse
+       cx="140"
+       cy="88"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse86" />
+    <ellipse
+       cx="35"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse88" />
+    <ellipse
+       cx="50"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse90" />
+    <ellipse
+       cx="65"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse92" />
+    <ellipse
+       cx="80"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse94" />
+    <ellipse
+       cx="95"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse96" />
+    <ellipse
+       cx="110"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse98" />
+    <ellipse
+       cx="125"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse100" />
+    <ellipse
+       cx="140"
+       cy="103"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse102" />
+    <ellipse
+       cx="35"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse104" />
+    <ellipse
+       cx="50"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse106" />
+    <ellipse
+       cx="65"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse108" />
+    <ellipse
+       cx="80"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse110" />
+    <ellipse
+       cx="95"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse112" />
+    <ellipse
+       cx="110"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse114" />
+    <ellipse
+       cx="125"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse116" />
+    <ellipse
+       cx="140"
+       cy="118"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse118" />
+    <ellipse
+       cx="35"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse120" />
+    <ellipse
+       cx="50"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse122" />
+    <ellipse
+       cx="65"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse124" />
+    <ellipse
+       cx="80"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse126" />
+    <ellipse
+       cx="95"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse128" />
+    <ellipse
+       cx="110"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse130" />
+    <ellipse
+       cx="125"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse132" />
+    <ellipse
+       cx="140"
+       cy="133"
+       rx="4.999999999999999"
+       ry="4.999999999999999"
+       fill="#0000cc"
+       stroke="#000000"
+       pointer-events="none"
+       id="ellipse134" />
+    <path
+       d="M 10.94 37 L 10.94 79.72 L 11.04 116.63"
+       fill="none"
+       stroke="#000000"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path136" />
+    <path
+       d="M 11.05 121.88 L 7.53 114.89 L 11.04 116.63 L 14.53 114.87 Z"
+       fill="#000000"
+       stroke="#000000"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path138" />
+    <path
+       d="m 49.271186,13.06 47.245231,0 26.813583,0"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path152"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.97235382;stroke-miterlimit:10" />
+    <path
+       d="M 128.58 13.06 L 121.58 16.56 L 123.33 13.06 L 121.58 9.56 Z"
+       fill="#000000"
+       stroke="#000000"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path154" />
+    <g
+       transform="translate(27,5)scale(0.9999999999999999)"
+       id="g156" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="25.737289"
+       y="16.584745"
+       id="text3498"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3500"
+         x="25.737289"
+         y="16.584745"
+         style="font-size:10px">j=0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="5.8091068"
+       y="30.936754"
+       id="text3498-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3500-0"
+         x="5.8091068"
+         y="30.936754"
+         style="font-size:10px">i=0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="3.9785981"
+       y="135.88591"
+       id="text3498-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="3.9785981"
+         y="135.88591"
+         style="font-size:10px"
+         id="tspan3544">i=n</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="130.89386"
+       y="16.292688"
+       id="text3498-86"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3500-1"
+         x="130.89386"
+         y="16.292688"
+         style="font-size:10px">j=n</tspan></text>
+    <circle
+       r="5"
+       style="fill:#0000cc;stroke:#000000"
+       cx="50.296612"
+       cy="27.949154"
+       pointer-events="none"
+       id="ellipse12-7" />
+  </g>
+</svg>

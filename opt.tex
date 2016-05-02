@@ -17,7 +17,27 @@ is not orders of magnitude better than what I have achieved, however, there is s
 that can be done (including a potentially significant optimization that I have neglected, and will talk
 about later).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACTUALLY TALK ABOUT THAT ************************
+%TODO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACTUALLY TALK ABOUT THAT ************************
+
+\subsection{Lazy Programs Are Better}
+
+Before taking up a sharp cutting tool and carving away a program to make it run faster, it helps to examine
+what exactly is the program trying to accomplish and how. There are often multiple ways to solve a problem,
+and some of them may be more efficient than others. In my case, I utilized two different methods of solving
+a problem: Jacobi iteration and successive over-relaxation. One of them was significantly faster than the other
+not because each iteration of the program was quicker but because it had to do less iterations. It was using a
+smarter algorithm.
+
+Computer scientists talk about algorithmic complexity using order notation. For example, given a random list
+of numbers, if I want to test to see if a certain number if in the list, I need to look through the whole
+list in order to check if it is there. This is an $O(n)$ operation, meaning that if the list is of size $n$, I
+have to do $n$ operations to determine if the item is there or not. Data structures commonly have operations
+associated with them, and those operations (such as \texttt{find}, \texttt{insert}, etc) have associated
+time costs. Choosing the correct data structure for a problem is one of the first steps towards correctly
+organizing a program for it to be efficient. If a program is constantly searching through a list to find
+values when instead a simple hash table could be used, the program will run slowly. A program should not
+do additional work when it does not need to. Only once the data structures have been properly designed
+and the algorithms properly thought through should \textit{optimization} be done.
 
 \subsection{Freebies}
 
@@ -88,7 +108,22 @@ the interpreted python version!) finish instantly.
 
 \subsection{A Model of Processor Design}
 
+When first learning to program in a language that does more accurately display what is going on
+inside of a computer, it is helpful to have a mental model for what is going on during each
+simple operation that a programmer might want to do. Since programs are sets of instructions
+which define transformations on data, it is tempting to think about a model such as in figure~\ref{fig:1a},
+where there is some nebulous device which follows your instructions and is connected to a large amount
+of memory in which your variables and data structures live.
 
+Unfortunately, while this is a convenient abstraction to think about programming up an application, it
+is not actually what is going on\footnote{I do not claim that what I am about to describe is what is ``actually going on'' either,
+but it is at least significantly less of a lie.}. A more realistic model is shown in figure~\ref{fig:1b}. There are
+several key take aways from this. One of them is that RAM is \textit{really slow}. The second is that the processor
+chip is aware that RAM is really slow and so it aggressively caches everything that it ever gets out of RAM. This diagram
+shows the actual detailed level of caches that cores have on them, and that they have a shared cache, but most of that
+complexity is not needed for a basic understanding. When one makes first steps towards optimizing a program, it is vital
+to think in the more complex model, because a huge amount of time will be spent trying to optimize the program according
+to how the processor actually works.
 
 \begin{figure}[h]
 \begin{subfigure}{0.4\textwidth}
@@ -102,9 +137,37 @@ the interpreted python version!) finish instantly.
 \end{subfigure}
 \label{fig:cpu-and-ram}
 \caption{View of programming that programmers like to have (a), versus the the more realistic
-and complicated view.}
+	and complicated view (b).}
 \end{figure}
 
+\subsubsection{Caching}
+
+On modern processor chips, the vast majority of the silicon is used to implement a memory cache. This gives an indication
+of how important it is. Think of the cache as a smaller, but much much faster memory that the processor accesses whenever
+it would access RAM. If it finds the value in the cache, reading a value can take between 1 and 10's of nanoseconds. However,
+if it does not find the value in the cache, it must then perform a read from memory, which can take hundreds of nanoseconds.
+For scale, a single instruction very often takes less than a nanosecond to do. This means that if a program makes a lot of
+memory accesses, the processor will spend a lot of time waiting and not much time calculating.
+
+Earlier in this document, I described a phenomenon which describes how important caching is. Given a 2-D array, there are two
+ways to iterate over the whole thing: line-by-line or column-by-column. On my computer, the line-by-line method was five times
+faster than the alternative. This has to do with the cache, and specifically, \textit{cache lines}. When reading a value out
+of memory for the first time, the processor actually reads many values, something like 64 bytes worth of data. This is fact
+of the design of the hardware, and is partly because if you read a value $x$ from RAM, the processor expects you will want to
+access memory that is nearby $x$ in the near future. Thus, if you iterate over an array line-by-line, when you access the
+first element of a line you are actually reading in multiple elements of the array into the cache at once. When the processor
+then tries to access the second element of the line, it finds that it is already in the cache, making that access much faster
+than if it had not been in the cache. If you iterate over the array column-by-column, you read the first element of the line,
+which loads several elements from that line into the cache, and then \textit{those values are ignored} and the first element
+of the second line is read. This means that when reading the first element of the lines, each time the processor has to fetch
+the value from RAM and does not get a chance to make use of the cache. By the time an entire column has been read, the cache
+may be full, forcing the processor to remove old values from it. Then, when the program reads the second element of the first line,
+that data no longer in the cache. This is extremely slow.
+
+If possible, try to keep the amount of memory that the program accesses small. Try to organize the access patters such that it is
+something that the processor is good at handling (like the iteration direction choice above). I have utilized these methods in my
+solver program. An example for keeping memory footprint small was to reuse variables inside the grid that I knew were safe to reuse.
+Additionally, I used \texttt{float}s instead of \texttt{double}s wherever possible, as this reduces memory usage as well.
 
 \subsection{Structure of Arrays}
 

@@ -6,19 +6,26 @@ and so it does not matter which machine the test was run on. For results that me
 for the simulation used will be specified. There are times when the number of threads affected the correctness of the
 result.
 
+Additionally, all results presented use the successive over-relaxation method for calculating the soltuion. This is because
+it converges more quickly on a solution that Jacobi iteration. Both methods produce the same results (as long as the Jacobi
+iteration runs for long enough), so the correctness results are unaffected by the choice of algorithm. Secondly, the performance
+measurements measure iterations per second, which is also largely independent of the choice of algorithm. Since successive
+over-relaxation is so much more effective at quickly converging upon a solution, it is presented as the program's primary
+mode of operation, with Jacobi iteration provided as a secondary and deprecated option.
+
 \subsection{The $\sin(x)$ Potential}
 
 	\begin{figure}[h]
 	\centering
 	\includegraphics[width=1.1\linewidth]{sin300_calc.pdf}
-	\caption{Simplistic view of CPU and RAM.} 
+	\caption{Result of simulation for the $\sin(x)$ potential.} 
 	\label{fig:sin-result}
 	\end{figure}
 
 	\begin{figure}[h]
 	\centering
 	\includegraphics[width=1.1\linewidth]{sin300_exact.pdf}
-	\caption{More realistic view of CPU and RAM.}
+	\caption{Analytical result for the $\sin(x)$ potential.}
 	\label{fig:sin-analytic}
 	\end{figure}
 
@@ -36,7 +43,7 @@ described earlier, we have calculated that the RMS error in this simulation to b
 	\begin{figure}[h]
 	\centering
 	\includegraphics[width=1.1\linewidth]{sin300_diff.pdf}
-	\caption{More realistic view of CPU and RAM.}
+	\caption{Difference between the calculated and analytical results for the $\sin(x)$ potential.}
 	\label{fig:sin-difference}
 	\end{figure}
 
@@ -53,7 +60,7 @@ electric dipole. This is another excellent verifier that the simulation is produ
 	\centering
 	\center
 	\includegraphics[width=1.1\linewidth]{dipole_contours.pdf}
-	\caption{Fitting a $1/r^2$ curve to the calculated dipole potential.} \label{fig:dipole-cont}
+	\caption{Result of the simulation for the dipole configuration, including contour lines.} \label{fig:dipole-cont}
 	\end{figure}
 
 The potential was then measured at locations increasing in distance from the dipole in an arbitrary direction.
@@ -78,7 +85,7 @@ figure~\ref{fig:dipole-field}.
 	\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{dipole_field.pdf}
-	\caption{Fitting a $1/r^2$ curve to the calculated dipole potential.} \label{fig:dipole-field}
+	\caption{Result of program outputting the electric field for the dipole configuration.} \label{fig:dipole-field}
 	\end{figure}
 
 
@@ -157,32 +164,6 @@ to how much work they actually have to do is large in this case compared to the 
 \caption{Different grid sizes for the $\sin(x)$ configuration, and their performance characteristics.}
 \label{fig:perf-sizes}
 \end{figure}
-
-%		\addplot[ybar,fill=green,mark=none] coordinates {(0,   1513.05)};
-% \addplot[ybar,fill=blue,mark=none] coordinates {(0,   1459.24)};
-% \addplot[ybar,fill=red] coordinates {(0,   3174.49)};
-% \addplot[ybar,fill=orange] coordinates {(0,   2354.03)};
-
-	% \addplot[ybar,fill=green,mark=none] coordinates {(1,   1513.05)};
-	% \addplot[ybar,fill=blue,mark=none] coordinates {(1,   1459.24)};
-	% \addplot[ybar,fill=red] coordinates {(1,   3174.49)};
-	% \addplot[ybar,fill=orange] coordinates {(1,   2354.03)};
-
-	% \addplot[ybar,fill=green,mark=none] coordinates {(2,   1513.05)};
-	% \addplot[ybar,fill=blue,mark=none] coordinates {(2,   1459.24)};
-	% \addplot[ybar,fill=red] coordinates {(2,   3174.49)};
-	% \addplot[ybar,fill=orange] coordinates {(2,   2354.03)};
-
-
-
-
-
-
-
-
-
-
-
 
 Figure~\ref{fig:perf-numthreads} shows the performance in iterations per second of the solver when run
 with the $\sin(x)$ potential with a grid size of 300 by 300. This was done on computer B, and so was done

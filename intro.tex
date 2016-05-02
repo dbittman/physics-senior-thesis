@@ -1,0 +1,76 @@
+\section{Introduction}
+
+Boundary value problems, problems defined by a partial differential equation and a set of
+constraints on the solution, are found in many areas of physics. These include problems
+such as finding the temperature of a rod that has a given temperature on either end,
+determining the electric potential inside a region given the potential around the
+boundary, or determining the flow of an incompressible fluid. As the complexity of 
+these problems increases, however, the feasibility of solving them exactly by hand
+quickly decreases. Instead, we have the option to solve them with iterative methods
+using computers. These types of problems are well-suited for computers because
+they are easily parallelizable~\cite{parallel}. I have developed an
+implementation of such a solver for electrostatics and fluid flow utilizing the 
+parallelizability of the problem and designed it to be efficient, taking advantage 
+of the design of modern CPUs.
+
+Although many differential equations are typically used in boundary value problems,
+I will limit the focus to the Poisson equation. Named after Siméon Denis Poisson, the Poisson equation
+is used in a number of typical boundary value problems, including electrostatics.
+In 2-dimensional Euclidean space it is\cite{boas},
+$$\nabla^2 \phi = f,$$
+where $f$ is a real-valued function inside the space and $\phi$ is the steady-state
+solution for the potential in the space. However, since this solution will be calcuated
+numerically on a computer, we must discretize the equation so that it can be used to
+represent a solution on a 2-dimensional grid.
+
+\subsection{Discreetizing Poisson's Equation}
+
+\begin{figure}[htb]
+	\centering
+	\includesvg{grid}
+	\caption{Visualization of grid, with indicies.}
+\label{grid}
+\end{figure}
+
+Consider a grid of size $n$ by $n$ as in figure~\ref{grid}\footnote{In general, it is not difficult to allow a rectangular grid, but for simplicity
+we will require the grid to be square.}, with values represented by $u_{i,j}$. We want to apply the Poisson equation to
+this $u$ as follows:
+$$\nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial x^2} = f,$$
+however, $u$ is not continuous, so the partial derivative for $x$ becomes
+$$\frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i-1,j} - 2 u_{i,j} + u_{i+1,j}}{h^2},$$
+at a grid point $(i,j)$, where $h = 1 / n$ is the width and height of a grid cell. The partial derivative for $y$ is similar, using $j$ instead of $i$.
+This gives the full discrete Poisson equation as\cite{poisson-relax}\cite{myths},
+$$\frac{u_{i-1,j} - 2 u_{i,j} + u_{i+1,j}}{h^2} + \frac{u_{i,j-1} - 2 u_{i,j} + u_{i,j+1}}{h^2} = f_{i,j}.$$
+
+Since $u_{i,j}$ is what we are interested in, this is more useful after some rearranging:
+$$h^2f_{i,j} = -4u_{i,j} + u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1},$$
+\begin{equation} \label{eq:poisson}
+u_{i,j} = \frac{1}{4}(u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1} - h^2f_{i,j}).
+\end{equation}
+
+It can be seen from the top equation that this is now a linear algebra problem, requiring a method of solving
+$n^2$ dependent linear equations. This means that we can apply one of several standard iterative methods
+for solving the problem. This is an excellent application of using a computer to solve numerically a problem
+	which is difficult to solve analytically.
+
+\subsection{Performance Considerations}
+While operations on a grid of values are parallelizable, there is a limit to
+the effectiveness of multi-threading the algorithm. Take, for example, an average
+modern processor with 4 cores each with a 256KB cache and a shared cache of 8MB\@. Each core
+can only operate on a grid of 256 by 256 32-bit values before exhausting its cache.
+A performance drop will occur if the grid size per core exceeds the core's cache
+size. For example, should the grid size exceed 1440 by 1440 32-bit values,
+the shared 8MB cache will
+be filled, resulting in a massive performance penalty. For this reason, na\"{i}vely splitting
+the grid into 4 areas and multi-threading the iteration may result in sub-par performance.
+
+There are many other aspects of processor design that come into play when writing a program
+such as this. Multithreaded synchronization aside, there are many details of caching that
+need to be considered. Of course, optimizing a program is just like any experiment in that
+it is absolutely vital to apply normal scientific practices when doing such work. Many make
+the mistake of simply writing what they believe to be a more optimized version of a program
+without measuring the resulting performance and comparing it to the previous version.
+
+I would expect to see the performance enhanced by the use of multithreading, but insignificantly
+due to the large amount of memory accesses made by the program throughout solving a given problem.
+
