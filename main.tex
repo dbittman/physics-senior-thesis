@@ -80,7 +80,7 @@
 	\rule{2.5in}{2pt}\hfill
 	\rule{2.5in}{2pt} \\
 	Professor Jason Nielsen \hfill Professor David P. Belanger\\
-	Thesis Advisor \hfill Thesis Coordinator\\
+	Thesis Adviser \hfill Thesis Coordinator\\
 
 	\vspace{15mm}
 	\rule{2.5in}{2pt}\\
@@ -153,12 +153,12 @@ SOFTWARE.
 	\textbf{Acknowledgements}
 	\vspace{50mm}
 
-	A huge thank you to my thesis advisor, Jason Nielsen, for providing the opportunity
+	A huge thank you to my thesis adviser, Jason Nielsen, for providing the opportunity
 	to work on this interesting project, and for the many interesting conversations over
 	the quarters past.
 
 	\vspace{10mm}
-	The Storage Systems Reseach Center at UC Santa Cruz for some of their machines in order
+	The Storage Systems Research Center at UC Santa Cruz for some of their machines in order
 	to test the performance of this system.
 
 \end{center}
@@ -182,23 +182,23 @@ There are many problems in physics which involve solving a set of equations whic
 inside some region. One such set of problems, among many, is solving electrostatics problems inside
 a region given some boundary conditions by utilizing Poisson's equation. Such problems, and other
 problems, are commonly found in simple and analytically solvable forms in undergraduate physics classes.
-Unfortunately, these problems can become intractible to solve analytically very quickly as their complexity
-increases. Complex boundary conditions in stangely shaped regions can easy become impossibly difficult to
+Unfortunately, these problems can become intractable to solve analytically very quickly as their complexity
+increases. Complex boundary conditions in strangely shaped regions can easy become impossibly difficult to
 solve. The solution to this problem can be to model it on a computer in order to compute a numerical solution
 in place of an analytical one.
 
 I have written a software package which is both a C library which can solve such a given problem and a frontend
-Python program which can parse a human-readable configuation that describes such a boundary value problem and
+Python program which can parse a human-readable configuration that describes such a boundary value problem and
 set up the correct initial state such that the C library can then solve it, allowing the Python program to
 display the final result as well as calculate statistics about the solving process. I have utilized effective
 programming techniques designed for current generation hardware 64-bit x86 processors in order to improve
 the performance of the program, in addition to implementing a multi-threaded version of the solving program
-to explore the use of multicore processors in solving these problems.
+to explore the use of multi-core processors in solving these problems.
 
-I found that the program correctly matched an analytical soltuion to a simple test problem, and that it correctly
+I found that the program correctly matched an analytical solution to a simple test problem, and that it correctly
 predicted the $1/r^2$ potential found from an electric dipole. I was able to optimize the program so that it
-efficiently found these results, and I was able to successfully leverage multithreading to significantly increase
-the performance, albiet with a degredation in simulation accuracy.
+efficiently found these results, and I was able to successfully leverage multi-threading to significantly increase
+the performance, albeit with a degradation in simulation accuracy.
 
 \clearpage
 \doublespacing
@@ -244,6 +244,21 @@ is available at \url{http://github.com/dbittman/statics-solver}.
 
 \clearpage
 
+\section*{Software Used}
+
+\begin{enumerate}
+	\item \texttt{gnuplot}. \url{http://www.gnuplot.info}
+	\item \texttt{gcc}, and associated development toolchain. \url{http://gcc.gnu.org}, \url{https://www.gnu.org/software/binutils}, etc.
+	\item \texttt{python 3}. \url{https://www.python.org}, including packages:
+		\begin{enumerate}
+			\item \texttt{matplotlib}
+			\item \texttt{numpy}
+			\item \texttt{ctypes}
+			\item \texttt{pickle}
+		\end{enumerate}
+\end{enumerate}
+
+\clearpage
 \bibliographystyle{plain}
 \bibliography{main}
 

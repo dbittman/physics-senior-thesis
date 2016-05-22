@@ -15,7 +15,7 @@ When optimizing a program, there is an important cardinal rule to follow which a
 is easy to forget in the face of increasingly interesting and complex minor optimizations
 designed to squeeze every bit of performance out of your computer. Unfortunately, due
 to the complexity of modern computer hardware, it is
-very difficult to predict if a given micro-optimization will actually be benificial or
+very difficult to predict if a given micro-optimization will actually be beneficial or
 not. For this reason, the most important rule when taking a working program and making it
 fast is\footnote{besides \textit{don't break it}, of course. An incorrect program is worthless, no matter
 how fast it is.} \textit{benchmark everything}.
@@ -59,7 +59,7 @@ organization of this program: the frontend (which has no performance requirement
 python because parsing the configuration file is much easier. The backend needs to be fast, so it
 is implemented in \texttt{C}.
 
-A quick and rough experiement can easily convince you that this is true (remember how I said to
+A quick and rough experiment can easily convince you that this is true (remember how I said to
 benchmark everything?). Credit to my friend Chris Milke for doing this test. Write the following
 code in both python and in C: initialize a variable to zero. Then loop from zero to some large
 number (we used 123,456,789), and add that iteration to the variable. After the loop, print the
@@ -109,7 +109,7 @@ a big number, adding that iteration to the variable, and finally printing the va
 	\texttt{mov eax, 0} &\texttt{} \\
 	\texttt{call 4003c0 <printf@plt>} &\texttt{} \\
 \end{tabular}
-	\caption{Unoptimzed and optimized assembly from the sum-a-lot-of-numbers example.}
+	\caption{Unoptimized and optimized assembly from the sum-a-lot-of-numbers example.}
 	\label{table:assem-1}
 \end{table}
 
@@ -129,7 +129,7 @@ of memory in which your variables and data structures live.
 Unfortunately, while this is a convenient abstraction to think about programming up an application, it
 is not actually what is going on\footnote{I do not claim that what I am about to describe is what is ``actually going on'' either,
 but it is at least significantly less of a lie.}. A more realistic model is shown in figure~\ref{fig:1b}. There are
-several key take aways from this. One of them is that RAM is \textit{really slow}. The second is that the processor
+several key takeaways from this. One of them is that RAM is \textit{really slow}. The second is that the processor
 chip is aware that RAM is really slow and so it aggressively caches everything that it ever gets out of RAM. This diagram
 shows the actual detailed level of caches that cores have on them, and that they have a shared cache, but most of that
 complexity is not needed for a basic understanding. When one makes first steps towards optimizing a program, it is vital
@@ -196,16 +196,16 @@ is likely using SIMD style data accesses, and they are helped tremendously by be
 cells at once. Because organizing the data in a SOA method places all of the values that have the same meaning for each cell next to
 each other, there is a benefit seen both in the way the code is trying to access the data and in the way the processor is caching it.
 
-\subsection{Multithreading}
+\subsection{Multi-threading}
 
-Multithreading a program is a solution to performance problems that is commonly thrown out in a loose way. Multithreading something is
+Multi-threading a program is a solution to performance problems that is commonly thrown out in a loose way. Multi-threading something is
 typically only effective when there are multiple largely independent pieces of work to be done in a system. It does not always improve
 performance. This is a situation, like any other performance question, where is important to measure before and after and determine
 if it is worth it.
 
 \subsubsection{Undefined Behavior Land}
 
-One huge problem in multithreaded programming is data synchronization. Consider a simple example, where there are four threads which
+One huge problem in multi-threaded programming is data synchronization. Consider a simple example, where there are four threads which
 are all sharing a variable named $x$ which initially starts with a value of 4. If all threads execute the code \texttt{x++}, what are
 the possible value\textbf{s} of $x$? Ideally, just 8, but that is not the case. The reason is because \texttt{x++} is really three
 separate operations: 1) read $x$ into the CPU, 2) increment the value inside the CPU, and 3) write the new value to $x$ in memory.
@@ -215,18 +215,18 @@ back 5, resulting in two increment operations appearing as if only one had happe
 The answer is, $x$ could be 5, 6, 7, or 8, and there is \textit{no way to predict which one}. At least one increment will happen, and
 that is all that can be known\footnote{Technically, this is not really true, as this is undefined behavior which is quite literally undefined, and
 so your program could do anything from incrementing $x$ to 9 to selling your liver on the black market (though this is admittedly unlikely).}. This is an example of undefined
-behaviour and is very common in multithreaded programs.
+behavior and is very common in multi-threaded programs.
 
 Fortunately, C11 provides a simple solution: declaring variables as \texttt{\_Atomic} (for example, \texttt{\_Atomic int x}). If $x$ in
 the example above were to be declared this way, then the answer to the above problem is simply ``just 8''. The advantage is that there
 is no loss of information when multiple threads operate on a single shared variable. The disadvantage is that this is slower because
-it effectively ``locks'' that part of the memory and prevents other operations from occuring until one completes. This is supported
+it effectively ``locks'' that part of the memory and prevents other operations from occurring until one completes. This is supported
 in hardware for integer types, but not floating point types. This makes atomic floating point variables particularly slow because they
 need extra locking, and therefore extra memory accesses and CPU time for every access.
 
-This was the problem I ran into when designing the multithreading in the solver application. There was a shared floating point value
+This was the problem I ran into when designing the multi-threading in the solver application. There was a shared floating point value
 to keep track of how much the simulation had changed after each iteration. This ended up being slower than the single threaded case.
-By minimizing the shared state between threads and limiting the communication of floating point values between threads as much pos
+By minimizing the shared state between threads and limiting the communication of floating point values between threads as much as
 possible, there was a huge performance improvement.
 
 \subsubsection{More Threads Means More Data}
@@ -235,7 +235,7 @@ An additional concern with multiple threads is that you can run out of cache spa
 on some block of data (because sequential data access is fast, so that is what you would do, of course), there are multiple threads
 working on different parts of memory at the same time. This means they are fighting over cache space. It is entirely possible for
 adding threads to make something \textit{slower}, because of this contention. Again, the key comes down to measuring. It is hard to
-know ahead of time what will help and what will not. Multithreading only makes things worse, since now the program can be run in a
+know ahead of time what will help and what will not. Multi-threading only makes things worse, since now the program can be run in a
 non-deterministic manner: sometimes some threads will be slower, sometimes they will be faster. This makes it even harder to predict,
 and more complicated to measure.
 
@@ -257,7 +257,7 @@ do not beat order notation, and searching a hash table for a value ($O(1)$) is \
 in an array ($O(n)$). Thirdly, make sure that there is not hidden cost in using a data structure, avoid repeated work that does not need to be repeated,
 and be aware of some basic reasonably fast algorithms (sorting, for example). Fourth, use a programming language which compiles to direct processor
 instructions (C, C++, among others), and use the optimization options for the language. Fifth, organize the program's data so that accessing it is
-typically sequential, and try to design the layout of data such that it is easy for the compiler and the processor to optimize. Sixth, multithreading
+typically sequential, and try to design the layout of data such that it is easy for the compiler and the processor to optimize. Sixth, multi-threading
 can help, but it can also be tricky to get right. Finally, work on reducing memory footprint, branches, code complexity, and complicated slow
 math if possible.
 

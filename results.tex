@@ -6,7 +6,7 @@ and so it does not matter which machine the test was run on. For results that me
 for the simulation used will be specified. There are times when the number of threads affected the correctness of the
 result.
 
-Additionally, all results presented use the successive over-relaxation method for calculating the soltuion. This is because
+Additionally, all results presented use the successive over-relaxation method for calculating the solution. This is because
 it converges more quickly on a solution that Jacobi iteration. Both methods produce the same results (as long as the Jacobi
 iteration runs for long enough), so the correctness results are unaffected by the choice of algorithm. Secondly, the performance
 measurements measure iterations per second, which is also largely independent of the choice of algorithm. Since successive
@@ -86,7 +86,7 @@ figure~\ref{fig:dipole-field}.
 	\end{figure}
 
 
-\subsection{Jacobi Vesus Sucessive Over-Relaxation}
+\subsection{Jacobi Versus Successive Over-Relaxation}
 Figure~\ref{fig:jacsor} shows the convergence rates for Jacobi iteration and successive over-relaxation. The SOR method
 reached convergence very quickly compared to Jacobi iteration -- around iteration 350, where as Jacobi iteration at the
 same iteration was 100 times worse than SOR. This is the reason why I use SOR in most of my analysis; it reaches convergence
@@ -170,7 +170,7 @@ to how much work they actually have to do is large in this case compared to the 
 \addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=5, y error index=6] \dataset; %Data3
 \addplot+[error bars/.cd, y dir=both, y explicit] table[x index=0,y index=7, y error index=8] \dataset; %Data3
 
-	\legend{Single Threaded SIMD, Single Threaded, Multithreaded (4 threads), Multithreaded (4 threads) SIMD}
+	\legend{Single Threaded SIMD, Single Threaded, Multi-threaded (4 threads), Multi-threaded (4 threads) SIMD}
 \end{axis}
 \end{tikzpicture}
 \caption{Different grid sizes for the $\sin(x)$ configuration, and their performance characteristics.}
@@ -236,14 +236,14 @@ tests were done on computer B, using the $\sin(x)$ potential with a grid size of
 
 
 
-Furthermore, figure~\ref{fig:err-numthreads} shows that it is disadventagous to run the simulation with
+Furthermore, figure~\ref{fig:err-numthreads} shows that it is disadvantageous to run the simulation with
 a large number of threads. The RMS error of the simulation compared to the analytical result increases
 rapidly with the number of threads. This is also reflected in the result of the simulation, which is
-noticably wrong in the case of 16 or higher threads. I believe this to be the result of the way the threads
+noticeably wrong in the case of 16 or higher threads. I believe this to be the result of the way the threads
 are synchronized, or more accurately, how they are not. The threads run mostly in isolation, sharing the
 grid and doing operations on it without waiting for other threads to complete any of their work. This means
 that if one threads runs faster than the others, it may complete a different number of iterations than the other
-threads in a given amount of time. This would result in some sections of the grid recieving more iterations
+threads in a given amount of time. This would result in some sections of the grid receiving more iterations
 than others, which could have the effect of invalidating the simulation. The alternative method would be
 to synchronize the threads, and have them wait for each thread to complete a given iteration before moving on
 to the next one. Indeed, this was the original design of the system, and I found it to be so slow compared to

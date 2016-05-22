@@ -5,14 +5,14 @@
 The solving program is written in C\footnote{Specifically the 2011 revision to the C programming language. This means that a new enough
 C compiler, one which supports C11, is needed in order to compile the program.} in order to leverage the full performance of modern computers and is implemented
 as a shared library (on \textsc{unix}) such that it can be linked with another program which sets up the initial conditions
-before calling the solving function. The C code that does the solving is hereby refered to as the engine, while any code
+before calling the solving function. The C code that does the solving is hereby referred to as the engine, while any code
 that interfaces with the engine and provides a usable user interface is referred to as the frontend.
 
 % requires: discreet grid, boundary conditions
 % defines: E config file
 I have written an example frontend in Python, which is capable to parsing a configuration file which describes the
 values of $f$, the initial boundary conditions, the grid size, and a number of other details about a given desired
-setup (hereby collectively reffered to as a configuration). I have written several example configurations which I have used to
+setup (hereby collectively referred to as a configuration). I have written several example configurations which I have used to
 confirm the correctness of the solving program. For a more detailed technical description of the implementation, see Appendix~\ref{app:des}.
 
 
@@ -47,7 +47,7 @@ $f$ everywhere if need be, or create Dirichlet boundary conditions of arbitrary 
 
 % defines: mapping to electrostatics
 The available commands for a configuration file map to various initial and boundary conditions for an electrostatics problem
-in a straight forward way: the command to specifiy a Dirichlet boundary condition is like creating a boundary of fixed potential.
+in a straight forward way: the command to specify a Dirichlet boundary condition is like creating a boundary of fixed potential.
 The command to specify the initial value of cells is like specifying an initial charge distribution inside the region.
 
 
@@ -127,7 +127,7 @@ which should be reflected in the solution given by the program if it is given a 
 
 If the solving program is correct, then if two charges are placed near each other, the numerically calculated potential
 should display this $1/r^2$ behavior. I wrote such a configuration and had the frontend output the potential at points
-increasing in distance from the center of the dipole, allowing me to fit the data to a $1/r^2$ curve using gnuplot\cite{gnuplot}.
+increasing in distance from the center of the dipole, allowing me to fit the data to a $1/r^2$ curve using gnuplot.
 
 
 
@@ -142,18 +142,18 @@ increasing in distance from the center of the dipole, allowing me to fit the dat
 
 
 
-\subsection{Optimization and Multithreading}
+\subsection{Optimization and Multi-threading}
 \label{sec:opt-mul}
 The purpose of this program is to not only be correct, but to be correct quickly. In order to achieve this, I have
 tried three things in combination:
 \begin{enumerate}
 \item General program optimization, targeted towards 64-bit x86 machines
 \item The use of the x86 SIMD instruction set
-\item The use of multithreading to split up the work among CPU cores
+\item The use of multi-threading to split up the work among CPU cores
 \end{enumerate}
 The first of these is pretty basic. The heavy lifting of the solver is written in C so that it can run directly on the
 processor. When the program is compiled, I instruct the compiler to optimize the program to the best of its ability,
-and the program is written in such a way that it can be optimized well and does not waste time doing unneccesary work.
+and the program is written in such a way that it can be optimized well and does not waste time doing unnecessary work.
 
 As an example of this point, consider a 2-dimensional grid (2-D array), which must be iterated over (much like
 this program does). There are two ways to do this: either iterate row-by-row, or column-by-column. The end result is
@@ -218,7 +218,7 @@ to apply a mathematical operation to one or more arrays, and have that operation
 I can have a 128-bit register filled with 4 values, $x=(1,2,3,4)$, and other register like it, $y=(10, 10, 11, 11)$. I can
 then add them together to get $(11, 12, 14, 15)$, and this addition is issued with a single instruction. Furthermore, this
 takes the same amount of time as a single addition, because the processor can do the 4 separate addition operations in
-parallel\footnote{This is not the same as multithreading. The processor does these 4 separate addition operations in parallel
+parallel\footnote{This is not the same as multi-threading. The processor does these 4 separate addition operations in parallel
 using 4 separate addition circuits, thus doing these operations in parallel within one core.}.
 
 I have written in the use of SIMD instructions in the solver program in order to both reduce branches and to parallelize
@@ -249,11 +249,11 @@ but it may still use compiler-generated SIMD instructions.
 
 
 
-\subsection{Multithreading}
-Finally, I have added multithreading support to the solver. This is done by spitting up the grid into subregions which
+\subsection{Multi-threading}
+Finally, I have added multi-threading support to the solver. This is done by spitting up the grid into subregions which
 are contiguous in memory, and spawning $N$ threads via the \texttt{pthreads} threading library available on \textsc{unix} systems. Each thread is then given a region to work on,
 and they coordinate through shared state in order to decide when the solution has been reached. The initial implementation
-showed extremely poor results with multithreading (often being drastically slowed than the single threaded version)
+showed extremely poor results with multi-threading (often being drastically slowed than the single threaded version)
 due to the use of atomic shared variables. It was then re-written such that the code was unsafe but much faster. This
 is because each thread modifies a shared non-atomic variable that keeps track of the current total change per iteration
 after that thread itself completes a number of iterations over its region. This kind of shared memory access is much faster
@@ -282,7 +282,7 @@ update the value at the same time. A more detailed discussion of the code and wh
 Benchmarks were done by placing two calls to \texttt{gettimeofday(3)} around the core of the solver. This function has a
 granularity of 1 microsecond on Linux\cite{gtod}. This code returns
 both the number of iterations done and the difference between the two gettimeofday calls, which are then used to calculate
-the iterations per second. In order to take into account error from unpredicatble scheduling effect from the operating system,
+the iterations per second. In order to take into account error from unpredictable scheduling effect from the operating system,
 each benchmark was run 300 times, and the standard deviation and mean were calculated, along with 95\% confidence intervals. Several different computers were used:
 computer A was an Intel Core i5-3570K with 4 cores running at 3.4GHz with 16GB of RAM. Computer B was an Intel Xeon E5620
 with 4 cores with 2 threads each, running at 2.4GHz, with 24GB of RAM. Computer B did not support all of the SIMD instructions

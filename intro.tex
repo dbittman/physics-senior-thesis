@@ -8,7 +8,7 @@ boundary, or determining the flow of an incompressible fluid. As the complexity 
 these problems increases, however, the feasibility of solving them exactly by hand
 quickly decreases. Instead, we have the option to solve them with iterative methods
 using computers. These types of problems are well-suited for computers because
-they are easily parallelizable, can be discreetized easily, and require a lot of repetitive calculation~\cite{parallel}. I have developed an
+they are easily parallelizable, can be discretized easily, and require a lot of repetitive calculation~\cite{parallel}. I have developed an
 implementation of such a solver for electrostatics utilizing the 
 parallelizability of the problem and designed it to be efficient by taking advantage 
 of the design of modern CPUs. It can produce a solution to given problem given a description
@@ -37,16 +37,16 @@ Formally, the problems to solve are given with $f$ defined and with a region $\O
 $\partial\Omega$. These boundary conditions, along with $f$, are the primary inputs to the program which determine
 the solution it will give.
 
-\subsection{Discreetizing Poisson's Equation}
+\subsection{Discretizing Poisson's Equation}
 
 Since we are solving these problems using a computer, we must transform the problem definition into one which a computer
 can actually calculate. Computers do not do well with continuous functions and real numbers. The process of transforming
-a problem or equation into one which a computer can handle is called discreetization.
+a problem or equation into one which a computer can handle is called discretization.
 
 \begin{figure}[htb]
 	\centering
 	\includesvg{grid}
-	\caption{Visualization of grid, with indicies.}
+	\caption{Visualization of grid, with indices.}
 \label{grid}
 \end{figure}
 
@@ -83,7 +83,7 @@ and then iteratively solve each element in $u$, which depends on its four neares
 reality with Jacobi iteration presents itself: we must store a secondary copy of the entire grid because each calculation
 of $u_{i,j}^{k+1}$ strictly requires values from the previous iteration. Since we iterate over the grid in order to solve
 it, we cannot write the new value for the $k+1$ iteration into that element of $u$, since we would be overwriting a value
-that is needed later. This unforunately but necessarily increases the space required by a factor of $n^2$.
+that is needed later. This unfortunately but necessarily increases the space required by a factor of $n^2$.
 
 The above equation does not yet include any consideration of boundary conditions. The primary functionality of supporting solving statics problems requires support for dealing with
 Dirichlet boundary conditions. Dirichlet boundary conditions are defined such that the solution $\phi$ of a partial
@@ -109,13 +109,13 @@ calculating a given cell. It transforms Equation~\ref{eq:jacobi} into,
 \begin{equation} \label{eq:sor}
 u_{i,j}^{k+1} = (1-\omega) + \frac{\omega}{4}\left(u_{i-1,j}^{k+1} + u_{i+1,j}^{k} + u_{i,j-1}^{k+1} + u_{i,j+1}^{k} - h^2 f_{i,j}\right),
 \end{equation}
-where $\omega$ is a tunable parameter called the \textit{over-relaxtion parameter}. For a square lattice, a value of
+where $\omega$ is a tunable parameter called the \textit{over-relaxation parameter}. For a square lattice, a value of
 $$\omega = \frac{2}{1+\frac{\pi}{n}}$$
 has the best rate of convergence\cite{poisson-relax}. There are two terms on the right-hand-side of equation~\ref{eq:sor} which refer to the
 $k+1$ iteration. What this is doing is using the new values for the cells that have already been updated on this iteration
 in order to speed up the convergence.
 
-Successive over-relaxation has a signfiicant advantage over Jacobi iteration, in that it will result in a significantly faster convergence.
+Successive over-relaxation has a significant advantage over Jacobi iteration, in that it will result in a significantly faster convergence.
 These two iterative solutions require iterating over every cell in the grid a number of times. However, the number of iterations needed to
 converge is not constant -- it is dependent on the size of the grid as well. For Jacobi iteration, the number of iteration required is
 proportional to $n^2$, where $n$ is the length of one side of the grid, thus making the number of iterations $O(n^2)$ and so the total
@@ -144,13 +144,13 @@ the grid into 4 areas and multi-threading the iteration may result in sub-par pe
 However, like most performance questions, this is difficult to predict.
 
 There are many other aspects of processor design that come into play when writing a program
-such as this. Multithreaded synchronization aside, there are many details of caching that
+such as this. Multi-threaded synchronization aside, there are many details of caching that
 need to be considered. Of course, optimizing a program is just like any experiment in that
 it is absolutely vital to apply normal scientific practices when doing such work. Many make
 the mistake of simply writing what they believe to be a more optimized version of a program
 without measuring the resulting performance and comparing it to the previous version.
 
-I would expect to see the performance enhanced by the use of multithreading, but insignificantly
+I would expect to see the performance enhanced by the use of multi-threading, but insignificantly
 due to the large amount of memory accesses made by the program throughout solving a given problem.
 I expect to see a large performance improvement between a na\"{i}ve implementation of the program
 and one where memory access patterns have been tuned.
