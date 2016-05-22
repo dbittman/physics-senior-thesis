@@ -65,7 +65,7 @@ grid->values[x][y]=value+(1.f-params->omega)*grid->values[x][y];
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[frame=single,label=lst:normal,caption={SIMD version of iteration code for a single cell. The loading of the initial vector is not shown for simplicity.}]
+\begin{lstlisting}[frame=single,label=lst:simd-normal,caption={SIMD version of iteration code for a single cell. The loading of the initial vector is not shown for simplicity.}]
 __m256 scal = _mm256_set1_ps(params->prefix2);
 __m256 res = _mm256_mul_ps(v1, scal);
 grid->values[x][y] = sum8(res);

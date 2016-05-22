@@ -11,7 +11,19 @@ using computers. These types of problems are well-suited for computers because
 they are easily parallelizable, can be discreetized easily, and require a lot of repetitive calculation~\cite{parallel}. I have developed an
 implementation of such a solver for electrostatics utilizing the 
 parallelizability of the problem and designed it to be efficient by taking advantage 
-of the design of modern CPUs.
+of the design of modern CPUs. It can produce a solution to given problem given a description
+of a problem to solve.
+
+This involves having two objectives: ensure that the simulation produces the correct
+result, and have it do this quickly. The first of these can be done by comparing the
+result to a known solution, and defining a metric for determining how close it is.
+This should provide an accurate way to measure how correct the simulation is, allowing
+me to compare different methods and ensure that they are all correct.
+The second of these objectives can be realized via two methods. Firstly, use an
+algorithm that has a reasonably small computational complexity, and secondly,
+implement the algorithm in a way that is efficient for modern computers.
+
+\subsection{Poisson's Equation}
 
 Although many differential equations are typically used in boundary value problems,
 I will limit the focus to the Poisson equation. Named after Siméon Denis Poisson, the Poisson equation
@@ -103,13 +115,16 @@ has the best rate of convergence\cite{poisson-relax}. There are two terms on the
 $k+1$ iteration. What this is doing is using the new values for the cells that have already been updated on this iteration
 in order to speed up the convergence.
 
-
-%TODO Determining when to halt
-
-
-
-
-
+Successive over-relaxation has a signfiicant advantage over Jacobi iteration, in that it will result in a significantly faster convergence.
+These two iterative solutions require iterating over every cell in the grid a number of times. However, the number of iterations needed to
+converge is not constant -- it is dependent on the size of the grid as well. For Jacobi iteration, the number of iteration required is
+proportional to $n^2$, where $n$ is the length of one side of the grid, thus making the number of iterations $O(n^2)$ and so the total
+algorithm $O(n^4)$. SOR beats this by having the number of iterations be proportional to $n$, making SOR an $O(n^3)$ algorithm\cite{poisson-relax}. This means
+that SOR is not only significantly faster than Jacobi iteration for large enough $n$, the improvement for SOR over Jacobi iteration increases
+as the grid size increases. Furthermore, SOR has an advantage in that it requires less extra space for the computation because it is allowed
+to reuse values that have been calculated already in the same iteration, removing the requirement to store old values of cells like in Jacobi
+iteration. For this reason I predicted that, while they give the same results eventually, SOR would be a much faster method than Jacobi
+iteration in the solving program.
 
 
 
@@ -126,6 +141,7 @@ size. For example, should the grid size exceed 1440 by 1440 32-bit values,
 the shared 8MB cache will
 be filled, resulting in a massive performance penalty. For this reason, na\"{i}vely splitting
 the grid into 4 areas and multi-threading the iteration may result in sub-par performance.
+However, like most performance questions, this is difficult to predict.
 
 There are many other aspects of processor design that come into play when writing a program
 such as this. Multithreaded synchronization aside, there are many details of caching that
@@ -136,4 +152,16 @@ without measuring the resulting performance and comparing it to the previous ver
 
 I would expect to see the performance enhanced by the use of multithreading, but insignificantly
 due to the large amount of memory accesses made by the program throughout solving a given problem.
+I expect to see a large performance improvement between a na\"{i}ve implementation of the program
+and one where memory access patterns have been tuned.
 
+
+\vspace{10mm}
+
+Using this information, I have written a program which supports both Jacobi iteration and successive over-relaxation,
+allowing a varying number of threads to be used, and can calculate statistics about the solution it generates.
+It can be given an arbitrary input file to define the parameters, boundary conditions, and initial conditions for
+the region it is simulating. This allows me to simulate known problems and compare them to known solutions in order
+to verify correctness, and then I will be able
+to measure the performance characteristics of different implementations and solution methods with different parameters
+and compare them to see which are faster.

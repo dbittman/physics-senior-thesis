@@ -1,5 +1,16 @@
 \section{Computer Program Optimization} \label{app:opt}
 
+\begin{addmargin}[16em]{0em}
+	\begin{singlespace}
+	{\footnotesize
+	\textit{``Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should forget about small efficiencies, say about 97\% of the time: premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3\%.''}
+		\begin{flushright}
+		\textbf{Donald Knuth}
+		\end{flushright}
+	}
+	\end{singlespace}
+\end{addmargin}
+
 When optimizing a program, there is an important cardinal rule to follow which at times
 is easy to forget in the face of increasingly interesting and complex minor optimizations
 designed to squeeze every bit of performance out of your computer. Unfortunately, due
@@ -171,10 +182,85 @@ Additionally, I used \texttt{float}s instead of \texttt{double}s wherever possib
 
 \subsection{Structure of Arrays}
 
+While I had written code that utilized the x86 SIMD extensions, this was not particularly necessary. Modern compilers are capable
+of producing executables which use these instructions themselves, without the help of the programmer. Of course, a skilled programmer
+may be able to write a much better version than the compiler can because they have much more context for what the program is doing,
+but in general, the compiler can produce a somewhat reasonable output a lot of the time. However, one thing that it cannot do very
+effectively is reorganize data access patterns into a more CPU friendly manner.
+
+This is the reason why it is, at this point in compiler technology, worth it to restructure performance critical code to help out
+the compiler and the processor as much as possible. The structure-of-arrays versus array-of-structures design options are an example
+of this. As was described in section~\ref{sec:opt-mul}, there can be a significant improvement from restructuring to a structure-of-arrays
+style of data organization. This is due to, for the most part, the SIMD nature of data processing. The code emitted by the compiler
+is likely using SIMD style data accesses, and they are helped tremendously by being able to load a lot of the same value from different
+cells at once. Because organizing the data in a SOA method places all of the values that have the same meaning for each cell next to
+each other, there is a benefit seen both in the way the code is trying to access the data and in the way the processor is caching it.
+
 \subsection{Multithreading}
 
-\subsection{Vectorization}
-\subsubsection{Branch Reduction}
+Multithreading a program is a solution to performance problems that is commonly thrown out in a loose way. Multithreading something is
+typically only effective when there are multiple largely independent pieces of work to be done in a system. It does not always improve
+performance. This is a situation, like any other performance question, where is important to measure before and after and determine
+if it is worth it.
 
+\subsubsection{Undefined Behavior Land}
 
+One huge problem in multithreaded programming is data synchronization. Consider a simple example, where there are four threads which
+are all sharing a variable named $x$ which initially starts with a value of 4. If all threads execute the code \texttt{x++}, what are
+the possible value\textbf{s} of $x$? Ideally, just 8, but that is not the case. The reason is because \texttt{x++} is really three
+separate operations: 1) read $x$ into the CPU, 2) increment the value inside the CPU, and 3) write the new value to $x$ in memory.
+So what happens if two threads read $x$ at the same time? They both get back 4, and the both increment it internally to 5, and write
+back 5, resulting in two increment operations appearing as if only one had happened.
 
+The answer is, $x$ could be 5, 6, 7, or 8, and there is \textit{no way to predict which one}. At least one increment will happen, and
+that is all that can be known\footnote{Technically, this is not really true, as this is undefined behavior which is quite literally undefined, and
+so your program could do anything from incrementing $x$ to 9 to selling your liver on the black market (though this is admittedly unlikely).}. This is an example of undefined
+behaviour and is very common in multithreaded programs.
+
+Fortunately, C11 provides a simple solution: declaring variables as \texttt{\_Atomic} (for example, \texttt{\_Atomic int x}). If $x$ in
+the example above were to be declared this way, then the answer to the above problem is simply ``just 8''. The advantage is that there
+is no loss of information when multiple threads operate on a single shared variable. The disadvantage is that this is slower because
+it effectively ``locks'' that part of the memory and prevents other operations from occuring until one completes. This is supported
+in hardware for integer types, but not floating point types. This makes atomic floating point variables particularly slow because they
+need extra locking, and therefore extra memory accesses and CPU time for every access.
+
+This was the problem I ran into when designing the multithreading in the solver application. There was a shared floating point value
+to keep track of how much the simulation had changed after each iteration. This ended up being slower than the single threaded case.
+By minimizing the shared state between threads and limiting the communication of floating point values between threads as much pos
+possible, there was a huge performance improvement.
+
+\subsubsection{More Threads Means More Data}
+
+An additional concern with multiple threads is that you can run out of cache space more easily. Now, instead of sequentially operating
+on some block of data (because sequential data access is fast, so that is what you would do, of course), there are multiple threads
+working on different parts of memory at the same time. This means they are fighting over cache space. It is entirely possible for
+adding threads to make something \textit{slower}, because of this contention. Again, the key comes down to measuring. It is hard to
+know ahead of time what will help and what will not. Multithreading only makes things worse, since now the program can be run in a
+non-deterministic manner: sometimes some threads will be slower, sometimes they will be faster. This makes it even harder to predict,
+and more complicated to measure.
+
+\subsection{Branch Reduction}
+
+In programming, any statement in the language which will cause the flow of execution of the code to change based on a condition
+is called a branch. This includes if statements, while loops, etc. Many times these cannot be avoided, but there are also
+times when the code can be restructured in a way to reduce their number. This can be useful, because branches are often slow.
+This is partially because of caching (instructions for the CPU are cached as well as data, so if it suddenly jumps far away due
+to a branch, it has to load instructions from memory, which is slower). The real reason that branches are slow has to do with
+pipelining in the CPU, which I will not go into here. The summary is that reducing branches is good, and organizing the required
+branches in a simple way will probably be good enough for the processor to optimize them reasonably well.
+
+\subsection{Concluding Remarks}
+
+The most important idea when optimizing is to keep in mind that you may be wrong, so measure everything to ensure that the optimization
+is actually an optimization. Secondly, a highly optimized but slow algorithm will still be slow for large enough inputs. Fast processors
+do not beat order notation, and searching a hash table for a value ($O(1)$) is \textit{extremely likely} to be faster than looking it up
+in an array ($O(n)$). Thirdly, make sure that there is not hidden cost in using a data structure, avoid repeated work that does not need to be repeated,
+and be aware of some basic reasonably fast algorithms (sorting, for example). Fourth, use a programming language which compiles to direct processor
+instructions (C, C++, among others), and use the optimization options for the language. Fifth, organize the program's data so that accessing it is
+typically sequential, and try to design the layout of data such that it is easy for the compiler and the processor to optimize. Sixth, multithreading
+can help, but it can also be tricky to get right. Finally, work on reducing memory footprint, branches, code complexity, and complicated slow
+math if possible.
+
+But, of course, programs should be written for correctness and clarity first, even if this means sacrificing some performance early on. However,
+there is a limit to this. Faster algorithms should be used, and we should try hard not miss Donald Knuth's 3\%, as long as we remember to measure
+what we have done.
