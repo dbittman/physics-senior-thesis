@@ -8,22 +8,28 @@ boundary, or determining the flow of an incompressible fluid. As the complexity 
 these problems increases, however, the feasibility of solving them exactly by hand
 quickly decreases. Instead, we have the option to solve them with iterative methods
 using computers. These types of problems are well-suited for computers because
-they are easily parallelizable~\cite{parallel}. I have developed an
-implementation of such a solver for electrostatics and fluid flow utilizing the 
-parallelizability of the problem and designed it to be efficient, taking advantage 
+they are easily parallelizable, can be discreetized easily, and require a lot of repetitive calculation~\cite{parallel}. I have developed an
+implementation of such a solver for electrostatics utilizing the 
+parallelizability of the problem and designed it to be efficient by taking advantage 
 of the design of modern CPUs.
 
 Although many differential equations are typically used in boundary value problems,
 I will limit the focus to the Poisson equation. Named after Siméon Denis Poisson, the Poisson equation
 is used in a number of typical boundary value problems, including electrostatics.
 In 2-dimensional Euclidean space it is\cite{boas},
-$$\nabla^2 \phi = f,$$
-where $f$ is a real-valued function inside the space and $\phi$ is the steady-state
-solution for the potential in the space. However, since this solution will be calcuated
-numerically on a computer, we must discretize the equation so that it can be used to
-represent a solution on a 2-dimensional grid.
+$$\nabla^2 u = f,$$
+where $f$ is a real-valued function inside the space and $u$ is the steady-state
+solution for the potential in the space. The problems that we are considering are called boundary value problems
+because their solutions are dependent both on the value of $f$, but also on the properties of the region and its boundaries.
+Formally, the problems to solve are given with $f$ defined and with a region $\Omega$ which has defined boundaries
+$\partial\Omega$. These boundary conditions, along with $f$, are the primary inputs to the program which determine
+the solution it will give.
 
 \subsection{Discreetizing Poisson's Equation}
+
+Since we are solving these problems using a computer, we must transform the problem definition into one which a computer
+can actually calculate. Computers do not do well with continuous functions and real numbers. The process of transforming
+a problem or equation into one which a computer can handle is called discreetization.
 
 \begin{figure}[htb]
 	\centering
@@ -52,6 +58,63 @@ It can be seen from the top equation that this is now a linear algebra problem, 
 $n^2$ dependent linear equations. This means that we can apply one of several standard iterative methods
 for solving the problem. This is an excellent application of using a computer to solve numerically a problem
 	which is difficult to solve analytically.
+
+
+\subsection{Jacobi Iteration}
+This method is perhaps the simplest method of doing an iterative solution to this linear algebra problem. The procedure
+involves treating each equation as independent, and solving iteratively. This turns Equation~\ref{eq:poisson} into\cite{poisson-relax}
+\begin{equation} \label{eq:jacobi}
+u_{i,j}^{k+1} = \frac{1}{4}(u_{i-1,j}^{k} + u_{i+1,j}^{k} + u_{i,j-1}^{k} + u_{i,j+1}^{k} - h^2f_{i,j}),
+\end{equation}
+where $k$ is the iteration number. This is saying that to calculate $u$ everywhere, we must start with a guess for $u$,
+and then iteratively solve each element in $u$, which depends on its four nearest neighbors. One immediate unfortunate
+reality with Jacobi iteration presents itself: we must store a secondary copy of the entire grid because each calculation
+of $u_{i,j}^{k+1}$ strictly requires values from the previous iteration. Since we iterate over the grid in order to solve
+it, we cannot write the new value for the $k+1$ iteration into that element of $u$, since we would be overwriting a value
+that is needed later. This unforunately but necessarily increases the space required by a factor of $n^2$.
+
+The above equation does not yet include any consideration of boundary conditions. The primary functionality of supporting solving statics problems requires support for dealing with
+Dirichlet boundary conditions. Dirichlet boundary conditions are defined such that the solution $\phi$ of a partial
+differential equations in a region $\Omega$ has a value $\phi(\mathbf{r}) = y(\mathbf{r}) \; \forall \mathbf{r} \in \partial \Omega$.
+For this case, this means that if a Dirichlet boundary value condition is specified for a particular grid cell $(x,y)$,
+then its value is simply fixed to the value of the Dirichlet condition, and that cell does not need to be recalculated on
+successive iterations.
+
+Another consideration is that the grid is of finite size. This means that when calculating $u_{i=0,j}$, for example, we cannot
+incorporate $u_{i-1,j}$ as Equation~\ref{eq:jacobi} would dictate. This is because that would try to get the $-1^{st}$ row the
+the matrix $u$, which does not exist. A common method of dealing with this problem is to ``wrap around'' to the other side --
+essentially considering the region $\Omega$ to the surface of a sphere, or to consider the space to be periodic. Because of
+the nature of the problems that I will be considering, I have chosen to consider an implicit Dirichlet boundary condition
+of zero everywhere outside of $\Omega$, thus effectively limiting the calculation to be inside the region while clamping any
+values ``outside'' of $\Omega$ to zero. This is easy to implement and visualize as well: any value of $u_{i,j}$ for $i >= n$,
+$i < 0$, $j >= n$, or $j < 0$ is simply zero, always.
+
+\subsection{Successive Over-Relaxation}
+
+An alternate approach of iteratively solving this problem numerically is called successive over-relaxation (or SOR), and
+it has advantages over simple Jacobi iteration. It works by reusing previous calculations for the next iteration when
+calculating a given cell. It transforms Equation~\ref{eq:jacobi} into,
+\begin{equation} \label{eq:sor}
+u_{i,j}^{k+1} = (1-\omega) + \frac{\omega}{4}\left(u_{i-1,j}^{k+1} + u_{i+1,j}^{k} + u_{i,j-1}^{k+1} + u_{i,j+1}^{k} - h^2 f_{i,j}\right),
+\end{equation}
+where $\omega$ is a tunable parameter called the \textit{over-relaxtion parameter}. For a square lattice, a value of
+$$\omega = \frac{2}{1+\frac{\pi}{n}}$$
+has the best rate of convergence\cite{poisson-relax}. There are two terms on the right-hand-side of equation~\ref{eq:sor} which refer to the
+$k+1$ iteration. What this is doing is using the new values for the cells that have already been updated on this iteration
+in order to speed up the convergence.
+
+
+%TODO Determining when to halt
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Performance Considerations}
 While operations on a grid of values are parallelizable, there is a limit to

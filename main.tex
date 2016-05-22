@@ -10,11 +10,13 @@
 \usepackage{listings}
 \usepackage{natbib}
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{subcaption}
 \expandafter\def\csname ver@subfig.sty\endcsname{}
 \usepackage{svg}
 \usepackage{amssymb}
+\usepackage{courier}
 
 \setlength\parskip{5mm}
 \widowpenalty10000
@@ -22,11 +24,15 @@
 \setlength\parindent{0pt}
 
 \lstset{ %
+  language=C,
+  directivestyle={\color{black}},
+  emph={int,char,double,float,unsigned,struct},
+  emphstyle={\color{blue}},
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
-  escapeinside=\`\`,          % if you want to add LaTeX within your code
+  escapeinside=\`\`,               % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
   frame=single,	                   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
@@ -43,6 +49,7 @@
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
+\lstset{basicstyle=\ttfamily,breaklines=true}
 
 \begin{document}
 \begin{center}
@@ -100,7 +107,7 @@
 Copyright \copyright $\;$ 2016 Daniel A. Bittman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
+of this software and associated documentation files (the ``Software''), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
@@ -109,7 +116,7 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED ``AS IS'', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -121,10 +128,25 @@ SOFTWARE.
 \clearpage
 
 \begin{center}
-	{\Large\textsc{Dedication (TODO)}}\\
+
+	\textbf{Dedication}
+	\vspace{50mm}
+
+	To my loving parents, Steve Bittman and Ellen Klima, for their unending support
+	and unwavering belief in my ability to succeed.
 \end{center}
+\clearpage
 \begin{center}
-	{\Large\textsc{Acknowledgements (TODO)}}\\
+	\textbf{Acknowledgements}
+	\vspace{50mm}
+
+	A huge thank you to my thesis advisor, Jason Nielsen, for providing the opportunity
+	to work on this interesting project, and for the many interesting conversations over
+	the quarters past.
+
+	\vspace{10mm}
+	The Storage Systems Reseach Center at UC Santa Cruz for some of their machines in order
+	to test the performance of this system.
 \end{center}
 \clearpage
 \tableofcontents
@@ -132,12 +154,15 @@ SOFTWARE.
 \listoffigures
 \listoftables
 \clearpage
+\renewcommand{\lstlistlistingname}{List of Source Code Listings}
+\lstlistoflistings
+\clearpage
 
 \renewcommand{\thepage}{\arabic{page}}
 \setcounter{page}{1}
 \section*{Abstract}
 
-\doublespacing
+\onehalfspacing
 
 There are many problems in physics which involve solving a set of equations which define behavior
 inside some region. One such set of problems, among many, is solving electrostatics problems inside
@@ -190,16 +215,14 @@ in the source directory, under \texttt{results}. The source code for the C libra
 source code for the python example frontend is under \texttt{frontend}. The source code and git revision history
 is available at \url{http://github.com/dbittman/statics-solver}.
 
-%	\begin{singlespacing}
-%\include{man-1}
-%\include{man-3}
-%	\end{singlespacing}
+	\begin{singlespacing}
+\include{man-1}
+\include{man-3}
+	\end{singlespacing}
 \clearpage
 
 \include{opt}
 
-\section{Program Implementation}
-\label{app:des}
 
 \include{impl}
 

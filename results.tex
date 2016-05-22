@@ -37,7 +37,8 @@ and is shown plotted in a similar way in figure~\ref{fig:sin-analytic}. The diff
 analytical result is shown in figure~\ref{fig:sin-difference}. The values shown in the difference map are small compared
 to the values in the result in all locations except the corners at the top, where the simulation does diverge somewhat, 
 but never reaches values which are hugely divergence from the analytical result. Using the root-mean-square error statistic
-described earlier, we have calculated that the RMS error in this simulation to be SOME NUMBER.
+described earlier, we have calculated that the RMS error in this simulation to be 0.0025. The mean of all the cell values in this
+simulation is 0.19, so the mean error per cell is 1.3\%.
 
 
 	\begin{figure}[h]
@@ -65,14 +66,10 @@ electric dipole. This is another excellent verifier that the simulation is produ
 
 The potential was then measured at locations increasing in distance from the dipole in an arbitrary direction.
 These data were then plotted using gnuplot, and a line of the form $y(x) = A + B / (r-r_0)^2$ was fit to the
-data, which is shown in figure~\ref{fig:dipole-fit} The fit is excellent, confirming that the program had properly simulated an electric dipole. The error
-bars on the data points come from the difference between successive iterations at the end of the simulation of
-the dipole. They are very small, but non-zero.
-
-
+data, which is shown in figure~\ref{fig:dipole-fit} The fit is excellent, confirming that the program had properly simulated an electric dipole.
 
 	\begin{figure}[h]
-	\centering
+		\centering
 	\includegraphics[width=\linewidth]{dipole_fit.pdf}
 	\caption{Fitting a $1/r^2$ curve to the calculated dipole potential.} \label{fig:dipole-fit}
 	\end{figure}
@@ -87,6 +84,21 @@ figure~\ref{fig:dipole-field}.
 	\includegraphics[width=0.7\linewidth]{dipole_field.pdf}
 	\caption{Result of program outputting the electric field for the dipole configuration.} \label{fig:dipole-field}
 	\end{figure}
+
+
+\subsection{Jacobi Vesus Sucessive Over-Relaxation}
+Figure~\ref{fig:jacsor} shows the convergence rates for Jacobi iteration and successive over-relaxation. The SOR method
+reached convergence very quickly compared to Jacobi iteration -- around iteration 350, where as Jacobi iteration at the
+same iteration was 100 times worse than SOR. This is the reason why I use SOR in most of my analysis; it reaches convergence
+so much faster that even if Jacobi iteration were capable of performing twice as many iterations per second, successive over-relaxation
+would \textit{still} be much faster to find the solution. This is the power of the asymptotic behavior analysis of different algorithms.
+
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{jacsor.pdf}
+	\caption{Convergence of Jacobi iteration and SOR. The SOR line is truncated once it reached convergence.} \label{fig:jacsor}
+	\end{figure}
+
 
 
 \subsection{Performance}

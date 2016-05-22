@@ -1,0 +1,108 @@
+\section{Program Implementation}
+\label{app:des}
+The procedure of the program implementation was completed in multiple phases designed to section off
+the different aspects of the designing the program into more managable pieces while allowing me to ensure
+that each transformation that I made to the program was one such that the program did not lose functionality
+or correctness at any stage. Before writing any code, I had a general understanding of the math behind the
+algorithm. This did not mean, however, that I was completely sure that the implementation would be correct,
+thus necessitating testing. As discussed previously, I designed several test cases for which I knew what the
+correct solution was.
+
+%\subsection{Designing for Correctness}
+The first iteration of the program was a simplified and not optimal version written entirely
+in C in order for me to confirm the correctness of my approach. This version made no attempts to
+be fast and had the boundary conditions and grid parameters hard-coded into it. I implemented
+Jacobi iteration and SOR, both of which arrived at the correct result for the $\sin(x)$ potential
+along a wall.
+
+I next turned my attention to the question of how to interface with the program. Hard-coded boundary conditions
+are not desireable, and I quickly found it bothersome to have to modify the code in order to change the conditions
+to further test the program. I decided to use a python script to process a configuration file and then call into a
+C library which would do the heavy lifting. This is a common approach when dealing with processor intensive simulations
+because it allows the speed of C while allowing for the ease of python scripting in order to setup the simulation and
+process the results. This necessitated defining a structure in C and a class in python which both contained the same
+data in a layout that both C and python could agree upon. This ended up being not too complicated, except for the problem
+that python would not allow me to define the memory layouts for the actual grid. To solve this problem, I had the C library
+export another symbol which would initialize the data structures contained within the grid structure.
+
+The python code was written to act as a parser for a configuration file and evaluate the result of calling the solver library.
+Parsing the configuration file was not complicated, so that code was all written without external libraries. Evalutating the
+returned data was done with a combination of the \texttt{numpy} and \texttt{matplotlib} python packages, allowing me to process
+and display the results.
+
+One this interface was defined and written, I turned back to the C code to improve the performance. The biggest performance increase
+was seen by changing the data layouts to be a contiguous block of memory. Previously while making sure my understanding of the math was
+correct, I had simply defined the layout of the cells of the grid to be an array of arrays (since it is 2 dimensional), but not necessarily
+contiguous. After changing the allocation sceme, the performance improved dramatically. The second most significant improvement came from
+changing the C code from an array-of-structures style data layout to a structure-of-arrays layout, as was discussed earlier. This resulted in
+another significant performance boost.
+
+After fixing up the general algorithms, I turned to a basic implementation of multithreaded. This took several iterations to get right. The threads
+were each given a section of the array to operate on and they shared a global floating point value in order to determine if the simulation is stable, much like before.
+Unlike before, this variables now needed to be atomic in order to avoid loss of data, as discussed previously. This slowed down the simulation
+drastically because atomically symchronizing a floating point variable is extremely slow. I then changed the code so that each thread would individually keep
+track of the stability of their own section of the grid, and when all of them agreed that the simulation was stable, they would complete. This significantly improved
+the multithreaded performance, causing it to beat the single-threaded code.
+
+\subsection{SIMD Implementation}
+There were two use of SIMD inside the solver, each for doing one iteration of a given cell under one of two situations: with a Neumann boundary conditon, and
+without. In the case of a non-Neumann influenced cell, the cell is calculated as a sum of its nearest neighbors along with its initial value scaled by a
+factor of the inverse of the grid size. For successive over-relaxation, the code for an individual cells is shown in Listing~\ref{lst:normal}, and an abridged
+SIMD version is shown in Listing~\ref{lst:simd-normal}.
+
+\vspace{5mm}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[frame=single,label=lst:normal,caption={Iteration code (simplified) for a single cell. Also notice that this code uses structure-of-arrays data layout.}]
+float value = grid->values[x][y+1];
+value += grid->values[x][y-1];
+value += grid->values[x-1][y];
+value += grid->values[x+1][y];
+value += params->h * grid->initials[x][y];
+value *= params->omega / 4.;
+grid->values[x][y]=value+(1.f-params->omega)*grid->values[x][y];
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[frame=single,label=lst:normal,caption={SIMD version of iteration code for a single cell. The loading of the initial vector is not shown for simplicity.}]
+__m256 scal = _mm256_set1_ps(params->prefix2);
+__m256 res = _mm256_mul_ps(v1, scal);
+grid->values[x][y] = sum8(res);
+\end{lstlisting}
+\end{minipage}
+
+The function calls beginning with \texttt{\_mm} are the SIMD instructions written in function form for C code. In this listing, \texttt{v1} is a vector that contains
+the nearest neighbor values along with a scaled version of \texttt{grid->initials[x][y]} and the cell's previous value. In the second line, each of these elements is
+multiplied by \texttt{scal}, much like multiplying a mathematical vector by a scaler value. The elements of the vector are then summed in the \texttt{sum8} function,
+and the result of this is stored. The two listings are equivalent. The details of the \texttt{sum8} function and how the initial vector \texttt{v1} is loaded are
+omitted here for brevity, but can be found in the source code.
+
+The SIMD code that calculates Neumann boundary conditions is both more complicated and was not used in this thesis, so I will not discuss it in detail, except for one
+particularly interesting aspect of it which is a common pattern when writing SIMD code. As discussed previously, it is important to avoid branching in code to improve
+performance. The calculation for the Neumann boundary conditions involves testing a condition and throwing away a calculation depending on the result. Instead of
+using \texttt{if} statements, we can instead always do all of the calculations, and then at the end select the ones that we want. This is akin to transforming the
+code,
+\begin{addmargin}[4em]{2em}% 1em left, 2em right
+\begin{singlespace}
+\texttt{uint32\_t x[2] = \{123, 456\};}\\
+\texttt{uint32\_t result[2] = \{0, 0\};}\\
+\texttt{if(condition1) result[0] = x[0];}\\
+\texttt{if(condition2) result[1] = x[1];}\\
+\end{singlespace}
+\end{addmargin}
+into,
+\begin{addmargin}[4em]{2em}% 1em left, 2em right
+\begin{singlespace}
+\texttt{uint32\_t x[2] = \{123, 456\};}\\
+\texttt{uint32\_t result[2] = \{0, 0\};}\\
+\texttt{result[0] = x[0] \& mask1;}\\
+\texttt{result[1] = x[1] \& mask2;}\\
+\end{singlespace}
+\end{addmargin}
+where \texttt{mask1} and \texttt{mask2} are used to select which values to propegate forward in the calculation. The Intel SIMD instructions have a method to
+create such masks easily based on a condition (but they do it in a way that does not involve branching). Because in SIMD doing a single multiplication and doing
+four are no different in cost, this takes the approach of avoid branching by doing all of the calculations even though some are optional and then selecting the
+ones that are wanted at the end.
+In the SIMD code for the Neumann boundary conditions,
+I use this technique.
