@@ -41,7 +41,7 @@ expression may be put here, allowing access to complex mathematical expressions.
 do not have to define a line on a single axis, the program will do a linear interpolation to create a straight line from
 	the start point to the end point.
 The third line sets the initial value of
-the cell $(10, 10)$ to a value of $-100$. This is the command used to define $f_{i,j}$ in equation~\ref{eq:poisson}.
+the cell $(10, 10)$ to a value of $-100$. This is the command used to define $f_{i,j}$ in Equation~\ref{eq:poisson}.
 An arbitrary number of these statements may be made inside a configuration file, allowing one to specify the value of
 $f$ everywhere if need be, or create Dirichlet boundary conditions of arbitrary shapes.
 
@@ -98,10 +98,10 @@ However, this does not help define a way for the algorithm to determine when to 
 to determine if the simulation is close enough to a solution for every configuration we could solve for. Firstly, there
 would be no point to doing this as it would imply that we already had the solution, and we will not always have the
 solution to an arbitrary problem. Secondly, comparing the computed solution to a verified solution on each iteration would
-be very slow. Because of this, another method for determining when the simulation has converged is required.
+be inefficient. Because of this, another method for determining when the simulation has converged is required.
 
 The method I chose was to have the simulation keep track of a sum of squares while calculating an iteration. For each cell
-that it updates, it determines how much the cell's value changes. The simulation then sum the squares of all of these values
+that it updates, it determines how much the cell's value changes. The simulation then sums the squares of all of these values
 and, at the end of each iteration, it divides this sum by the number of cells in the grid and compares that to a configurable threshold.
 If the scaled sum is lower than the threshold, it stops the simulation and returns. This allows the user to define a quality for
 the simulation by changing the threshold value.
@@ -163,13 +163,15 @@ fetches data from RAM\cite{intel-1}. For a more detailed description of this, se
 
 Another example involves data structure organization. Say a program needs to store an array of objects, and each object
 has data associated with it (for example, current value, previous value, error, initial state, etc). One might be tempted
-to write something like in Listing~\ref{lst:aos}. The problem here is that if each object's \textsc{cur\_val} are all
+to write something like in Listing~\ref{lst:aos}. The problem here is that if each object's \texttt{cur\_val} are all
 calculated together (as is often the case, and is definitely the case for this solving program), then the location of
-the values that need to be loaded in succession by the processor are far apart. This, again, comes down to caching
+the values that need to be loaded in succession by the processor are far apart. The performance hit from this, again, comes down to caching
 effects which are further explained in Appendix~\ref{app:opt}.
 
+\vspace{5mm}
+
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[frame=single,label=lst:aos,caption={Array of structures organization.}]
+	\begin{lstlisting}[frame=single,label=lst:aos,caption={[Array-of-structures organization.]Array-of-structures organization. Each attribute of a cell is declared as a field in the structure, and an array of such structures is defined. This can be a slower way of organizing data.}]
 struct {
 	double cur_val, prev_val;
 	float err;
@@ -178,13 +180,14 @@ struct {
 \end{lstlisting}
 \end{minipage}
 
-Fortunately, this also has an easy to make change that drastically improves performance: change to structure of
-arrays organization, thus reorganizing the memory layout so that related and commonly accessed-together values
-appear adjacent in memory\cite{intel-opt}. This is shown in listing~\ref{lst:soa}. While it may be a less intuitive way to describe
+Fortunately, this also has an easy to make change that drastically improves performance: change to structure-of-arrays organization, thus reorganizing the memory layout so that related and commonly accessed-together values
+appear adjacent in memory\cite{intel-opt}. This is shown in Listing~\ref{lst:soa}. While it may be a less intuitive way to describe
 and program a simulation, the result is significantly faster code the majority of the time.
 
+\vspace{5mm}
+
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[frame=single,label=lst:soa,caption={Structure of arrays organization.}]
+	\begin{lstlisting}[frame=single,label=lst:soa,caption={[Structure-of-arrays organization.]Structure-of-arrays organization. Instead, now each attribute is its own array, thus placing them all in a contiguous region of memory, which can result in better performance.}]
 struct {
 	double cur_val[N];
 	double prev_val[N];
@@ -213,9 +216,9 @@ struct {
 I have also made use of the SIMD (Single Instruction Multiple Data) instruction set. These instructions are available
 on modern 64-bit x86 processors\cite{intel-3a}\footnote{More instructions are added in most new releases of CPUs. There are different
 SIMD instruction sets available on different processor models. I have used the sse through avx instruction sets in this
-code.}. Their purpose is to enable whats known as vector processing of data on x86 machines. This provides the ability
+code.}. Their purpose is to enable what's known as vector processing of data on x86 machines. This provides the ability
 to apply a mathematical operation to one or more arrays, and have that operation by applied to each element. For example,
-I can have a 128-bit register filled with 4 values, $x=(1,2,3,4)$, and other register like it, $y=(10, 10, 11, 11)$. I can
+I can have a 128-bit register filled with 4 values, $x=(1,2,3,4)$, and another register like it, $y=(10, 10, 11, 11)$. I can
 then add them together to get $(11, 12, 14, 15)$, and this addition is issued with a single instruction. Furthermore, this
 takes the same amount of time as a single addition, because the processor can do the 4 separate addition operations in
 parallel\footnote{This is not the same as multi-threading. The processor does these 4 separate addition operations in parallel
@@ -225,7 +228,7 @@ I have written in the use of SIMD instructions in the solver program in order to
 the calculations required when calculating the next iteration of a given cell. I provided the ability to disable this
 functionality and instead do a non-SIMD style calculation in order to get benchmarks. A requirement of the SIMD code was
 that it give exactly the same result as the non-SIMD version (otherwise the implementation of the math would be incorrect).
-For this reason, when talking about the results of a simulation, it does not matter if SIMD was used or not; the use
+For this reason, when talking about the results of a simulation, it does not matter if it used SIMD or not; the use
 of SIMD only affects performance.
 
 An important note is that when fully optimizing code for a machine which it knows about, \texttt{gcc} and other C compilers may choose to output
@@ -253,7 +256,7 @@ but it may still use compiler-generated SIMD instructions.
 Finally, I have added multi-threading support to the solver. This is done by spitting up the grid into subregions which
 are contiguous in memory, and spawning $N$ threads via the \texttt{pthreads} threading library available on \textsc{unix} systems. Each thread is then given a region to work on,
 and they coordinate through shared state in order to decide when the solution has been reached. The initial implementation
-showed extremely poor results with multi-threading (often being drastically slowed than the single threaded version)
+showed extremely poor results with multi-threading (often being drastically slowed than the single-threaded version)
 due to the use of atomic shared variables. It was then re-written such that the code was unsafe but much faster. This
 is because each thread modifies a shared non-atomic variable that keeps track of the current total change per iteration
 after that thread itself completes a number of iterations over its region. This kind of shared memory access is much faster

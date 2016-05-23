@@ -2,16 +2,15 @@
 
 This program correctly solves certain boundary value problems, enabling simulation
 of complex electrostatics situations. It does this in an efficient manner by leveraging
-proper programming languages and techniques and utilizing the basics of modern processor
-design. There were numerous surprises found in developing this software and looking at
-the resulting physics that it described.
+proper programming languages and techniques, and by utilizing a basic understanding of modern processor
+design.
 
 \subsection{Correctness}
 
 The most important aspect of this program is that is produces an accurate result, no
 matter how fast it runs. I was able to use a problem for which I had an analytical
 solution to confirm that the simulation was producing accurate results and found that
-the results were of high quality for the single threaded and low number of threads
+the results were of high quality for the single-threaded and low number of threads
 cases. Additionally, I was able to use the solver program to accurately calculate
 that the electric potential from an electric dipole drops off as $1/r^2$, further
 confirming the correctness of the program.
@@ -25,22 +24,22 @@ do without reducing accuracy, as it was simply transforming one valid implementa
 the code into another and measuring to ensure that my new implementation did in fact
 cause an improvement. Most of this was done by improving cache locality and reducing
 memory accesses. I have left out a lot of this process for brevity, however an overview
-of it and the concepts used can be found in appendix~\ref{app:opt}.
+of it and the concepts used can be found in Appendix~\ref{app:opt} and Appendix~\ref{app:des}.
 
 The next significant performance gain attempt that I had made was the use of SIMD instructions.
 I was hoping for a much more significant performance boost than I saw, which was rather
-minuscule in reality. The only small improvement was not surprising in the single threaded
+minuscule in reality. The rather small improvement was not surprising in the single-threaded
 case because I knew that \texttt{gcc} utilizes SIMD when it can, but I did not expect to see
 the manual SIMD instructions degrade the performance in the multi-threaded case. I speculate
 that this is caused by my manual SIMD code being less cache friendly, which is okay in the
-single threaded case and allowed a small performance improvement, but in the multi-threaded case
+single-threaded case and allowed a small performance improvement, but in the multi-threaded case
 the threads are all contending for limited cache space, so the additional memory usage slowed
 them down.
 
 The multi-threading actually improved the performance significantly more than I expected it to.
 I had predicted that the algorithm would be cache-bound due to the large amount of memory accesses
 that it makes. This often results in insignificant performance improvements (or downright performance
-degradation) when adding multiple threads to a single threaded program. Of course, the cardinal
+degradation) when adding multiple threads to a single-threaded program. Of course, the cardinal
 rule of any scientific experiment (including attempting to optimize a program) is to measure and
 compare results. Clearly the multi-threaded case is significantly better in performance, with a trade-off
 in accuracy, which may certainly be acceptable.
@@ -49,16 +48,16 @@ in accuracy, which may certainly be acceptable.
 
 There is still a significant amount of optimization work that can be done on this program. A careful reading
 of Intel optimization manuals would likely provide numerous ideas for how to further improve the code
-for the program. The manual SIMD code could also be improved, either by utilizing more up-to-date instruction
+of the program. The manual SIMD code could also be improved, either by utilizing more up-to-date instruction
 sets or by improving the existing algorithm. The multi-threaded code could also be improved, by allowing the threads
-to communicate in a limited way in order to better synchronize their work to improve the quality of the result without
-hopefully degrading the performance too drastically. An additional approach could be to use the multi-threaded case for
-a few hundred iterations before switching over to the single threaded version in order to smooth out and cleanup the
+to communicate in a limited way in order to better synchronize their work to improve the quality of the result, hopefully without
+degrading the performance too drastically. An additional approach could be to use the multi-threaded case for
+a few hundred iterations before switching over to the single-threaded version in order to smooth out and cleanup the
 results. This would have a significant advantage for large simulations, as the multi-threaded code could get the result
-most of the way before letting the single threaded code produce an accurate result in a shorter amount of time than
-if the single threaded code ran from the start.
+most of the way before letting the single-threaded code produce an accurate result in a shorter amount of time than
+if the single-threaded code run from the start.
 
-Another significant way in which to improve the real world performance of the program is in addition to optimizing
+Another significant way in which to improve the real world performance of the program could be in addition to optimizing
 the speed at which the program can calculate an iteration, to reduce the number of iterations required to
 converge on a solution. Indeed, this is what the use of successive over-relaxation achieves, but there may be ways
 to further improve this. One such method could be to improve the initial ``guess'' of zero everywhere by dividing

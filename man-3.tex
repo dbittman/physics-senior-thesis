@@ -8,12 +8,11 @@
 \hspace{30pt}\=\hspace{30pt}\=\kill
 
 \textbf{NAME}\\
-\> solver - Library to solve Discreet Poisson Equation\\
+\> solver - Library to solve Discrete Poisson Equation\\
 \\
 \textbf{SYNOPSIS}\\
 	\> \texttt{solver.h}\\
-	\> \> \texttt{SOLVE\_METHOD\_JACOBI}\\
-	\> \> \texttt{SOLVE\_METHOD\_SOR}\\
+	\> \> \texttt{SOLVE\_METHOD\_JACOBI}, \texttt{SOLVE\_METHOD\_SOR}\\
 	\> \texttt{double \textbf{solve}(struct grid *grid, int method);}\\
 	\> \texttt{void \textbf{init\_grid}(struct grid *grid);}\\
 	\> \texttt{struct grid \{}\\
@@ -29,10 +28,11 @@
 	\>\texttt{\};}\\
 \\
 \textbf{DESCRIPTION}\\
-\> This library provides fast solving of a 2-D discreet boundary value problem using the\\
-	\> Poisson equation. The full process is to define a \texttt{struct grid}, and set its \texttt{len} field. Then\\
-	\> call \texttt{init\_grid} on the grid to initialize the 2-D contiguous arrays. After that, call \texttt{solve}\\
-	\> and pass it the grid and a method, either \texttt{SOLVE\_METHOD\_JACOBI} or \texttt{SOLVE\_METHOD\_SOR}.\\
+\> This library provides fast solving of a 2-D discrete boundary value problem using the\\
+	\> Poisson equation. The full process is to define a \texttt{struct grid}, and set its \texttt{len} field.\\
+	\> Then call \texttt{init\_grid} on the grid to initialize the 2-D contiguous arrays. After that,\\
+	\> call \texttt{solve} and pass it the grid and a method, either \texttt{SOLVE\_METHOD\_JACOBI} or\\
+	\> \texttt{SOLVE\_METHOD\_SOR}.\\
 	\\
 	\> The \texttt{solve} function will return when complete, returning back a value describing how\\
 	\> confident it is in its result (values closer to zero are better). The \texttt{iters} field in the grid\\

@@ -1,11 +1,13 @@
 \section{Introduction}
 
-Boundary value problems, problems defined by a partial differential equation and a set of
-constraints on the solution, are found in many areas of physics. These include problems
-such as finding the temperature of a rod that has a given temperature on either end,
+%TODO previous work
+
+Boundary value problems are problems defined by a partial differential equation and a set of
+constraints on the solution, and they are found in many areas of physics. These include problems
+such as finding the temperature along a rod that has a given temperature on either end,
 determining the electric potential inside a region given the potential around the
-boundary, or determining the flow of an incompressible fluid. As the complexity of 
-these problems increases, however, the feasibility of solving them exactly by hand
+boundary, or determining the flow of an incompressible fluid. As the complexity of
+these problems increases, however, the feasibility of solving them analytically
 quickly decreases. Instead, we have the option to solve them with iterative methods
 using computers. These types of problems are well-suited for computers because
 they are easily parallelizable, can be discretized easily, and require a lot of repetitive calculation~\cite{parallel}. I have developed an
@@ -14,9 +16,9 @@ parallelizability of the problem and designed it to be efficient by taking advan
 of the design of modern CPUs. It can produce a solution to given problem given a description
 of a problem to solve.
 
-This involves having two objectives: ensure that the simulation produces the correct
-result, and have it do this quickly. The first of these can be done by comparing the
-result to a known solution, and defining a metric for determining how close it is.
+This involves having two objectives: ensuring that the simulation produces the correct
+result, and having the program solve the problem quickly. The first of these can be done by comparing the
+result to a known solution and defining a metric for determining how close it is.
 This should provide an accurate way to measure how correct the simulation is, allowing
 me to compare different methods and ensure that they are all correct.
 The second of these objectives can be realized via two methods. Firstly, use an
@@ -32,7 +34,7 @@ In 2-dimensional Euclidean space it is\cite{boas},
 $$\nabla^2 u = f,$$
 where $f$ is a real-valued function inside the space and $u$ is the steady-state
 solution for the potential in the space. The problems that we are considering are called boundary value problems
-because their solutions are dependent both on the value of $f$, but also on the properties of the region and its boundaries.
+because their solutions are dependent not only on the value of $f$, but also on the properties of the region and its boundaries.
 Formally, the problems to solve are given with $f$ defined and with a region $\Omega$ which has defined boundaries
 $\partial\Omega$. These boundary conditions, along with $f$, are the primary inputs to the program which determine
 the solution it will give.
@@ -46,11 +48,11 @@ a problem or equation into one which a computer can handle is called discretizat
 \begin{figure}[htb]
 	\centering
 	\includesvg{grid}
-	\caption{Visualization of grid, with indices.}
+	\caption[Visualization of grid, showing indices]{Visualization of grid, showing indices. The choice of which axis is $i$ and which is $j$ is arbitrary.}
 \label{grid}
 \end{figure}
 
-Consider a grid of size $n$ by $n$ as in figure~\ref{grid}\footnote{In general, it is not difficult to allow a rectangular grid, but for simplicity
+Consider a grid of size $n$ by $n$ as in Figure~\ref{grid}\footnote{In general, it is not difficult to allow a rectangular grid, but for simplicity
 we will require the grid to be square.}, with values represented by $u_{i,j}$. We want to apply the Poisson equation to
 this $u$ as follows:
 $$\nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial x^2} = f,$$
@@ -68,7 +70,7 @@ u_{i,j} = \frac{1}{4}(u_{i-1,j} + u_{i+1,j} + u_{i,j-1} + u_{i,j+1} - h^2f_{i,j}
 
 It can be seen from the top equation that this is now a linear algebra problem, requiring a method of solving
 $n^2$ dependent linear equations. This means that we can apply one of several standard iterative methods
-for solving the problem. This is an excellent application of using a computer to solve numerically a problem
+for solving the problem. This is an excellent application of using a computer to numerically solve a problem
 	which is difficult to solve analytically.
 
 
@@ -80,16 +82,17 @@ u_{i,j}^{k+1} = \frac{1}{4}(u_{i-1,j}^{k} + u_{i+1,j}^{k} + u_{i,j-1}^{k} + u_{i
 \end{equation}
 where $k$ is the iteration number. This is saying that to calculate $u$ everywhere, we must start with a guess for $u$,
 and then iteratively solve each element in $u$, which depends on its four nearest neighbors. One immediate unfortunate
-reality with Jacobi iteration presents itself: we must store a secondary copy of the entire grid because each calculation
+reality with Jacobi iteration presents itself: we must store a secondary copy of the grid because each calculation
 of $u_{i,j}^{k+1}$ strictly requires values from the previous iteration. Since we iterate over the grid in order to solve
 it, we cannot write the new value for the $k+1$ iteration into that element of $u$, since we would be overwriting a value
-that is needed later. This unfortunately but necessarily increases the space required by a factor of $n^2$.
+that is needed later. This unfortunately but necessarily increases the space required by $O(n^2)$.
 
-The above equation does not yet include any consideration of boundary conditions. The primary functionality of supporting solving statics problems requires support for dealing with
-Dirichlet boundary conditions. Dirichlet boundary conditions are defined such that the solution $\phi$ of a partial
-differential equations in a region $\Omega$ has a value $\phi(\mathbf{r}) = y(\mathbf{r}) \; \forall \mathbf{r} \in \partial \Omega$.
+The above equation does not yet include any consideration of boundary conditions, of which we will consider Dirichlet boundary
+conditions to be the primary type of boundary conditions we will support.
+Dirichlet boundary conditions are defined such that the solution $\phi$ of a partial
+differential equation in a region $\Omega$ has a value $\phi(\mathbf{r}) = y(\mathbf{r}) \; \forall \mathbf{r} \in \partial \Omega$.
 For this case, this means that if a Dirichlet boundary value condition is specified for a particular grid cell $(x,y)$,
-then its value is simply fixed to the value of the Dirichlet condition, and that cell does not need to be recalculated on
+then its value is simply fixed to the value of the Dirichlet condition for that cell, and that cell does not need to be recalculated on
 successive iterations.
 
 Another consideration is that the grid is of finite size. This means that when calculating $u_{i=0,j}$, for example, we cannot
@@ -107,17 +110,17 @@ An alternate approach of iteratively solving this problem numerically is called 
 it has advantages over simple Jacobi iteration. It works by reusing previous calculations for the next iteration when
 calculating a given cell. It transforms Equation~\ref{eq:jacobi} into,
 \begin{equation} \label{eq:sor}
-u_{i,j}^{k+1} = (1-\omega) + \frac{\omega}{4}\left(u_{i-1,j}^{k+1} + u_{i+1,j}^{k} + u_{i,j-1}^{k+1} + u_{i,j+1}^{k} - h^2 f_{i,j}\right),
+	u_{i,j}^{k+1} = (1-\omega) u_{i,j}^{k} + \frac{\omega}{4}\left(u_{i-1,j}^{k+1} + u_{i+1,j}^{k} + u_{i,j-1}^{k+1} + u_{i,j+1}^{k} - h^2 f_{i,j}\right),
 \end{equation}
 where $\omega$ is a tunable parameter called the \textit{over-relaxation parameter}. For a square lattice, a value of
 $$\omega = \frac{2}{1+\frac{\pi}{n}}$$
-has the best rate of convergence\cite{poisson-relax}. There are two terms on the right-hand-side of equation~\ref{eq:sor} which refer to the
+has the best rate of convergence\cite{poisson-relax}. There are two terms on the right-hand-side of Equation~\ref{eq:sor} which refer to the
 $k+1$ iteration. What this is doing is using the new values for the cells that have already been updated on this iteration
 in order to speed up the convergence.
 
 Successive over-relaxation has a significant advantage over Jacobi iteration, in that it will result in a significantly faster convergence.
 These two iterative solutions require iterating over every cell in the grid a number of times. However, the number of iterations needed to
-converge is not constant -- it is dependent on the size of the grid as well. For Jacobi iteration, the number of iteration required is
+converge is not constant -- it is dependent on the size of the grid as well. For Jacobi iteration, the number of iterations required is
 proportional to $n^2$, where $n$ is the length of one side of the grid, thus making the number of iterations $O(n^2)$ and so the total
 algorithm $O(n^4)$. SOR beats this by having the number of iterations be proportional to $n$, making SOR an $O(n^3)$ algorithm\cite{poisson-relax}. This means
 that SOR is not only significantly faster than Jacobi iteration for large enough $n$, the improvement for SOR over Jacobi iteration increases
@@ -156,7 +159,7 @@ I expect to see a large performance improvement between a na\"{i}ve implementati
 and one where memory access patterns have been tuned.
 
 
-\vspace{10mm}
+\begin{center}\rule{2cm}{0.4pt}\end{center}
 
 Using this information, I have written a program which supports both Jacobi iteration and successive over-relaxation,
 allowing a varying number of threads to be used, and can calculate statistics about the solution it generates.

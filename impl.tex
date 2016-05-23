@@ -1,7 +1,7 @@
 \section{Program Implementation}
 \label{app:des}
 The procedure of the program implementation was completed in multiple phases designed to section off
-the different aspects of the designing the program into more manageable pieces while allowing me to ensure
+the different aspects of designing the program into more manageable pieces while allowing me to ensure
 that each transformation that I made to the program was one such that the program did not lose functionality
 or correctness at any stage. Before writing any code, I had a general understanding of the math behind the
 algorithm. This did not mean, however, that I was completely sure that the implementation would be correct,
@@ -26,34 +26,43 @@ that python would not allow me to define the memory layouts for the actual grid.
 export another symbol which would initialize the data structures contained within the grid structure.
 
 The python code was written to act as a parser for a configuration file and evaluate the result of calling the solver library.
-Parsing the configuration file was not complicated, so that code was all written without external libraries. Evaluating the
+Parsing the configuration file is not complicated, so that code was all written without external libraries. Evaluating the
 returned data was done with a combination of the \texttt{numpy} and \texttt{matplotlib} python packages, allowing me to process
 and display the results.
 
-One this interface was defined and written, I turned back to the C code to improve the performance. The biggest performance increase
+Once I had defined and written this interface, I turned back to the C code to improve the performance. The biggest performance increase
 was seen by changing the data layouts to be a contiguous block of memory. Previously while making sure my understanding of the math was
 correct, I had simply defined the layout of the cells of the grid to be an array of arrays (since it is 2 dimensional), but not necessarily
 contiguous. After changing the allocation scheme, the performance improved dramatically. The second most significant improvement came from
-changing the C code from an array-of-structures style data layout to a structure-of-arrays layout, as was discussed earlier. This resulted in
+changing the C code from an array-of-structures style data layout to a structure-of-arrays layout, as I discussed earlier. This resulted in
 another significant performance boost.
 
-After fixing up the general algorithms, I turned to a basic implementation of multi-threaded. This took several iterations to get right. The threads
+After fixing up the general algorithms, I turned to a basic implementation of multi-threading. This took several iterations to get right. The threads
 were each given a section of the array to operate on and they shared a global floating point value in order to determine if the simulation is stable, much like before.
 Unlike before, this variables now needed to be atomic in order to avoid loss of data, as discussed previously. This slowed down the simulation
 drastically because atomically synchronizing a floating point variable is extremely slow. I then changed the code so that each thread would individually keep
 track of the stability of their own section of the grid, and when all of them agreed that the simulation was stable, they would complete. This significantly improved
 the multi-threaded performance, causing it to beat the single-threaded code.
 
+Another important aspect of the multi-threading implementation was that the grid values themselves (which are shared and modified by the threads)
+were not atomic. This was a tradeoff I decided to make, because making them atomic would be safer, but much slower. Instead, it is possible for
+some threads to see stale values of cells sometimes. This is likely a significant contributing factor to why the simulation quality degreded with
+more and more threads. However, since most of the reads and writes to the values are simply just updating to new values, if a write is lost from
+the perspective of one thread it will appear as if that thread simply ran slightly faster than the others, which is possible anyway\footnote{There
+is one more detail. On x86 platforms, these shared non-atomic reads and writes are safe, but on some machines this can result in \textit{torn-writes}.
+This means that a thread could possibly see half of the written value and half of the old value, which could result in nonsense numbers and could
+actually affect the simulation. However, because I am targeting x86 only, this is still safe.}.
+
 \subsection{SIMD Implementation}
-There were two use of SIMD inside the solver, each for doing one iteration of a given cell under one of two situations: with a Neumann boundary condition, and
+There were two uses of SIMD inside the solver, each for doing one iteration of a given cell under one of two situations: with a Neumann boundary condition, and
 without. In the case of a non-Neumann influenced cell, the cell is calculated as a sum of its nearest neighbors along with its initial value scaled by a
-factor of the inverse of the grid size. For successive over-relaxation, the code for an individual cells is shown in Listing~\ref{lst:normal}, and an abridged
+factor of the inverse of the grid size. For successive over-relaxation, the code for an individual cell is shown in Listing~\ref{lst:normal}, and an abridged
 SIMD version is shown in Listing~\ref{lst:simd-normal}.
 
 \vspace{5mm}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[frame=single,label=lst:normal,caption={Iteration code (simplified) for a single cell. Also notice that this code uses structure-of-arrays data layout.}]
+	\begin{lstlisting}[frame=single,label=lst:normal,caption={[Iteration code for a signle cell.]Iteration code (simplified) for a single cell. Also notice that this code uses structure-of-arrays data layout.}]
 float value = grid->values[x][y+1];
 value += grid->values[x][y-1];
 value += grid->values[x-1][y];
@@ -65,7 +74,7 @@ grid->values[x][y]=value+(1.f-params->omega)*grid->values[x][y];
 \end{minipage}
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[frame=single,label=lst:simd-normal,caption={SIMD version of iteration code for a single cell. The loading of the initial vector is not shown for simplicity.}]
+	\begin{lstlisting}[frame=single,label=lst:simd-normal,caption={[SIMD version of iteration code for a single cell.]SIMD version of iteration code for a single cell. The loading of the initial vector is not shown for simplicity.}]
 __m256 scal = _mm256_set1_ps(params->prefix2);
 __m256 res = _mm256_mul_ps(v1, scal);
 grid->values[x][y] = sum8(res);
@@ -102,7 +111,7 @@ into,
 \end{addmargin}
 where \texttt{mask1} and \texttt{mask2} are used to select which values to propagate forward in the calculation. The Intel SIMD instructions have a method to
 create such masks easily based on a condition (but they do it in a way that does not involve branching). Because in SIMD doing a single multiplication and doing
-four are no different in cost, this takes the approach of avoid branching by doing all of the calculations even though some are optional and then selecting the
-ones that are wanted at the end.
+four are no different in cost, this takes the approach of avoiding branching by doing all of the calculations even though some are optional and then selecting the
+ones that are desired at the end.
 In the SIMD code for the Neumann boundary conditions,
-I use this technique.
+I use this technique, and learning to do it was a particularly interesting exercise.

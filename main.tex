@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{subcaption}
 \usepackage{setspace}
@@ -22,6 +22,7 @@
 \widowpenalty10000
 \clubpenalty10000
 \setlength\parindent{0pt}
+\captionsetup{width=0.8\textwidth}
 
 \lstset{ %
   language=C,
@@ -51,6 +52,9 @@
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
 \begin{document}
+
+\newgeometry{margin=1in}
+
 \begin{center}
 
 	UNIVERSITY of CALIFORNIA\\
@@ -163,6 +167,7 @@ SOFTWARE.
 
 \end{center}
 \clearpage
+\restoregeometry
 \tableofcontents
 \clearpage
 \listoffigures
@@ -178,19 +183,19 @@ SOFTWARE.
 
 \onehalfspacing
 
-There are many problems in physics which involve solving a set of equations which define behavior
-inside some region. One such set of problems, among many, is solving electrostatics problems inside
-a region given some boundary conditions by utilizing Poisson's equation. Such problems, and other
+There are many problems in physics which involve solving a set of equations that define behavior
+inside a region. One such set of problems, among many, are those of electrostatics inside
+a region given some boundary conditions. Such problems, along with other
 problems, are commonly found in simple and analytically solvable forms in undergraduate physics classes.
-Unfortunately, these problems can become intractable to solve analytically very quickly as their complexity
+Unfortunately, these problems can quickly become intractable to solve analytically as their complexity
 increases. Complex boundary conditions in strangely shaped regions can easy become impossibly difficult to
-solve. The solution to this problem can be to model it on a computer in order to compute a numerical solution
+solve. The solution can instead be modeled on a computer in order to compute a numerical solution
 in place of an analytical one.
 
-I have written a software package which is both a C library which can solve such a given problem and a frontend
-Python program which can parse a human-readable configuration that describes such a boundary value problem and
-set up the correct initial state such that the C library can then solve it, allowing the Python program to
-display the final result as well as calculate statistics about the solving process. I have utilized effective
+I have written a software package which is C library capable of solving such a given problem, and a frontend
+Python program which can parse a human-readable configuration file that describes such a boundary value problem. 
+The Python code sets up the correct initial state such that the C library can solve it, after which the Python program
+displays the final result as well as calculates statistics about the solving process. I have utilized effective
 programming techniques designed for current generation hardware 64-bit x86 processors in order to improve
 the performance of the program, in addition to implementing a multi-threaded version of the solving program
 to explore the use of multi-core processors in solving these problems.
@@ -215,7 +220,7 @@ the performance, albeit with a degradation in simulation accuracy.
 \begin{appendices}
 \section{Program Usage}
 
-Compiling the engine (the C library) requires make and gcc (or clang, although clang is untested), and can
+Compiling the engine requires make and a modern gcc (or clang, although clang is untested), and can
 be done by simply invoking \texttt{make}. This will also create an executable file, \texttt{solve}. This
 is a script that invokes the python example frontend so that it may be used.
 
@@ -230,8 +235,10 @@ source code for the python example frontend is under \texttt{frontend}. The sour
 is available at \url{http://github.com/dbittman/statics-solver}.
 
 	\begin{singlespacing}
+\newgeometry{margin=1in}
 \include{man-1}
 \include{man-3}
+\restoregeometry
 	\end{singlespacing}
 \clearpage
 
@@ -260,6 +267,7 @@ is available at \url{http://github.com/dbittman/statics-solver}.
 
 \clearpage
 \bibliographystyle{plain}
+\onehalfspacing
 \bibliography{main}
 
 
