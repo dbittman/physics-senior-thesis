@@ -18,20 +18,20 @@ confirming the correctness of the program.
 
 \subsection{Performance}
 
-Since the simulation is correct, I was able to then turn my attention towards improving
+After verifying that the simulation is correct, I was able to then turn my attention towards improving
 the performance without reducing the accuracy of the simulation. Most of this was easy to
 do without reducing accuracy, as it was simply transforming one valid implementation of
 the code into another and measuring to ensure that my new implementation did in fact
 cause an improvement. Most of this was done by improving cache locality and reducing
-memory accesses. I have left out a lot of this process for brevity, however an overview
+memory accesses. I have left out a lot of this optimization process for the sake of brevity; however an overview
 of it and the concepts used can be found in Appendix~\ref{app:opt} and Appendix~\ref{app:des}.
 
 The next significant performance gain attempt that I had made was the use of SIMD instructions.
 I was hoping for a much more significant performance boost than I saw, which was rather
 minuscule in reality. The rather small improvement was not surprising in the single-threaded
 case because I knew that \texttt{gcc} utilizes SIMD when it can, but I did not expect to see
-the manual SIMD instructions degrade the performance in the multi-threaded case. I speculate
-that this is caused by my manual SIMD code being less cache friendly, which is okay in the
+the manual SIMD instructions degrade the performance in the multi-threaded case. I speculated
+that this is caused by my manual SIMD code being less cache friendly, which is tolerable in the
 single-threaded case and allowed a small performance improvement, but in the multi-threaded case
 the threads are all contending for limited cache space, so the additional memory usage slowed
 them down.
@@ -55,13 +55,13 @@ degrading the performance too drastically. An additional approach could be to us
 a few hundred iterations before switching over to the single-threaded version in order to smooth out and cleanup the
 results. This would have a significant advantage for large simulations, as the multi-threaded code could get the result
 most of the way before letting the single-threaded code produce an accurate result in a shorter amount of time than
-if the single-threaded code run from the start.
+if the single-threaded code ran from the start.
 
-Another significant way in which to improve the real world performance of the program could be in addition to optimizing
-the speed at which the program can calculate an iteration, to reduce the number of iterations required to
-converge on a solution. Indeed, this is what the use of successive over-relaxation achieves, but there may be ways
+Another significant way in which to improve the real world performance of the program, be in addition to optimizing
+the speed at which the program can calculate an iteration, could be to reduce the number of iterations required to
+converge on a solution. Indeed, this is what the method of successive over-relaxation achieves, but there may be ways
 to further improve this. One such method could be to improve the initial ``guess'' of zero everywhere by dividing
-the grid into a much coarser grid and running a few iterations on that before returning to the full grid and completing
+the initial grid into a much coarser grid and running a few iterations on that before returning to the full grid and completing
 the simulation as before.
 
 \begin{center}\rule{2cm}{0.4pt}\end{center}

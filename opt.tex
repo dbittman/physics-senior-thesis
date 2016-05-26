@@ -17,8 +17,8 @@ designed to squeeze every bit of performance out of your computer. Unfortunately
 to the complexity of modern computer hardware, it is
 difficult to predict if a given micro-optimization will actually be beneficial or
 not. For this reason, the most important rule when taking a working program and making it
-fast is\footnote{besides \textit{don't break it}, of course. An incorrect program is worthless, no matter
-how fast it is.} \textit{benchmark everything}.
+fast is \textit{benchmark everything}\footnote{besides \textit{don't break it}, of course. An incorrect program is worthless, no matter
+how fast it is.}.
 
 The field of program optimization is huge. There is a small number of people who, for
 a given platform, are really \textit{good} at optimization. There is an even smaller number
@@ -44,19 +44,19 @@ associated with them, and those operations (such as \texttt{find}, \texttt{inser
 time costs. Choosing the correct data structure for a problem is one of the first steps towards correctly
 organizing a program for it to be efficient. If a program is constantly searching through a list to find
 values when instead a simple hash table could be used, the program will run slowly. A program should not
-do additional work when it does not need to. Only once the data structures have been properly designed
-and the algorithms properly thought through should \textit{optimization} be done.
+do additional work when it does not need to. Only after data structures have been properly designed
+and algorithms properly worked out should \textit{optimization} be done.
 
 \subsection{Freebies}
 
 There are some optimizations which can be used in high confidence and are also easy to do.
 The first, and most obvious, is to use a fast language. While writing in \texttt{C} may be a chore
-compared to writing in python, the resulting code will be much faster. This is the reason behind the
+compared to writing in Python, the resulting code will be much faster. This is the reason behind the
 organization of this program: the frontend (which has no performance requirements) is written in
-python because parsing the configuration file is much easier. The backend needs to be fast, so it
+Python because parsing the configuration file is much easier. The backend needs to be fast, so it
 is implemented in \texttt{C}.
 
-A quick and rough experiment can easily be convincing that this is true (recalling the requirement to benchmark everything). Credit to my friend Chris Milke for doing this test. Write the following
+A quick and rough experiment can easily show that this is true. Credit to my friend Chris Milke for doing this test. Write the following
 code in both python and in C: initialize a variable to zero. Then loop from zero to some large
 number (we used 123,456,789), and add that iteration to the variable. After the loop, print the
 variable. The resultant python program took 14.25 seconds to run on my computer, but the C code
@@ -124,13 +124,13 @@ program. Here, it made a program that took a third of a second finish instantly.
 When first learning to program in a language that does more accurately display what is going on
 inside of a computer, it is helpful to have a mental model for what is going on during each
 simple operation that a programmer might want to do. Since programs are sets of instructions
-which define transformations on data, it is tempting to think about a model such as in Figure~\ref{fig:1a},
+which define transformations on data, it is tempting to think about a model such as in Fig.~\ref{fig:1a},
 where there is some nebulous device which follows your instructions and is connected to a large amount
 of memory in which your variables and data structures live.
 
 Unfortunately, while this is a convenient abstraction to think about when programming up an application, it
 is not actually what is going on\footnote{I do not claim that what I am about to describe is what is ``actually going on'' either,
-but it is at least significantly less of a lie.}. A more realistic model is shown in Figure~\ref{fig:1b}. There are
+but it is at least significantly less of a lie.}. A more realistic model is shown in Fig.~\ref{fig:1b}. There are
 several key takeaways from this. One of them is that RAM is \textit{really slow}. The second is that the processor
 chip is aware that RAM is really slow and so it aggressively caches everything that it ever gets out of RAM. This diagram
 shows the actual detailed level of caches that cores have on them, and that they have a shared cache, but most of that
@@ -216,7 +216,7 @@ One huge problem in multi-threaded programming is data synchronization. Consider
 are all sharing a variable named $x$ which initially starts with a value of 4. If all threads execute the code \texttt{x++}, what are
 the possible value\textbf{s} of $x$? Ideally, just 8, but that is not the case. The reason is because \texttt{x++} is really three
 separate operations: 1) read $x$ into the CPU, 2) increment the value inside the CPU, and 3) write the new value to $x$ in memory.
-So what happens if two threads read $x$ at the same time? They both get back 4, and the both increment it internally to 5, and write
+So what happens if two threads read $x$ at the same time? They both get back 4, and they both increment it internally to 5, and write
 back 5, resulting in two increment operations appearing as if only one had happened.
 
 The answer is, $x$ could be 5, 6, 7, or 8, and there is \textit{no way to predict which one}. At least one increment will happen, and
@@ -226,7 +226,7 @@ behavior and is common in multi-threaded programs.
 
 Fortunately, C11 provides a simple solution: declaring variables as \textit{atomic}\footnote{The name referring to small indivisible units, since \textit{atomic operations} are
 indivisible (all or nothing).} (for example, \texttt{\_Atomic int x}). If $x$ in
-the example above were to be declared this way, then the answer to the above problem is simply ``just 8''. The advantage is that there
+the example above were to be declared this way, then the answer to the above problem is simply ``just 8.'' The advantage is that there
 is no loss of information when multiple threads operate on a single shared variable. The disadvantage is that this is slower because
 it effectively ``locks'' that part of the memory and prevents other operations from occurring until one completes. This is supported
 in hardware for integer types, but not floating point types. This makes atomic floating point variables particularly slow because they

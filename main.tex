@@ -61,7 +61,7 @@
 	\vspace{2mm}
 	SANTA CRUZ\\
 	\vspace{10mm}
-	{\large\textbf{\textsc{SOLVING BOUNDARY VALUE PROBLEMS\\EFFICIENTLY USING COMPUTERS}}}\\
+	{\large\textbf{\textsc{SOLVING BOUNDARY VALUE PROBLEMS IN PHYSICS\\EFFICIENTLY USING COMPUTERS}}}\\
 	\vspace{10mm}
 	A thesis submitted in partial satisfaction\\of the requirements for the degree of\\
 	\vspace{5mm}
@@ -74,7 +74,7 @@
 	by\\
 	\vspace{2mm}
 	Daniel A. Bittman\\
-	May 29, 2016\\
+	May 25, 2016\\
 
 	\vspace{2in}
 
@@ -192,12 +192,12 @@ increases. Complex boundary conditions in strangely shaped regions can easy beco
 solve. The solution can instead be modeled on a computer in order to compute a numerical solution
 in place of an analytical one.
 
-I have written a software package which is C library capable of solving such a given problem, and a frontend
+I have written a software package with both a C library capable of solving such a given problem, and a front-end
 Python program which can parse a human-readable configuration file that describes such a boundary value problem. 
 The Python code sets up the correct initial state such that the C library can solve it, after which the Python program
-displays the final result as well as calculates statistics about the solving process. I have utilized effective
-programming techniques designed for current generation hardware 64-bit x86 processors in order to improve
-the performance of the program, in addition to implementing a multi-threaded version of the solving program
+displays the final result and calculates statistics about the solving process. I have utilized effective
+programming techniques designed for current generation 64-bit x86 processors in order to improve
+the performance of the program, and have implemented a multi-threaded version of the solving program
 to explore the use of multi-core processors in solving these problems.
 
 I found that the program correctly matched an analytical solution to a simple test problem, and that it correctly
@@ -220,15 +220,15 @@ the performance, albeit with a degradation in simulation accuracy.
 \begin{appendices}
 \section{Program Usage}
 
-Compiling the engine requires make and a modern gcc (or clang, although clang is untested), and can
+	Compiling the engine requires \texttt{make} and a modern \texttt{gcc} (or \texttt{clang}, although \texttt{clang} is untested), and can
 be done by simply invoking \texttt{make}. This will also create an executable file, \texttt{solve}. This
-is a script that invokes the python example frontend so that it may be used.
+is a script that invokes the Python example frontend so that it may be used.
 
-For more details on using the python frontend or the C backend engine, see the man pages (reproduced on the
+For more details on using the Python frontend or the C backend engine, see the man pages (reproduced on the
 following pages). There are several example files, including \texttt{example\_sin.txt} and \texttt{example\_dipole.txt}.
 For more details on writing configurations for a desired simulation or experiment, see the man pages.
 
-The source code also contains a directory named \texttt{tests}, which contains python code to generate verifier data
+The source code also contains a directory named \texttt{tests}, which contains Python code to generate verifier data
 files for the \texttt{example\_sin} configuration. Finally, all of the data written on in this document are present
 in the source directory, under \texttt{results}. The source code for the C library is in \texttt{engine}, and the
 source code for the python example frontend is under \texttt{frontend}. The source code and git revision history

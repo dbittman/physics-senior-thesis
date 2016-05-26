@@ -27,7 +27,7 @@
 \\
 	\> \texttt{\textbf{-v} \textit{verification-data}} \\
 	\> \> Use the data file \textit{verification-data} to compare with the generated potential. The \\
-	\> \> format for this file must be that of the python library pickle serializing a 2-D array.\\
+	\> \> format for this file must be that of the Python library pickle serializing a 2-D array.\\
 \\
 \textbf{CONFIGURATION}\\
 \> The configuration file format is specified by a series of commands on lines. A single line\\
@@ -43,7 +43,7 @@
 	\> \> Specify initial value of a cell inside the grid. Analogous to a point charge.\\
 	\\
 	\> \texttt{dirichlet \textit{coords} \textit{coords} = \textit{value}}\\
-	\> \> Specify a diriclet boundary condition along the interpolated straight line from the\\
+	\> \> Specify a dirichlet boundary condition along the interpolated straight line from the\\
 	\> \> first set of coordinates to the second with value \textit{value}.\\
 \end{tabbing}
 \begin{flushleft}
@@ -61,7 +61,7 @@
 \begin{tabbing}
 \hspace{30pt}\=\hspace{30pt}\=\kill
 	\> \texttt{neumann \textit{coords} \textit{coords} \textit{direction} = \textit{value}}\\
-	\> \> Specify a diriclet boundary condition along the interpolated straight line from the\\
+	\> \> Specify a neumann boundary condition along the interpolated straight line from the\\
 	\> \> first set of coordinates to the second with value \textit{value} across the boundary of the\\
 	\> \> cells specified by \textit{direction}, which may be one of \texttt{left, up, right, down}.\\
 	\\
@@ -73,7 +73,7 @@
 	\\
 	\> \texttt{\textit{coords}} is an \texttt{expression} followed by a comma, followed by an \texttt{expression}.\\
 	\\
-	An \texttt{expression} is a valid python expression, with access to the python math library, the\\
+	An \texttt{expression} is a valid Python expression, with access to the python math library, the\\
 	current grid class, and the current position in the grid as specified by \texttt{x} and \texttt{y}. For \\
 	example, \texttt{math.sin(x*math.pi/grid.len)} is a valid \texttt{expression}.\\
 	\\

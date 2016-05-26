@@ -35,10 +35,10 @@ Figure~\ref{fig:sin-result} shows the output of the solver program in single-thr
 potential, plotted with the Python library matplotlib. The configuration has a grid size of 300 by 300. It matches well with the analytical result, which
 is
 $$\frac{\sinh(y \pi / n)}{\sinh(\pi)} \sin(x \pi / n),$$
-and is shown in Figure~\ref{fig:sin-analytic}. The difference between the calculated result and the
-analytical result is shown in Figure~\ref{fig:sin-difference}. The values shown in the difference map are small compared
-to the values in the result in all locations except the corners at the top, where the simulation does diverge somewhat, 
-but never reaches values which are hugely divergent from the analytical result. Using the root-mean-square error statistic
+and is shown in Fig.~\ref{fig:sin-analytic}. The difference between the calculated result and the
+analytical result is shown in Fig.~\ref{fig:sin-difference}. The values shown in the difference map are small compared
+to the values of the result in all locations except the corners at the top. The simulation does diverge somewhat in those corners, 
+but never reaches values which are significantly different compared to the error from the analytical result. Using the root-mean-square error statistic
 described earlier, we have calculated the RMS error in this simulation to be 0.0025. The mean of all the cell values in this
 simulation is 0.19, so the mean error per cell is 1.3\%. The error is small compared to the mean value of all of the cells,
 showing that the simulation result is of high quality.
@@ -57,17 +57,17 @@ showing that the simulation result is of high quality.
 	\center
 	\includegraphics[width=1.0\linewidth]{dipole_contours.pdf}
 	\caption[Result of the simulation for the dipole configuration, including contour lines.]{Result of the simulation for the dipole configuration, including contour lines. The vertical line in the center shows that there is a line of constant, zero-valued
-	potential at points equidistant from the two charges, which is what one would except to see from a dipole. Note that this is zoomed in on the result, as otherwise the features
+	potential at points equidistant from the two charges, which is what one would expect to see from a dipole. Note that this view is zoomed in, as otherwise the features
 	would be too small.} \label{fig:dipole-cont}
 	\end{figure}
 
 
 The dipole configuration had a grid size of 400 by 400, with all walls given a Dirichlet boundary condition
 of zero. Two charges were placed near the center 10 cells apart with an arbitrary but equal and opposite charge.
-The result of this simulation is shown in Figure~\ref{fig:dipole-cont}, with the addition of constant-potential
+The result of this simulation is shown in Fig.~\ref{fig:dipole-cont}, with the addition of constant-potential
 contour lines. The simulation shows two opposite charges which near perfectly mirror each other. The vertical
-line in the center represents a constant potential contour with a value of zero, which is expected from an
-electric dipole. This is another excellent verifier that the simulation is producing correct results.
+line in the center represents a equipotential contour with a value of zero, which is expected from an
+electric dipole. This is another excellent verification that the simulation is producing correct results.
 
 	\begin{figure}[h!]
 		\centering
@@ -80,18 +80,18 @@ electric dipole. This is another excellent verifier that the simulation is produ
 
 I then measured the potential at locations increasing in distance from the dipole in an arbitrary direction.
 These data were then plotted using gnuplot, and a line of the form $y(x) = A + B / (r-r_0)^2$ was fit to the
-data, which is shown in Figure~\ref{fig:dipole-fit}. The fit is excellent, confirming that the program had properly simulated an electric dipole.
+data, which is shown in Fig.~\ref{fig:dipole-fit}. The fit is excellent, confirming that the program had properly simulated the electric dipole potential.
 
 The dipole is an example which lends itself to presenting another feature of the solver program. If passed the
 $\texttt{-V}$ option, it will take the negative gradient of the result and plot that as a vector field. This has
 the effect of plotting the electric field of the result of the simulation, which for the dipole is shown in
-Figure~\ref{fig:dipole-field}.
+Fig.~\ref{fig:dipole-field}.
 
 	\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{dipole_field.pdf}
 		\caption[Result of program outputting the electric field for the dipole configuration.]{Result of program outputting the electric field for the dipole configuration. At the point of the negative charge,
-		the field lines appear to be point outward. They are actually pointing inward but are long enough that they cross each other to form this illusion.} \label{fig:dipole-field}
+		the field lines appear to point outward. They are actually pointing inward but are long enough that they cross each other to form this illusion.} \label{fig:dipole-field}
 	\end{figure}
 
 
@@ -180,7 +180,7 @@ due to the manual SIMD code being less cache-friendly, resulting in the threaded
 Both the 300 by 300 case and 1000 by 1000 case display similar performance behavior: the SIMD case is faster than
 the non-SIMD case when single-threaded, and the SIMD case is slower than the non-SIMD case when multi-threaded.
 This can be explained in the same way as it was for the 50 by 50 case. Another characteristic is that the multi-threaded
-case (with 4 threads) is faster than the single-threaded case. In fact, it is significantly faster than I expected it to be.
+case (with 4 threads) is faster than the single-threaded case by about a factor of 2. In fact, it is significantly faster than I expected it to be.
 
 Additionally, the performance depends heavily on the grid size. This makes sense, as the amount of work needed to be
 done per iteration is proportional to the number of cells in the grid, and the number of cells in the grid is $n^2$.
@@ -229,7 +229,7 @@ to how much work they actually have to do is large in this case compared to the 
 \end{axis}
 \end{tikzpicture}
 	\caption[Performance results for varying number of threads.]{Performance results for a varying number of threads in non-SIMD mode. These
-tests were done on computer B, using the $\sin(x)$ potential with a grid size of 300 by 300. The performance increases until it reaches a maximum and then degrades after that.}
+tests were done on computer B, using the $\sin(x)$ potential with a grid size of 300 by 300. The performance increases until it reaches a maximum at 8 threads and then degrades after that.}
 \label{fig:perf-numthreads}
 \end{figure}
 
@@ -245,22 +245,22 @@ returns, as the 8 threads case is now only slightly better than the 4 threads ca
 tests are run, has 4 cores with 2 threads each, totaling 8 possible threads running in parallel. After the 8 threads case,
 we start to see a drop in performance; the 16 and 32 threads case are worse than the 8 threads case. This is because
 the machine cannot run more than 8 threads in parallel, so in order to have 16 threads it must rely on the scheduling
-of the operating system in order to get work done. In a case of many threads, each doing heavy computation and memory accesses
+of the operating system in order to get work done. In the case of many threads, each doing heavy computation and memory accesses
 (as is the case here), it does not usually help to increase the number of threads beyond what the machine can handle,
 as is shown here.
 
 
 
-Furthermore, Figure~\ref{fig:err-numthreads} shows that it is disadvantageous to run the simulation with
+Furthermore, Fig.~\ref{fig:err-numthreads} shows that it is disadvantageous to run the simulation with
 a large number of threads. The RMS error of the simulation compared to the analytical result increases
 rapidly with the number of threads. This is also reflected visually in the plotted result of the simulation, which is
 noticeably wrong in the case of 16 or higher threads. I believe this is the result of the way the threads
 are synchronized, or more accurately, how they are not. The threads run mostly in isolation, sharing the
 grid and doing operations on it without waiting for other threads to complete any of their work. This means
-that if one threads runs faster than the others, it may complete a different number of iterations than the other
+that if one thread runs faster than the others, it may complete a different number of iterations than the other
 threads in a given amount of time. This would result in some sections of the grid receiving more iterations
 than others, which could have the effect of invalidating the simulation. The alternative method would be
-to synchronize the threads, and have them wait for each thread to complete a given iteration before moving on
+to synchronize the threads, and have them wait for all threads to finish an iteration before moving on
 to the next one. Indeed, this was the original design of the system, and I found it to be so slow compared to
 single-threaded that I changed the design around to the less accurate but much faster design that is shown here.
 
@@ -303,7 +303,7 @@ single-threaded that I changed the design around to the less accurate but much f
 \end{axis}
 \end{tikzpicture}
 	\caption[Error as related to number of threads.]{Error results for a varying number of threads in non-SIMD mode. These
-tests were done on computer B, using the $\sin(x)$ potential with a grid size of 300 by 300. The error appears to be roughly proportional to the number of threads one the number of cores on the processor are saturated.}
+tests were done on computer B, using the $\sin(x)$ potential with a grid size of 300 by 300. The error appears to be roughly proportional to the number of threads once the number of cores on the processor are saturated.}
 \label{fig:err-numthreads}
 \end{figure}
 

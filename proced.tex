@@ -5,14 +5,14 @@
 The solving program is written in C\footnote{Specifically the 2011 revision to the C programming language. This means that a new enough
 C compiler, one which supports C11, is needed in order to compile the program.} in order to leverage the full performance of modern computers and is implemented
 as a shared library (on \textsc{unix}) such that it can be linked with another program which sets up the initial conditions
-before calling the solving function. The C code that does the solving is hereby referred to as the engine, while any code
+before calling the solving function. The C code that does the solving is hereafter referred to as the engine, while any code
 that interfaces with the engine and provides a usable user interface is referred to as the frontend.
 
 % requires: discreet grid, boundary conditions
 % defines: E config file
-I have written an example frontend in Python, which is capable to parsing a configuration file which describes the
+I have written an example frontend in Python, which is capable of parsing a configuration file which describes the
 values of $f$, the initial boundary conditions, the grid size, and a number of other details about a given desired
-setup (hereby collectively referred to as a configuration). I have written several example configurations which I have used to
+setup (hereafter collectively referred to as a configuration). I have written several example configurations which I have used to
 confirm the correctness of the solving program. For a more detailed technical description of the implementation, see Appendix~\ref{app:des}.
 
 
@@ -27,7 +27,7 @@ confirm the correctness of the solving program. For a more detailed technical de
 
 % defines: example config file,  initial values <-> f,
 % require: dirichlet, 
-These configuration files are designed to be easy to write. An example configuration file is,
+These configuration files are designed to be easy to write. An example configuration file is the following:
 \begin{addmargin}[4em]{2em}
 \begin{singlespace}
 \texttt{gridsize 300}\\
@@ -36,18 +36,18 @@ These configuration files are designed to be easy to write. An example configura
 \end{singlespace}
 \end{addmargin}
 The first line sets up a grid of size 300 by 300. The second line specifies that a Dirichlet boundary condition exists
-from cell $(1, 1)$ to $(1, 300)$ which takes on a value given by the expression at the end of that line. Any valid python
+from cell $(1, 1)$ to $(1, 300)$ which takes on a value given by the expression at the end of that line. Any valid Python
 expression may be put here, allowing access to complex mathematical expressions. Additionally, the start and end points
-do not have to define a line on a single axis, the program will do a linear interpolation to create a straight line from
+do not have to define a line on a single axis; the program will do a linear interpolation to create a straight line from
 	the start point to the end point.
 The third line sets the initial value of
-the cell $(10, 10)$ to a value of $-100$. This is the command used to define $f_{i,j}$ in Equation~\ref{eq:poisson}.
+the cell $(10, 10)$ to a value of $-100$. This is the command used to define $f_{i,j}$ in Eq.~\ref{eq:poisson}.
 An arbitrary number of these statements may be made inside a configuration file, allowing one to specify the value of
 $f$ everywhere if need be, or create Dirichlet boundary conditions of arbitrary shapes.
 
 % defines: mapping to electrostatics
 The available commands for a configuration file map to various initial and boundary conditions for an electrostatics problem
-in a straight forward way: the command to specify a Dirichlet boundary condition is like creating a boundary of fixed potential.
+in a straightforward way: the command to specify a Dirichlet boundary condition is like creating a boundary of fixed potential.
 The command to specify the initial value of cells is like specifying an initial charge distribution inside the region.
 
 
@@ -65,14 +65,14 @@ The command to specify the initial value of cells is like specifying an initial 
 
 % defines: sinx potential
 The clearest way to verify that the solver is working correctly is to test it out on a number of different configurations
-for which the correct solution is known. My first choice here was a simple electrostatics problem straight out of a textbook\cite{griffiths}:
+for which the correct solution is known. My first choice here was a simple electrostatics problem straight out of a textbook \cite{griffiths}:
 \begin{addmargin}[2em]{2em}% 1em left, 2em right
 	Consider a square region with the bottom left corner at the origin with each side of length $L$. Let the potential
 	along each side of the region be fixed at 0, except for the bottom side, which has a potential $V(x) = V_0 \sin(x \pi / L)$.
 	What is the potential $V$ inside the region?
 \end{addmargin}
-This problem describes solving Laplace's equation (which is Poisson's equation with $f=0$), given some initial boundary conditions (hereafter referred to as ``the $\sin(x)$ potential'').
-It can be solved analytically using a standard separation of variables trick\cite{boas}. Assume
+This problem is equivalent solving Laplace's equation (which is Poisson's equation with $f=0$), given some initial boundary conditions (hereafter referred to as ``the $\sin(x)$ potential'').
+It can be solved analytically using a standard separation of variables trick \cite{boas}. Assume
 $$\phi = X(x) Y(y),$$
 then
 $$X''(x)/X(x) = -Y''(y)/Y(y) = -\lambda,$$
@@ -83,7 +83,7 @@ In order to compare the result of my program with the analytical solution, I add
 to accept a pre-made file containing a precalculated grid of the correct output by using the analytic solution. The
 frontend then reads this file and compares it to the result of the solver.
 
-Since there is now a problem which has an analytical solution, I was able to use that to describe a metric for
+Since there is now a problem which has an analytical solution, I was able to use that problem to describe a metric for
 correctness of the simulation. I wrote a Python script that generated a 2-D grid of values based on the analytical
 solution above and had it write this data structure out to disk. When the solver program was given this ``correct''
 file, it would then perform a root-mean-square error calculation,
@@ -95,9 +95,9 @@ $c_{i, j}$ is the value of the analytical result at cell $(i, j)$.
 
 % define: how to halt
 However, this does not help define a way for the algorithm to determine when to halt. We cannot use an analytic solution
-to determine if the simulation is close enough to a solution for every configuration we could solve for. Firstly, there
+to determine if the simulation is close enough to a solution for every configuration we could solve for. First, there
 would be no point to doing this as it would imply that we already had the solution, and we will not always have the
-solution to an arbitrary problem. Secondly, comparing the computed solution to a verified solution on each iteration would
+solution to an arbitrary problem. Second, comparing the computed solution to a verified solution on each iteration would
 be inefficient. Because of this, another method for determining when the simulation has converged is required.
 
 The method I chose was to have the simulation keep track of a sum of squares while calculating an iteration. For each cell
@@ -116,13 +116,13 @@ the simulation by changing the threshold value.
 
 \subsection{Potential From Electric Dipole}
 Another correctness check is a simulation of an electric dipole, since the electric potential from an electric dipole is well understood.
-If two equal and opposite charges are separated on an axis by distance $d$, then at a point $p$ far away, the
-potential is,
+If two equal and opposite charges are separated on an axis by distance $d$, then at a point $p$ far away the
+potential is
 $$V = C\left(\frac{1}{r_0} - \frac{1}{r_1}\right),$$
 where $r_0$ and $r_1$ are the distances from each charge, and $C$ is a constant. With some rearranging,
 $$V = C\left(\frac{r_0 - r_1}{r_0 r_1}\right) = \frac{C d \cos(\theta)}{r^2},$$
-where $r$ is the distance from the center of charge to the point, and $\theta$ is the angle that the line from the
-center of charge forms with the axis that the dipole is on\cite{griffiths}. The potential from an electric dipole thus falls off as $1/r^2$,
+where $r$ is the distance from the center of charge to the dipole, and $\theta$ is the angle that the line from the
+center of charge forms with the axis \cite{griffiths}. The potential from an electric dipole thus falls off as $1/r^2$,
 which should be reflected in the solution given by the program if it is given a configuration describing a dipole.
 
 If the solving program is correct, then if two charges are placed near each other, the numerically calculated potential
@@ -161,9 +161,9 @@ the same, and one might think the choice is arbitrary. However, when I tested th
 the row-by-row approach to be around 5 times faster. This is because of caching effects and the way that the CPU
 fetches data from RAM\cite{intel-1}. For a more detailed description of this, see Appendix~\ref{app:opt}.
 
-Another example involves data structure organization. Say a program needs to store an array of objects, and each object
-has data associated with it (for example, current value, previous value, error, initial state, etc). One might be tempted
-to write something like in Listing~\ref{lst:aos}. The problem here is that if each object's \texttt{cur\_val} are all
+Another example involves data structure organization. If a program needs to store an array of objects, and each object
+has data associated with it (for example, current value, previous value, error, initial state, etc), one might be tempted
+to write something like the structure in Listing~\ref{lst:aos}. The problem here is that if each object's \texttt{cur\_val} are all
 calculated together (as is often the case, and is definitely the case for this solving program), then the location of
 the values that need to be loaded in succession by the processor are far apart. The performance hit from this, again, comes down to caching
 effects which are further explained in Appendix~\ref{app:opt}.
@@ -171,7 +171,7 @@ effects which are further explained in Appendix~\ref{app:opt}.
 \vspace{5mm}
 
 \begin{minipage}{\linewidth}
-	\begin{lstlisting}[frame=single,label=lst:aos,caption={[Array-of-structures organization.]Array-of-structures organization. Each attribute of a cell is declared as a field in the structure, and an array of such structures is defined. This can be a slower way of organizing data.}]
+	\begin{lstlisting}[frame=single,label=lst:aos,caption={[Array-of-structures organization.]Array-of-structures organization. Each attribute of a cell is declared as a field in the structure, and an array of such structures is defined. This can be an inefficient way of organizing data.}]
 struct {
 	double cur_val, prev_val;
 	float err;
@@ -180,14 +180,14 @@ struct {
 \end{lstlisting}
 \end{minipage}
 
-Fortunately, this also has an easy to make change that drastically improves performance: change to structure-of-arrays organization, thus reorganizing the memory layout so that related and commonly accessed-together values
+Fortunately, this also has an easy-to-make change that drastically improves performance: a change to structure-of-arrays organization, thus reorganizing the memory layout so that related and commonly-accessed-together values
 appear adjacent in memory\cite{intel-opt}. This is shown in Listing~\ref{lst:soa}. While it may be a less intuitive way to describe
 and program a simulation, the result is significantly faster code the majority of the time.
 
 \vspace{5mm}
 
 \begin{minipage}{\linewidth}
-	\begin{lstlisting}[frame=single,label=lst:soa,caption={[Structure-of-arrays organization.]Structure-of-arrays organization. Instead, now each attribute is its own array, thus placing them all in a contiguous region of memory, which can result in better performance.}]
+	\begin{lstlisting}[frame=single,label=lst:soa,caption={[Structure-of-arrays organization.]Structure-of-arrays organization. Instead, now each attribute is its own array, thus placing them all in a contiguous region of memory. This organization can result in better performance.}]
 struct {
 	double cur_val[N];
 	double prev_val[N];
@@ -217,7 +217,7 @@ I have also made use of the SIMD (Single Instruction Multiple Data) instruction 
 on modern 64-bit x86 processors\cite{intel-3a}\footnote{More instructions are added in most new releases of CPUs. There are different
 SIMD instruction sets available on different processor models. I have used the sse through avx instruction sets in this
 code.}. Their purpose is to enable what's known as vector processing of data on x86 machines. This provides the ability
-to apply a mathematical operation to one or more arrays, and have that operation by applied to each element. For example,
+to apply a mathematical operation to one or more arrays, and have that operation applied to each element. For example,
 I can have a 128-bit register filled with 4 values, $x=(1,2,3,4)$, and another register like it, $y=(10, 10, 11, 11)$. I can
 then add them together to get $(11, 12, 14, 15)$, and this addition is issued with a single instruction. Furthermore, this
 takes the same amount of time as a single addition, because the processor can do the 4 separate addition operations in
@@ -228,12 +228,12 @@ I have written in the use of SIMD instructions in the solver program in order to
 the calculations required when calculating the next iteration of a given cell. I provided the ability to disable this
 functionality and instead do a non-SIMD style calculation in order to get benchmarks. A requirement of the SIMD code was
 that it give exactly the same result as the non-SIMD version (otherwise the implementation of the math would be incorrect).
-For this reason, when talking about the results of a simulation, it does not matter if it used SIMD or not; the use
+For this reason, when talking about the accuracy of a simulation, it does not matter if it used SIMD or not; the use
 of SIMD only affects performance.
 
-An important note is that when fully optimizing code for a machine which it knows about, \texttt{gcc} and other C compilers may choose to output
+When fully optimizing code for a known environment, \texttt{gcc} and other C compilers may choose to output
 SIMD instructions in order to do computation even if the user does not do so explicitly. For this reason, in places where
-I refer to the mode of the simulation as being ``non-SIMD'', what I mean is that it does not use my manual SIMD instructions
+I refer to the mode of the simulation as being ``non-SIMD'', I mean is that it does not use my manual SIMD instructions
 but it may still use compiler-generated SIMD instructions.
 
 
@@ -253,16 +253,16 @@ but it may still use compiler-generated SIMD instructions.
 
 
 \subsection{Multi-threading}
-Finally, I have added multi-threading support to the solver. This is done by spitting up the grid into subregions which
+Finally, I have added multi-threading support to the solver. This is done by splitting up the grid into subregions which
 are contiguous in memory, and spawning $N$ threads via the \texttt{pthreads} threading library available on \textsc{unix} systems. Each thread is then given a region to work on,
 and they coordinate through shared state in order to decide when the solution has been reached. The initial implementation
-showed extremely poor results with multi-threading (often being drastically slowed than the single-threaded version)
+showed extremely poor results with multi-threading (often being drastically slower than the single-threaded version)
 due to the use of atomic shared variables. It was then re-written such that the code was unsafe but much faster. This
 is because each thread modifies a shared non-atomic variable that keeps track of the current total change per iteration
 after that thread itself completes a number of iterations over its region. This kind of shared memory access is much faster
-than coordinating the threads, but it is also technically undefined behavior in C. Fortunately, on x86, it is actually
-safe, however there is potential information loss because a thread could overwrite another thread if they are trying to
-update the value at the same time. A more detailed discussion of the code and why it is unsafe can be found in Appendix~\ref{app:opt}.
+than coordinating the threads, but it is also technically undefined behavior in C. Fortunately, it is actually
+safe on x86; however there is potential information loss because a thread could overwrite another thread if they are trying to
+update the value at the same time. A more detailed discussion of this approach and why it is unsafe can be found in Appendix~\ref{app:opt}.
 
 
 
@@ -283,8 +283,8 @@ update the value at the same time. A more detailed discussion of the code and wh
 
 \subsection{Benchmarking Performance}
 Benchmarks were done by placing two calls to \texttt{gettimeofday(3)} around the core of the solver. This function has a
-granularity of 1 microsecond on Linux\cite{gtod}. This code returns
-both the number of iterations done and the difference between the two gettimeofday calls, which are then used to calculate
+granularity of 1 microsecond on Linux\cite{gtod}. The benchmarking code returns
+both the number of iterations done and the difference between the two \texttt{gettimeofday} calls, which are then used to calculate
 the iterations per second. In order to take into account error from unpredictable scheduling effect from the operating system,
 each benchmark was run 300 times, and the standard deviation and mean were calculated, along with 95\% confidence intervals. Several different computers were used:
 computer A was an Intel Core i5-3570K with 4 cores running at 3.4GHz with 16GB of RAM. Computer B was an Intel Xeon E5620
