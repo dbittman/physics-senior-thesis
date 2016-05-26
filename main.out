@@ -2,37 +2,38 @@
 \BOOKMARK [2][-]{subsection.1.1}{Poisson's Equation}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Discretizing Poisson's Equation}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Jacobi Iteration}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Successive Over-Relaxation}{section.1}% 5
-\BOOKMARK [2][-]{subsection.1.5}{Performance Considerations}{section.1}% 6
-\BOOKMARK [1][-]{section.2}{Methods}{}% 7
-\BOOKMARK [2][-]{subsection.2.1}{Configurations and Mapping to Electrostatics}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.2}{Verifying Correctness}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.3}{Potential From Electric Dipole}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.4}{Optimization and Multi-threading}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.5}{SIMD Instructions}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.6}{Multi-threading}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.7}{Benchmarking Performance}{section.2}% 14
-\BOOKMARK [1][-]{section.3}{Results}{}% 15
-\BOOKMARK [2][-]{subsection.3.1}{The sin\(x\) Potential}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.2}{Fitting to a 1/r2 Dipole Potential}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.3}{Jacobi Iteration Versus Successive Over-Relaxation}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.4}{Performance}{section.3}% 19
-\BOOKMARK [1][-]{section.4}{Conclusion}{}% 20
-\BOOKMARK [2][-]{subsection.4.1}{Correctness}{section.4}% 21
-\BOOKMARK [2][-]{subsection.4.2}{Performance}{section.4}% 22
-\BOOKMARK [2][-]{subsection.4.3}{Future Work}{section.4}% 23
-\BOOKMARK [1][-]{section*.17}{Appendices}{}% 24
-\BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 25
-\BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 26
-\BOOKMARK [2][-]{subsection.1.B.1}{Lazy Programs Are Better}{Appendix.1.B}% 27
-\BOOKMARK [2][-]{subsection.1.B.2}{Freebies}{Appendix.1.B}% 28
-\BOOKMARK [2][-]{subsection.1.B.3}{A Model of Processor Design}{Appendix.1.B}% 29
-\BOOKMARK [3][-]{subsubsection.1.B.3.1}{Caching}{subsection.1.B.3}% 30
-\BOOKMARK [2][-]{subsection.1.B.4}{Structure of Arrays}{Appendix.1.B}% 31
-\BOOKMARK [2][-]{subsection.1.B.5}{Multi-threading}{Appendix.1.B}% 32
-\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Undefined Behavior Land}{subsection.1.B.5}% 33
-\BOOKMARK [3][-]{subsubsection.1.B.5.2}{More Threads Means More Data}{subsection.1.B.5}% 34
-\BOOKMARK [2][-]{subsection.1.B.6}{Branch Reduction}{Appendix.1.B}% 35
-\BOOKMARK [2][-]{subsection.1.B.7}{Concluding Remarks}{Appendix.1.B}% 36
-\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 37
-\BOOKMARK [2][-]{subsection.1.C.1}{SIMD Implementation}{Appendix.1.C}% 38
+\BOOKMARK [2][-]{subsection.1.4}{Boundaries}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Successive Over-Relaxation}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Performance Considerations}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Methods}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Configurations and Mapping to Electrostatics}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Verifying Correctness}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Potential From Electric Dipole}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Optimization and Multi-threading}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.5}{SIMD Instructions}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.6}{Multi-threading}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.7}{Benchmarking Performance}{section.2}% 15
+\BOOKMARK [1][-]{section.3}{Results}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{The sin\(x\) Potential}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Fitting to a 1/r2 Dipole Potential}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Jacobi Iteration Versus Successive Over-Relaxation}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.4}{Performance}{section.3}% 20
+\BOOKMARK [1][-]{section.4}{Conclusion}{}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Correctness}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Performance}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.3}{Future Work}{section.4}% 24
+\BOOKMARK [1][-]{section*.17}{Appendices}{}% 25
+\BOOKMARK [1][-]{Appendix.1.A}{Program Usage}{}% 26
+\BOOKMARK [1][-]{Appendix.1.B}{Computer Program Optimization}{}% 27
+\BOOKMARK [2][-]{subsection.1.B.1}{Lazy Programs Are Better}{Appendix.1.B}% 28
+\BOOKMARK [2][-]{subsection.1.B.2}{Freebies}{Appendix.1.B}% 29
+\BOOKMARK [2][-]{subsection.1.B.3}{A Model of Processor Design}{Appendix.1.B}% 30
+\BOOKMARK [3][-]{subsubsection.1.B.3.1}{Caching}{subsection.1.B.3}% 31
+\BOOKMARK [2][-]{subsection.1.B.4}{Structure of Arrays}{Appendix.1.B}% 32
+\BOOKMARK [2][-]{subsection.1.B.5}{Multi-threading}{Appendix.1.B}% 33
+\BOOKMARK [3][-]{subsubsection.1.B.5.1}{Undefined Behavior Land}{subsection.1.B.5}% 34
+\BOOKMARK [3][-]{subsubsection.1.B.5.2}{More Threads Means More Data}{subsection.1.B.5}% 35
+\BOOKMARK [2][-]{subsection.1.B.6}{Branch Reduction}{Appendix.1.B}% 36
+\BOOKMARK [2][-]{subsection.1.B.7}{Concluding Remarks}{Appendix.1.B}% 37
+\BOOKMARK [1][-]{Appendix.1.C}{Program Implementation}{}% 38
+\BOOKMARK [2][-]{subsection.1.C.1}{SIMD Implementation}{Appendix.1.C}% 39
